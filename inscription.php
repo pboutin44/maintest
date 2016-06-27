@@ -1,5 +1,5 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=camagru;charset=utf8', 'root', 'root');
+$bdd = new PDO('mysql:host=localhost;charset=utf8', 'root', 'root');
 $reponse = $bdd->query('CREATE DATABASE IF NOT EXISTS camagru');
 if($reponse)
 	$bdd->query('USE camagru');
