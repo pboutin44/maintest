@@ -1,5 +1,5 @@
 <?php
-header('location: mainpage.php');
+header('location: camagru.php');
 session_start();
 	if(($_POST["login"]))
 		$_SESSION["login"] = $_POST["login"];

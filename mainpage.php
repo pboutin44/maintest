@@ -1,19 +1,10 @@
 <?php
-
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<meta content="stuff, to, help, search, engines, not" name="keywords">
-<meta content="What this page is about." name="description">
 <meta content="Display Webcam Stream" name="title">
-<title>Display Webcam Stream</title>
   
 <style>
 #container {
@@ -27,6 +18,10 @@
     height: 800px;
     background-color: #666;
 }
+#photo {
+  width: 578px;
+  height: 200px;
+}
 </style>
 </head>
   
@@ -37,7 +32,6 @@
     </video
     >
 </div>
-<img id="photo" alt="Description of my picture" />
 <canvas id="canvas" width="578" height="200"></canvas>
 <button id="startbutton">Try it</button>
 
@@ -93,6 +87,7 @@
     canvas.height = height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
     var data = canvas.toDataURL('image/png');
+    document.write('<img src="'+data+'"/>');
     photo.setAttribute('src', data);
   }
 
