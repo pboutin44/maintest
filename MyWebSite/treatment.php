@@ -28,7 +28,7 @@ if($connexion){
  
   // on prépare et on exécute la requête
   $connexion->prepare($requete)->execute();
-  $requete = "INSERT INTO client2 VALUES ('".$_POST[email]."', '".$_POST[pseudo]."', '".$_POST[pass]."', 'drijr', '0')";
+  $requete = "INSERT INTO client2 VALUES ('".$_POST[email]."', '".$_POST[pseudo]."', '".hash('whirlpool', $_POST[pass])."', 'drijr', '0')";
   $connexion->prepare($requete)->execute();
  // header('Location: http://e3r13p9.42.fr:8080/index.php');
   //echo("le nouvel utilisateur a été enregistré avec succès :)");
@@ -59,7 +59,7 @@ $message = 'Bienvenue sur camagru,
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
  
-http://e3r13p12.42.fr:8080/activation.php?log='.urlencode($login).'&cle='.urlencode($cle).'
+http://localhost:8080/activation.php?log='.urlencode($login).'&cle='.urlencode($cle).'
  
  
 ---------------

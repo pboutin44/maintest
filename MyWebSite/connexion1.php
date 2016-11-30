@@ -7,7 +7,7 @@ define( 'DB_TABLE', 'client2' );
 $connexion = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASSWORD);
 
 $email = $_POST['email'];
-$pass = $_POST['pass'];
+$pass = hash('whirlpool', $_POST['pass']);
 
 $stmt = $connexion->prepare("SELECT pass,actif FROM client2 WHERE email='".$email."'");
 if($stmt->execute(array(':email' => $email)) && $row = $stmt->fetch())
@@ -24,7 +24,7 @@ if($stmt->execute(array(':email' => $email)) && $row = $stmt->fetch())
   	session_start();
   	$_SESSION["newsession"]="ok";
   	$_SESSION["email"]=$email;
-  	header('Location: http://e3r4p2.42.fr:8080/mainpage.php');
+  	header('Location: http://localhost:8080/mainpage.php');
 
   }
   else

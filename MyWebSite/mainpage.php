@@ -2,7 +2,7 @@
 session_start();
 if($_SESSION["newsession"] != "ok")
 {
-	header('Location: http://e3r13p12.42.fr:8080/index.php');
+	header('Location: http://localhost:8080/index.php');
 }
 
 ?>
@@ -42,7 +42,7 @@ li a:hover:not(.active) {
 <body>
 
 <ul>
-  <li><a href="#news">Déconnexion</a></li>
+  <li><a href="deconnexion.php">Déconnexion</a></li>
   <!-- <li><a href="#contact">Contact</a></li>
   <li><a href="#about">About</a></li> -->
 </ul>
@@ -63,6 +63,37 @@ li a:hover:not(.active) {
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
+  alert("ok");
+  $.ajax({
+    url : './Photo-montage/exemple-1.png', // Le nom du script a changé, c'est send_mail.php maintenant !
+
+       type : 'POST', // Le type de la requête HTTP, ici devenu POST
+       success: function(result){
+        console.log(result);
+        console.log(typeof(result));
+        var image = new Image();
+        //var result1 = atob(result);
+       // console.log(result);
+       // var result = btoa(result);
+       // result = encodeURI(result);
+        image.src = result;
+        console.log(typeof(image));
+       // console.log(result);
+        document.body.appendChild(image);
+        // var mon_image = new Image();
+        // width = 320;
+        // height = 0;
+        // canvas.width = width;
+        // canvas.height = height;
+        // mon_image.src = result;
+       // canvas.getContext('2d').drawImage(mon_image, 0, 0, width, height);
+       // context.drawImage(mon_image, 0, 0, 10, 10, 35, 60, 15, 15);
+      //  objets3    = document.querySelector('.objets');
+     //   objets3.setAttribute('src', result);
+
+     //   canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    }
+  });
 	var obj;
 	 
 	(function() {
@@ -119,7 +150,7 @@ li a:hover:not(.active) {
   function takepicture() {
     canvas.width = width;
     canvas.height = height;
-    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+  //  canvas.drawImage("./objet/Bidon2.jpg");
   //  var data2 = canvas.toDataURL('image/jpg');
     var data1 = { 'photo': canvas.toDataURL('image/jpg'),
 				  'image': obj};

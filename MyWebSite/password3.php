@@ -6,8 +6,8 @@ define( 'DB_HOST', 'localhost' );
 define( 'DB_TABLE', 'client2' );
 $connexion = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASSWORD);
 
-$pass = $_POST[pass];
-$email = $_POST[email];
+$pass = hash('whirlpool', $_POST['pass']);
+$email = $_POST['email'];
 $stmt = $connexion->prepare("SELECT cle,actif FROM client2 WHERE email='".$email."'");
 if($stmt->execute(array(':email' => $email)) && $row = $stmt->fetch())
   {

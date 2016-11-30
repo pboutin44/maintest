@@ -24,7 +24,7 @@ if($stmt->execute(array(':email' => $email)) && $row = $stmt->fetch())
 		Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 		ou copier/coller dans votre navigateur internet.
 		 
-		http://e3r13p12.42.fr:8080/password2.php?email='.urlencode($email).'&cle='.urlencode($cle).'
+		http://localhost:8080/password2.php?email='.urlencode($email).'&cle='.urlencode($cle).'
 		 
 		 
 		---------------
