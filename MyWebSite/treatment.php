@@ -37,9 +37,9 @@ $login = $_POST[pseudo];
  
 // Génération aléatoire d'une clé
 $cle = md5(microtime(TRUE)*100000);
-echo('okokkkk');
-echo($cle);
- echo($login);
+//echo($email);
+//echo($cle);
+ //echo($login);
  
 // Insertion de la clé dans la base de données (à adapter en INSERT si besoin)
 $stmt = $connexion->prepare("UPDATE client2 SET cle= '".$cle."' WHERE pseudo='".$login."'");
@@ -48,10 +48,10 @@ $stmt = $connexion->prepare("UPDATE client2 SET cle= '".$cle."' WHERE pseudo='".
 $stmt->execute();
  
  
-// Préparation du mail contenant le lien d'activation
+//Préparation du mail contenant le lien d'activation
 $destinataire = $email;
 $sujet = "Activer votre compte" ;
-$entete = "From: inscription@votresite.com" ;
+$entete = "From: inscription@example.com" ;
  
 // Le lien d'activation est composé du login(log) et de la clé(cle)
 $message = 'Bienvenue sur camagru,
@@ -64,9 +64,29 @@ http://localhost:8080/activation.php?log='.urlencode($login).'&cle='.urlencode($
  
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.';
+// echo($destinataire);
+// echo($sujet);
+// echo($entete);
+// echo($message);
+
  
  
 mail($destinataire, $sujet, $message, $entete);
+//  $to      = $email;
+//  $subject = "Activer votre compte" ;
+//  $message = 'Bienvenue sur camagru,
+ 
+// Pour activer votre compte, veuillez cliquer sur le lien ci dessous
+// ou copier/coller dans votre navigateur internet.
+ 
+// http://localhost:8080/activation.php?log='.urlencode($login).'&cle='.urlencode($cle).'
+ 
+ 
+// ---------------
+// Ceci est un mail automatique, Merci de ne pas y répondre.';
+//  $headers = 'From: inscription@example.com';
+
+//  mail($to, $subject, $message, $headers);
 
   ?>
   <script>

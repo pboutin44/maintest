@@ -8,6 +8,7 @@ if($_SESSION["newsession"] != "ok")
 ?>
 <!DOCTYPE html>
 <html>
+<meta charset="UTF-8">
 <head>
 <style>
 ul {
@@ -43,6 +44,7 @@ li a:hover:not(.active) {
 
 <ul>
   <li><a href="deconnexion.php">Déconnexion</a></li>
+  <li><a href="gallery.php">gallery</a></li>
   <!-- <li><a href="#contact">Contact</a></li>
   <li><a href="#about">About</a></li> -->
 </ul>
@@ -52,48 +54,62 @@ li a:hover:not(.active) {
 <button id="startbutton">Prendre une photo</button>
 <img class="objet" src="./objet/Bidon.jpg"  alt="photo">
 <img class="objets" src="./objet/Bidon2.jpg"  alt="photo">
+<div id="image"></div>
 </div>
-<canvas id="canvas"></canvas><br />
+<div id = "sidebar" style="padding:5px; float:left; width:350px; margin:auto; border:8px solid #67ab9f; background-color:#b3d8d2; -moz-border-radius:20px; -khtml-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;">
 </div>
- <footer>
+<canvas id="canvas" style="display:none;"></canvas><br />
+</div>
+<!--  <footer>
 
 <p>Camagruuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu    by  pitb</p>
 
-</footer>
+</footer> -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
   alert("ok");
-  $.ajax({
-    url : './Photo-montage/exemple-1.png', // Le nom du script a changé, c'est send_mail.php maintenant !
+  function sidebarGalery()
+  {
+    document.getElementById('sidebar').innerHTML = "";
+    $.ajax({
+      url : './user_galery.php', // Le nom du script a changé, c'est send_mail.php maintenant !
 
-       type : 'POST', // Le type de la requête HTTP, ici devenu POST
-       success: function(result){
-        console.log(result);
-        console.log(typeof(result));
-        var image = new Image();
-        //var result1 = atob(result);
-       // console.log(result);
-       // var result = btoa(result);
-       // result = encodeURI(result);
-        image.src = result;
-        console.log(typeof(image));
-       // console.log(result);
-        document.body.appendChild(image);
-        // var mon_image = new Image();
-        // width = 320;
-        // height = 0;
-        // canvas.width = width;
-        // canvas.height = height;
-        // mon_image.src = result;
-       // canvas.getContext('2d').drawImage(mon_image, 0, 0, width, height);
-       // context.drawImage(mon_image, 0, 0, 10, 10, 35, 60, 15, 15);
-      //  objets3    = document.querySelector('.objets');
-     //   objets3.setAttribute('src', result);
-
-     //   canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    }
-  });
+          // Le type de la requête HTTP, ici devenu POST
+         success: function(result){
+          //console.log(result);
+          var obj = JSON.parse(result);
+          console.log(obj);
+          console.log(obj.lenght);
+          for (var value in obj)
+          {
+            console.log(obj[value]);
+          
+         // var tab = result.split('"');
+        //   console.log("yoko");
+          // console.log(tab);
+         // var elem = document.getElementById('image');
+    //      console.log("pq");
+        //  console.log(elem);
+          // console.log(typeof(result));
+          var image = new Image();
+          //var result1 = atob(result);
+         // console.log(result);
+         // var result = btoa(result);
+         // result = encodeURI(result);
+           image.src = './Photo-montage/'+obj[value];
+          // $(image).text(result);
+         //  console.log("yoplait");
+         //   console.log(decodeURIComponent(result));
+         // // console.log(result);
+         // document.getElementById('hop').setAttribute('src',result);
+         var elem = document.getElementById('sidebar');
+           elem.appendChild(image);
+         }
+       }
+    });
+  }
+  sidebarGalery();
 	var obj;
 	 
 	(function() {
@@ -151,8 +167,12 @@ li a:hover:not(.active) {
     canvas.width = width;
     canvas.height = height;
   //  canvas.drawImage("./objet/Bidon2.jpg");
-  //  var data2 = canvas.toDataURL('image/jpg');
-    var data1 = { 'photo': canvas.toDataURL('image/jpg'),
+ // canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    var data = canvas.toDataURL('image/png');
+    //photo.setAttribute('src', data2);
+    //var data2 = canvas.toDataURL('image/jpg');
+    var data1 = { 'photo': data,
 				  'image': obj};
 	console.log("youpi");
 	console.log("youpi1");
@@ -164,13 +184,14 @@ li a:hover:not(.active) {
        data : data1,
        success: function(result){
        	//alert(result);
-     //   canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    //    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
     }
     }
     );
-	// var data1 = canvas.toDataURL('image/png', 0.1);
-    //photo.setAttribute('src', data);
+//	 var data1 = canvas.toDataURL('image/png', 0.1);
+  //  photo.setAttribute('src', data);
    // canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+   sidebarGalery();
   }
   objet.addEventListener('click', function(ev){
   		obj = "./objet/Bidon.jpg";

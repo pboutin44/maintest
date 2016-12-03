@@ -34,10 +34,11 @@ if($connexion){
   //echo("le nouvel utilisateur a été enregistré avec succès :)");
   $email = $_POST[email];
 $login = $_POST[pseudo];
- 
+echo("reif");
+ echo($email);
 // Génération aléatoire d'une clé
 $cle = md5(microtime(TRUE)*100000);
-echo('okokkkk');
+//echo('okokkkk');
 echo($cle);
  echo($login);
  
@@ -49,6 +50,7 @@ $stmt->execute();
  
  
 // Préparation du mail contenant le lien d'activation
+echo($email);
 $destinataire = $email;
 $sujet = "Activer votre compte" ;
 $entete = "From: inscription@votresite.com" ;
