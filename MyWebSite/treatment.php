@@ -4,6 +4,7 @@ define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', 'root' );
 define( 'DB_HOST', 'localhost' );
 define( 'DB_TABLE', 'client2' );
+define( 'DB_TABLE1', 'commentary' );
 $pdo = new PDO('mysql:host='.DB_HOST, DB_USER, DB_PASSWORD);
 $requete = "CREATE DATABASE IF NOT EXISTS `".DB_NAME."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
 $pdo->prepare($requete)->execute();
@@ -25,8 +26,12 @@ if($connexion){
         `cle` VARCHAR( 255 ) ,
         `actif` INT
         );";
- 
+ $requete2 = "CREATE TABLE IF NOT EXISTS `".DB_NAME."`.`".DB_TABLE1."` (
+        `photo` VARCHAR( 255 ) PRIMARY KEY,
+        `commentaire` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+        );";
   // on prépare et on exécute la requête
+  $connexion->prepare($requete2)->execute();
   $connexion->prepare($requete)->execute();
   $requete = "INSERT INTO client2 VALUES ('".$_POST[email]."', '".$_POST[pseudo]."', '".hash('whirlpool', $_POST[pass])."', 'drijr', '0')";
   $connexion->prepare($requete)->execute();

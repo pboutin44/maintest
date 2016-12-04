@@ -48,6 +48,48 @@ li a:hover:not(.active) {
   <!-- <li><a href="#contact">Contact</a></li>
   <li><a href="#about">About</a></li> -->
 </ul>
-<div style="padding:5px; float:left; width:100%; height: 300px; margin:auto; border:8px solid #67ab9f; background-color:#b3d8d2; -moz-border-radius:20px; -khtml-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;">
+<div id="mainDiv" style="padding:5px; float:left; width:100%; height: 300px; margin:auto; border:8px solid #67ab9f; background-color:#b3d8d2; -moz-border-radius:20px; -khtml-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;">
 </div>
 </body>
+<script>
+function sidebarGalery()
+  {
+    $.ajax({
+      url : './user_galery.php', // Le nom du script a changé, c'est send_mail.php maintenant !
+
+          // Le type de la requête HTTP, ici devenu POST
+         success: function(result){
+          //console.log(result);
+          var obj = JSON.parse(result);
+          console.log(obj);
+          console.log(obj.lenght);
+          for (var value in obj)
+          {
+            console.log(obj[value]);
+          
+         // var tab = result.split('"');
+        //   console.log("yoko");
+          // console.log(tab);
+         // var elem = document.getElementById('image');
+    //      console.log("pq");
+        //  console.log(elem);
+          // console.log(typeof(result));
+          var image = new Image();
+          //var result1 = atob(result);
+         // console.log(result);
+         // var result = btoa(result);
+         // result = encodeURI(result);
+           image.src = './Photo-montage/'+obj[value];
+          // $(image).text(result);
+         //  console.log("yoplait");
+         //   console.log(decodeURIComponent(result));
+         // // console.log(result);
+         // document.getElementById('hop').setAttribute('src',result);
+         var elem = document.getElementById('mainDiv');
+           elem.appendChild(image);
+         }
+       }
+    });
+  }
+  sidebarGalery();
+  </script>

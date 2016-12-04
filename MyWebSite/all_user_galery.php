@@ -5,7 +5,7 @@ $tab = scandir("./Photo-montage");
 $tabb = array();
 $i = 0;
 foreach ($tab as $value){
-	if(substr_count($value, $_SESSION['email']) > 0)
+	if(substr_count($value, '.png') > 0)
 	{
 	//	echo $value;
 	//	echo "okokok";
