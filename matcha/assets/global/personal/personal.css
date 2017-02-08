@@ -1,0 +1,60 @@
+#color {
+	color: white;
+}
+
+#bouton1 {
+	margin-right: 35px;
+	margin-top: 20px;
+	color:#343434;
+-moz-box-shadow: 0px 0px 10px #343434;
+-webkit-box-shadow: 0px 0px 10px #343434;
+-o-box-shadow: 0px 0px 10px #343434;
+box-shadow: 0px 0px 10px #343434;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+border: 1px solid #656565;
+background:#cfcfcf;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cfcfcf", endColorstr="#656565"); /* Pour IE seulement et mode gradient à linear */
+background: -webkit-gradient(linear, left top, left bottom, from(#cfcfcf), to(#656565));
+background: -webkit-linear-gradient(#cfcfcf, #656565);
+background: -moz-linear-gradient(#cfcfcf, #656565);
+background: -o-linear-gradient(#cfcfcf, #656565);
+background: -ms-linear-gradient(#cfcfcf, #656565);
+background: linear-gradient(#cfcfcf, #656565);
+}
+
+#bouton2 {
+	margin-right: 16px;
+	margin-top: 20px;
+	color:#343434;
+-moz-box-shadow: 0px 0px 10px #343434;
+-webkit-box-shadow: 0px 0px 10px #343434;
+-o-box-shadow: 0px 0px 10px #343434;
+box-shadow: 0px 0px 10px #343434;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+border: 1px solid #656565;
+background:#cfcfcf;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cfcfcf", endColorstr="#656565"); /* Pour IE seulement et mode gradient à linear */
+background: -webkit-gradient(linear, left top, left bottom, from(#cfcfcf), to(#656565));
+background: -webkit-linear-gradient(#cfcfcf, #656565);
+background: -moz-linear-gradient(#cfcfcf, #656565);
+background: -o-linear-gradient(#cfcfcf, #656565);
+background: -ms-linear-gradient(#cfcfcf, #656565);
+background: linear-gradient(#cfcfcf, #656565);
+}
+
+#bouton3 {
+	margin-right: 16px;
+	margin-top: 20px;
+	width:25px;
+	height:25px;
+	background:#cc0000;
+	font:bold 13px Arial;
+	border-radius:50%;
+	border:none;
+	color:#fff;
+
+}
