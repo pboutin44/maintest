@@ -17,7 +17,7 @@ app.get('/sous-sol', function(req, res) {
     res.end('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
 });
 
-app.get('/etage/1/chambre', function(req, res) {
+app.get('/yo', function(req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.end('Hé ho, c\'est privé ici !');
 });
