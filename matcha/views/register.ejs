@@ -54,8 +54,22 @@
       <p>Sign up to find interesting thing</p>
       <form method="post" role="form" action="yo">
         <div class="form-group">
+          <div class="checkbox-custom checkbox-primary checkbox-inline">
+            <input type="checkbox" id="inputLabelMale" name="inputRadioGender">
+            <label for="inputLabelMale">Male</label>
+          </div>
+          <div class="checkbox-custom checkbox-primary checkbox-inline">
+            <input type="checkbox" id="inputLabelFemale" name="inputRadioGender2" checked="">
+            <label for="inputLabelFemale">Female</label>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="sr-only" for="inputName">Name</label>
           <input type="text" class="form-control" id="inputName" name="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="inputName">YYYY/MM/DD(Birthday)</label>
+          <input type="text" class="form-control" id="inputName" name="Birthday" placeholder="YYYY/MM/DD (Birthday)">
         </div>
         <div class="form-group">
           <label class="sr-only" for="inputEmail">Email</label>
