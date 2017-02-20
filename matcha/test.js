@@ -88,7 +88,7 @@ app.post('/yo', function(req, res) {
      var hash = crypto.createHmac('sha256', password)
                     .update('I love cupcakes')
                     .digest('hex');
-  //   console.log(p1);
+     //   console.log(p1);
      MongoClient.connect(url, function(err, db) {
        assert.equal(null, err);
        console.log("Connected successfully to server");
@@ -96,12 +96,23 @@ app.post('/yo', function(req, res) {
          // Get the documents collection
          var collection = db.collection('clients');
        // Insert some documents
-       collection.insertMany([
-         {name : name, birthday : birthday, email : email, password : hash}
-       ]);
+       collection.find(
+         {email : email}).toArray(function(err, docs){
+           if(docs.length == 0)
+           {
+             collection.insertMany([
+               {name : name, birthday : birthday, email : email, password : hash}
+             ]);
+           }
+           else {
+          //   alert("edokedk");
+             console.log("okok");
+           }
+         });
+
 
        console.log("okokok");
-       db.close();
+       //db.close();
      });
 
      console.log("post received");
