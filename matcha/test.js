@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 var crypto = require('crypto');
+var nodemailer = require('nodemailer');
 // Connection URL
 var url = 'mongodb://localhost:27017/myproject';
 
@@ -66,6 +67,7 @@ app.post('/main', function(req, res) {
           res.render('mainpage.ejs');
         }
       });
+
     //  res.render('mainpage.ejs');
     db.close();
   });
@@ -85,6 +87,7 @@ app.post('/yo', function(req, res) {
      var password = req.body.password;
      var male = req.body.inputRadioGender;
      var femmale = req.params.inputRadioGender2;
+     var token = crypto.randomBytes(64).toString('hex');
      var hash = crypto.createHmac('sha256', password)
                     .update('I love cupcakes')
                     .digest('hex');
@@ -101,8 +104,33 @@ app.post('/yo', function(req, res) {
            if(docs.length == 0)
            {
              collection.insertMany([
-               {name : name, birthday : birthday, email : email, password : hash}
+               {name : name, birthday : birthday, email : email, password : hash, token : token, activate : "0"}
              ]);
+
+             let transporter = nodemailer.createTransport({
+           service: 'gmail',
+           auth: {
+               user: 'testpierro1@gmail.com',
+               pass: 'Fritasse'
+           }
+           });
+
+           // setup email data with unicode symbols
+           let mailOptions = {
+               from: '"Fred Foo 👻" <TheMatcha@Sbulba.com>', // sender address
+               to: 'pierboutin@gmail.com', // list of receivers
+               subject: 'Hello ✔', // Subject line
+               text: 'Hello world ?', // plain text body
+               html: '<b>Hello world ?</b> http://localhost:8080?token='+token // html body
+           };
+
+           // send mail with defined transport object
+           transporter.sendMail(mailOptions, (error, info) => {
+               if (error) {
+                   return console.log(error);
+               }
+               console.log('Message %s sent: %s', info.messageId, info.response);
+           });
            }
            else {
           //   alert("edokedk");
