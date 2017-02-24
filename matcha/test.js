@@ -27,7 +27,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('assets'));
-
+app.use(express.static('/views'));
 app.get('/', function(req, res) {
   res.render('page.ejs');
 });
@@ -36,6 +36,46 @@ app.get('/connexion', function(req, res) {
 });
 app.get('/register', function(req, res) {
   res.render('register.ejs');
+});
+app.get('/confirmation', function(req, res) {
+  var token = req.param("token");
+  var email = req.param("email");
+  console.log(token);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+      // Get the documents collection
+      var collection = db.collection('clients');
+    // Insert some documents
+    collection.find(
+      {email : email, token : token}).toArray(function(err, docs){
+        if(docs.length == 0)
+        {
+          console.log(docs);
+          console.log(email);
+          console.log(token);
+          console.log("coco")
+          res.render('register.ejs');
+        }
+        else {
+       //   alert("edokedk");
+          collection.update({email : email, token : token}, {
+            $set:{activate : "1"}
+          });
+          res.render('confirmation.ejs');
+          console.log("okok");
+        }
+      });
+
+
+    console.log("okokok");
+    //db.close();
+  });
+  console.log(token);
+  console.log(email);
+});
+app.get('/email_send', function(req, res) {
+  res.render('email_send.ejs');
 });
 app.get('/sous-sol', function(req, res) {
     res.setHeader('Content-Type', 'text/plain');
@@ -59,13 +99,16 @@ app.post('/main', function(req, res) {
     // Insert some documents
     collection.find(
       {email : email, password : hash}).toArray(function(err, docs){
-        if(docs.length == 0)
-        {
-          res.render('login.ejs');
-        }
-        else {
-          res.render('mainpage.ejs');
-        }
+    //    var activate = docs.param("activate");
+        console.log(docs);
+      //  console.log(docs[0].activate);
+          if(docs.length > 0 && docs[0].activate == 1)
+          {
+            res.render('mainpage.ejs');
+          }
+          else {
+            res.render('login.ejs');
+          }
       });
 
     //  res.render('mainpage.ejs');
@@ -79,14 +122,19 @@ app.post('/main', function(req, res) {
 app.get('/forgot-password', function(req, res) {
   res.render('forgot-password.ejs');
 });
+app.get('/first_connection', function(req, res) {
+  res.render('first_connection.ejs');
+});
 app.post('/yo', function(req, res) {
-     res.setHeader('Content-Type', 'text/plain');
+//     res.setHeader('Content-Type', 'text/plain');
      var name = req.body.name;
      var birthday = req.body.Birthday;
      var email = req.body.email;
      var password = req.body.password;
      var male = req.body.inputRadioGender;
-     var femmale = req.params.inputRadioGender2;
+     console.log("3fpo34kf");
+     console.log(req.body.inputRadioGender);
+     //var femmale = req.params.inputRadioGender2;
      var token = crypto.randomBytes(64).toString('hex');
      var hash = crypto.createHmac('sha256', password)
                     .update('I love cupcakes')
@@ -121,7 +169,7 @@ app.post('/yo', function(req, res) {
                to: 'pierboutin@gmail.com', // list of receivers
                subject: 'Hello ✔', // Subject line
                text: 'Hello world ?', // plain text body
-               html: '<b>Hello world ?</b> http://localhost:8080?token='+token // html body
+               html: '<b>Hello world ?</b> <a href="http://localhost:8080/confirmation?token='+token+'&email='+email+'">clique ici </a>' // html body
            };
 
            // send mail with defined transport object
@@ -131,6 +179,7 @@ app.post('/yo', function(req, res) {
                }
                console.log('Message %s sent: %s', info.messageId, info.response);
            });
+           res.render('email_send.ejs');
            }
            else {
           //   alert("edokedk");
@@ -143,8 +192,8 @@ app.post('/yo', function(req, res) {
        //db.close();
      });
 
-     console.log("post received");
-      res.end("b"+male);
+    // console.log("post received");
+    //  res.end("b"+male);
 });
 app.get('/compter', function(req, res) {
     res.render('page.ejs');
