@@ -4,6 +4,7 @@ var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var fs = require('fs');
 // Connection URL
 var url = 'mongodb://localhost:27017/myproject';
 
@@ -24,7 +25,8 @@ var url = 'mongodb://localhost:27017/myproject';
 // }
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+//var urlencodedParser = bodyParser.urlencoded({limit: '50mb', extended: true });
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
 
 app.use(express.static('assets'));
 app.use(express.static('/views'));
@@ -125,6 +127,15 @@ app.get('/forgot-password', function(req, res) {
 app.get('/first_connection', function(req, res) {
   res.render('first_connection.ejs');
 });
+app.post('/ya', function(req, res) {
+  //var name = req.body.photo;
+  //console.log(name);
+  console.log(req.body.image);
+  // console.log(req.body.photo.src);
+
+  res.render('first_connection.ejs');
+});
+
 app.post('/yo', function(req, res) {
 //     res.setHeader('Content-Type', 'text/plain');
      var name = req.body.name;
@@ -154,6 +165,7 @@ app.post('/yo', function(req, res) {
              collection.insertMany([
                {name : name, birthday : birthday, email : email, password : hash, token : token, activate : "0"}
              ]);
+             fs.mkdirSync("./photos/"+email);
 
              let transporter = nodemailer.createTransport({
            service: 'gmail',

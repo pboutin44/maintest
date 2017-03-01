@@ -52,36 +52,33 @@
         <h2 class="brand-text">Matcha</h2>
       </div>
       <p>complete your profil</p>
-      <form method="post" role="form" action="yo">
-        <div class="form-group">
-          <label class="radio-inline">
-      <input type="radio" name="optradio" value="homo">homo
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="optradio" value="hétéro">hétéro
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="optradio" value="bi">bi
-    </label>
-        </div>
-        <div class="form-group">
-          <textarea class="form-control" rows="5" placeholder="Comment your bio here"></textarea>
-        </div>
-        <div class="form-group">
-          <textarea class="form-control" rows="5" placeholder="add tags (#vélo #fruit)"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="contenu" class="col-lg-2 control-label"></label>
-            <div class="col-lg-10">
-                <input type="file" class="form-control" name="image" accept="image/*">
-            </div>
-        </div>
+      <form method="post" role="form" action="ya">
+          <div class="form-group">
+            <label class="radio-inline">
+              <input type="radio" name="optradio" value="homo">homo
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" value="hétéro">hétéro
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" value="bi">bi
+            </label>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" rows="5" placeholder="Comment your bio here"></textarea>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" rows="5" placeholder="add tags (#vélo #fruit)"></textarea>
+          </div>
+          <div>
+            <input type="file" name="photo" onchange="previewFile()"><br>
+            <img id="oki" name="photo" src="" height="200" alt="Image preview...">
+          </div>
+          <script> console.log("varbien");</script>
 
-        <script> console.log("varbien");</script>
-
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
       </form>
-      
+
       <p>Still no account? Please go to <a href="register">Register</a></p>
       <footer class="page-copyright page-copyright-inverse">
         <p>WEBSITE BY amazingSurge</p>
@@ -102,6 +99,22 @@
   </div>
   <!-- End Page -->
   <!-- Core  -->
+  <script>
+  function previewFile() {
+  var preview = document.querySelector('#oki');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+    $.post('/ya', {'image' : preview.src});
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+</script>
   <script src="/global/vendor/jquery/jquery.js"></script>
   <script src="/global/vendor/bootstrap/bootstrap.js"></script>
   <script src="/global/vendor/animsition/animsition.js"></script>
