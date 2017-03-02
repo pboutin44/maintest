@@ -5,6 +5,8 @@ var MongoClient = require('mongodb').MongoClient
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var fs = require('fs');
+var formidable = require('formidable');
+//var formidable = require('express-formidable');
 // Connection URL
 var url = 'mongodb://localhost:27017/myproject';
 
@@ -27,7 +29,7 @@ var url = 'mongodb://localhost:27017/myproject';
 var app = express();
 //var urlencodedParser = bodyParser.urlencoded({limit: '50mb', extended: true });
   app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
-
+ //app.use(formidable());
 app.use(express.static('assets'));
 app.use(express.static('/views'));
 app.get('/', function(req, res) {
@@ -130,8 +132,24 @@ app.get('/first_connection', function(req, res) {
 app.post('/ya', function(req, res) {
   //var name = req.body.photo;
   //console.log(name);
-  console.log(req.body.image);
+  var form = new formidable.IncomingForm();
+
+  form.parse(req);
+
+ form.on('fileBegin', function (name, file){
+     file.path = path.resolve(file.name);
+ });
+ console.log("kaka");
+ form.on('file', function (name, file){
+     console.log(file.name);
+     console.log("groscasque");
+ });
+
+  console.log("koki");
+//  console.log(req.body.image);
   // console.log(req.body.photo.src);
+  // console.log(req.fields);
+  // console.log(req.files);
 
   res.render('first_connection.ejs');
 });

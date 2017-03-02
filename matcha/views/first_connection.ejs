@@ -26,12 +26,12 @@
   <link rel="stylesheet" href="/global/fonts/brand-icons/brand-icons.min.css">
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
   <!--[if lt IE 9]>
-    <script src="assets/global/vendor/html5shiv/html5shiv.min.js"></script>
-    <![endif]-->
+  <script src="assets/global/vendor/html5shiv/html5shiv.min.js"></script>
+  <![endif]-->
   <!--[if lt IE 10]>
-    <script src="assets/global/vendor/media-match/media.match.min.js"></script>
-    <script src="assets/global/vendor/respond/respond.min.js"></script>
-    <![endif]-->
+  <script src="assets/global/vendor/media-match/media.match.min.js"></script>
+  <script src="assets/global/vendor/respond/respond.min.js"></script>
+  <![endif]-->
   <!-- Scripts -->
   <script src="/global/vendor/modernizr/modernizr.js"></script>
   <script src="/global/vendor/breakpoints/breakpoints.js"></script>
@@ -41,73 +41,75 @@
 </head>
 <body class="page-login layout-full page-dark">
   <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
   <!-- Page -->
   <div class="page animsition vertical-align text-center" data-animsition-in="fade-in"
   data-animsition-out="fade-out">>
-    <div class="page-content vertical-align-middle">
-      <div class="brand">
-        <img class="brand-img" src="../../assets//images/logo.png" alt="...">
-        <h2 class="brand-text">Matcha</h2>
-      </div>
-      <p>complete your profil</p>
-      <form method="post" role="form" action="ya">
-          <div class="form-group">
-            <label class="radio-inline">
-              <input type="radio" name="optradio" value="homo">homo
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio" value="hétéro">hétéro
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio" value="bi">bi
-            </label>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" rows="5" placeholder="Comment your bio here"></textarea>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" rows="5" placeholder="add tags (#vélo #fruit)"></textarea>
-          </div>
-          <div>
-            <input type="file" name="photo" onchange="previewFile()"><br>
-            <img id="oki" name="photo" src="" height="200" alt="Image preview...">
-          </div>
-          <script> console.log("varbien");</script>
-
-          <button type="submit" class="btn btn-primary btn-block">Register</button>
-      </form>
-
-      <p>Still no account? Please go to <a href="register">Register</a></p>
-      <footer class="page-copyright page-copyright-inverse">
-        <p>WEBSITE BY amazingSurge</p>
-        <p>© 2015. All RIGHT RESERVED.</p>
-        <div class="social">
-          <a href="javascript:void(0)">
-            <i class="icon bd-twitter" aria-hidden="true"></i>
-          </a>
-          <a href="javascript:void(0)">
-            <i class="icon bd-facebook" aria-hidden="true"></i>
-          </a>
-          <a href="javascript:void(0)">
-            <i class="icon bd-dribbble" aria-hidden="true"></i>
-          </a>
-        </div>
-      </footer>
+  <div class="page-content vertical-align-middle">
+    <div class="brand">
+      <img class="brand-img" src="../../assets//images/logo.png" alt="...">
+      <h2 class="brand-text">Matcha</h2>
     </div>
+    <p>complete your profil</p>
+    <form method="post" role="form" action="ya">
+      <div class="form-group">
+        <label class="radio-inline">
+          <input type="radio" name="optradio" value="homo">homo
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="optradio" value="hétéro">hétéro
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="optradio" value="bi">bi
+        </label>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" rows="5" placeholder="Comment your bio here"></textarea>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" rows="5" placeholder="add tags (#vélo #fruit)"></textarea>
+      </div>
+      <div>
+        <input type="file" name="photo" onchange="previewFile()" multiple>
+        <!-- <input type="submit" value="Upload"> -->
+        <!-- <input type="file" name="photo" onchange="previewFile()"><br> -->
+        <img id="oki" name="photo" src="" height="200" alt="Image preview...">
+      </div>
+      <script> console.log("varbien");</script>
+
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+
+    <p>Still no account? Please go to <a href="register">Register</a></p>
+    <footer class="page-copyright page-copyright-inverse">
+      <p>WEBSITE BY amazingSurge</p>
+      <p>© 2015. All RIGHT RESERVED.</p>
+      <div class="social">
+        <a href="javascript:void(0)">
+          <i class="icon bd-twitter" aria-hidden="true"></i>
+        </a>
+        <a href="javascript:void(0)">
+          <i class="icon bd-facebook" aria-hidden="true"></i>
+        </a>
+        <a href="javascript:void(0)">
+          <i class="icon bd-dribbble" aria-hidden="true"></i>
+        </a>
+      </div>
+    </footer>
   </div>
-  <!-- End Page -->
-  <!-- Core  -->
-  <script>
-  function previewFile() {
+</div>
+<!-- End Page -->
+<!-- Core  -->
+<script>
+function previewFile() {
   var preview = document.querySelector('#oki');
   var file    = document.querySelector('input[type=file]').files[0];
   var reader  = new FileReader();
 
   reader.addEventListener("load", function () {
     preview.src = reader.result;
-    $.post('/ya', {'image' : preview.src});
+    //  $.post('/ya', {'image' : preview.src});
   }, false);
 
   if (file) {
@@ -115,41 +117,41 @@
   }
 }
 </script>
-  <script src="/global/vendor/jquery/jquery.js"></script>
-  <script src="/global/vendor/bootstrap/bootstrap.js"></script>
-  <script src="/global/vendor/animsition/animsition.js"></script>
-  <script src="/global/vendor/asscroll/jquery-asScroll.js"></script>
-  <script src="/global/vendor/mousewheel/jquery.mousewheel.js"></script>
-  <script src="/global/vendor/asscrollable/jquery.asScrollable.all.js"></script>
-  <script src="/global/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
-  <!-- Plugins -->
-  <script src="/global/vendor/switchery/switchery.min.js"></script>
-  <script src="/global/vendor/intro-js/intro.js"></script>
-  <script src="/global/vendor/screenfull/screenfull.js"></script>
-  <script src="/global/vendor/slidepanel/jquery-slidePanel.js"></script>
-  <script src="/global/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-  <!-- Scripts -->
-  <script src="/global/js/core.js"></script>
-  <script src="/assets/js/site.js"></script>
-  <script src="/assets/js/sections/menu.js"></script>
-  <script src="/assets/js/sections/menubar.js"></script>
-  <script src="/assets/js/sections/gridmenu.js"></script>
-  <script src="/assets/js/sections/sidebar.js"></script>
-  <script src="/global/js/configs/config-colors.js"></script>
-  <script src="/assets/js/configs/config-tour.js"></script>
-  <script src="/global/js/components/asscrollable.js"></script>
-  <script src="/global/js/components/animsition.js"></script>
-  <script src="/global/js/components/slidepanel.js"></script>
-  <script src="/global/js/components/switchery.js"></script>
-  <script src="/global/js/components/jquery-placeholder.js"></script>
-  <script>
-  (function(document, window, $) {
-    'use strict';
-    var Site = window.Site;
-    $(document).ready(function() {
-      Site.run();
-    });
-  })(document, window, jQuery);
-  </script>
+<script src="/global/vendor/jquery/jquery.js"></script>
+<script src="/global/vendor/bootstrap/bootstrap.js"></script>
+<script src="/global/vendor/animsition/animsition.js"></script>
+<script src="/global/vendor/asscroll/jquery-asScroll.js"></script>
+<script src="/global/vendor/mousewheel/jquery.mousewheel.js"></script>
+<script src="/global/vendor/asscrollable/jquery.asScrollable.all.js"></script>
+<script src="/global/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
+<!-- Plugins -->
+<script src="/global/vendor/switchery/switchery.min.js"></script>
+<script src="/global/vendor/intro-js/intro.js"></script>
+<script src="/global/vendor/screenfull/screenfull.js"></script>
+<script src="/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+<script src="/global/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+<!-- Scripts -->
+<script src="/global/js/core.js"></script>
+<script src="/assets/js/site.js"></script>
+<script src="/assets/js/sections/menu.js"></script>
+<script src="/assets/js/sections/menubar.js"></script>
+<script src="/assets/js/sections/gridmenu.js"></script>
+<script src="/assets/js/sections/sidebar.js"></script>
+<script src="/global/js/configs/config-colors.js"></script>
+<script src="/assets/js/configs/config-tour.js"></script>
+<script src="/global/js/components/asscrollable.js"></script>
+<script src="/global/js/components/animsition.js"></script>
+<script src="/global/js/components/slidepanel.js"></script>
+<script src="/global/js/components/switchery.js"></script>
+<script src="/global/js/components/jquery-placeholder.js"></script>
+<script>
+(function(document, window, $) {
+  'use strict';
+  var Site = window.Site;
+  $(document).ready(function() {
+    Site.run();
+  });
+})(document, window, jQuery);
+</script>
 </body>
 </html>
