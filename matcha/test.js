@@ -6,9 +6,12 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var fs = require('fs');
 var formidable = require('formidable');
+var http = require('http');
+var session = require('express-session');
 //var formidable = require('express-formidable');
 // Connection URL
 var url = 'mongodb://localhost:27017/myproject';
+
 
 // Use connect method to connect to the server
 // var insertDocuments = function(db, callback) {
@@ -27,6 +30,10 @@ var url = 'mongodb://localhost:27017/myproject';
 // }
 
 var app = express();
+var sess;
+var server = require('http').createServer(app);
+app.use(session({secret: 'ssshhhhh',resave: true,
+    saveUninitialized: true}));
 //var urlencodedParser = bodyParser.urlencoded({limit: '50mb', extended: true });
   app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
  //app.use(formidable());
@@ -37,6 +44,9 @@ app.get('/', function(req, res) {
 });
 app.get('/connexion', function(req, res) {
   res.render('login.ejs');
+});
+app.get('/profile', function(req, res) {
+  res.render('profile.ejs');
 });
 app.get('/register', function(req, res) {
   res.render('register.ejs');
@@ -108,7 +118,26 @@ app.post('/main', function(req, res) {
       //  console.log(docs[0].activate);
           if(docs.length > 0 && docs[0].activate == 1)
           {
+            sess=req.session;
+            sess.email= email;
+            console.log(sess);
+            console.log(email);
             res.render('mainpage.ejs');
+            console.log("refjeirfj");
+            // var server = http.createServer(function(req1, res1) {
+            //   console.log("raaaaaaa");
+            //     // fs.readFile('mainpage.ejs', 'utf-8', function(error, content) {
+            //     //     res1.writeHead(200, {"Content-Type": "text/html"});
+            //     //     res1.end(content);
+            //     // });
+            // });
+                        // Chargement de socket.io
+            var io = require('socket.io').listen(server);
+
+            // Quand un client se connecte, on le note dans la console
+            io.sockets.on('connection', function (socket) {
+                console.log('Un client est connecté !');
+            });
           }
           else {
             res.render('login.ejs');
@@ -129,6 +158,21 @@ app.get('/forgot-password', function(req, res) {
 app.get('/first_connection', function(req, res) {
   res.render('first_connection.ejs');
 });
+// app.post('/', function (req, res){
+//     var form = new formidable.IncomingForm();
+//
+//     form.parse(req);
+//
+//     form.on('fileBegin', function (name, file){
+//         file.path = __dirname + '/uploads/' + file.name;
+//     });
+//
+//     form.on('file', function (name, file){
+//         console.log('Uploaded ' + file.name);
+//     });
+//
+//     res.sendFile(__dirname + '/index.html');
+// });
 app.post('/ya', function(req, res) {
   //var name = req.body.photo;
   //console.log(name);
@@ -137,15 +181,15 @@ app.post('/ya', function(req, res) {
   form.parse(req);
 
  form.on('fileBegin', function (name, file){
-     file.path = path.resolve(file.name);
+     file.path = __dirname + '/uploads/' + file.name;
  });
- console.log("kaka");
+// console.log("kaka");
  form.on('file', function (name, file){
      console.log(file.name);
-     console.log("groscasque");
+  //   console.log("groscasque");
  });
 
-  console.log("koki");
+  //console.log("koki");
 //  console.log(req.body.image);
   // console.log(req.body.photo.src);
   // console.log(req.fields);
@@ -229,5 +273,17 @@ app.get('/compter', function(req, res) {
     res.render('page.ejs');
 });
 
-
-app.listen(8080);
+// var server = http.createServer(function(req, res) {
+//     fs.readFile('./main', 'utf-8', function(error, content) {
+//         res.writeHead(200, {"Content-Type": "text/html"});
+//         res.end(content);
+//     });
+// });
+//             // Chargement de socket.io
+// var io = require('socket.io').listen(server);
+//
+// // Quand un client se connecte, on le note dans la console
+// io.sockets.on('connection', function (socket) {
+//     console.log('Un client est connecté !');
+// });
+server.listen(8080);

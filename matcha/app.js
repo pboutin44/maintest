@@ -1,28 +1,26 @@
-  var express = require('express');
-  var formidable = require('formidable');
-  var path = require('path');
+var express = require('express');
+var formidable = require('formidable');
 
-  var app = express();
+var app = express();
 
-  app.get('/', function (req, res){
-    res.sendFile(path.resolve('./index.html'));
-    //    res.render('page.ejs');
-  });
+app.get('/', function (req, res){
+    res.sendFile(__dirname + '/index.html');
+});
 
-  app.post('/', function (req, res){
+app.post('/', function (req, res){
     var form = new formidable.IncomingForm();
 
     form.parse(req);
 
     form.on('fileBegin', function (name, file){
-      file.path = path.resolve(file.name);
+        file.path = __dirname + '/uploads/' + file.name;
     });
 
     form.on('file', function (name, file){
-      console.log(file.name);
+        console.log('Uploaded ' + file.name);
     });
 
-    res.sendFile(path.resolve('./index.html'));
-  });
+    res.sendFile(__dirname + '/index.html');
+});
 
-  app.listen(3000);
+app.listen(3000);

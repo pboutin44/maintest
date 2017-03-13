@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta name="description" content="bootstrap admin template">
   <meta name="author" content="">
-  <title>Dashboard | Remark Admin Template</title>
+  <title>Form Advanced Elements | Remark Admin Template</title>
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
   <link rel="shortcut icon" href="/assets/images/favicon.ico">
   <!-- Stylesheets -->
@@ -20,21 +20,36 @@
   <link rel="stylesheet" href="/global/vendor/intro-js/introjs.css">
   <link rel="stylesheet" href="/global/vendor/slidepanel/slidePanel.css">
   <link rel="stylesheet" href="/global/vendor/flag-icon-css/flag-icon.css">
-  <link rel="stylesheet" href="/global/vendor/chartist-js/chartist.css">
-  <link rel="stylesheet" href="/global/vendor/jvectormap/jquery-jvectormap.css">
-  <link rel="stylesheet" href="/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
-  <link rel="stylesheet" href="/assets/examples/css/dashboard/v1.css">
+  <link rel="stylesheet" href="/global/vendor/select2/select2.css">
+  <link rel="stylesheet" href="/global/vendor/bootstrap-tokenfield/bootstrap-tokenfield.css">
+  <link rel="stylesheet" href="/global/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+  <link rel="stylesheet" href="/global/vendor/bootstrap-select/bootstrap-select.css">
+  <link rel="stylesheet" href="/global/vendor/icheck/icheck.css">
+  <link rel="stylesheet" href="/global/vendor/switchery/switchery.css">
+  <link rel="stylesheet" href="/global/vendor/asrange/asRange.css">
+  <link rel="stylesheet" href="/global/vendor/asspinner/asSpinner.css">
+  <link rel="stylesheet" href="/global/vendor/clockpicker/clockpicker.css">
+  <link rel="stylesheet" href="/global/vendor/ascolorpicker/asColorPicker.css">
+  <link rel="stylesheet" href="/global/vendor/bootstrap-touchspin/bootstrap-touchspin.css">
+  <link rel="stylesheet" href="/global/vendor/card/card.css">
+  <link rel="stylesheet" href="/global/vendor/jquery-labelauty/jquery-labelauty.css">
+  <link rel="stylesheet" href="/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/global/vendor/bootstrap-maxlength/bootstrap-maxlength.css">
+  <link rel="stylesheet" href="/global/vendor/jt-timepicker/jquery-timepicker.css">
+  <link rel="stylesheet" href="/global/vendor/jquery-strength/jquery-strength.css">
+  <link rel="stylesheet" href="/global/vendor/multi-select/multi-select.css">
+  <link rel="stylesheet" href="/global/vendor/typeahead-js/typeahead.css">
+  <link rel="stylesheet" href="/assets/examples/css/forms/advanced.css">
   <!-- Fonts -->
-  <link rel="stylesheet" href="/global/fonts/weather-icons/weather-icons.css">
   <link rel="stylesheet" href="/global/fonts/web-icons/web-icons.min.css">
   <link rel="stylesheet" href="/global/fonts/brand-icons/brand-icons.min.css">
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
   <!--[if lt IE 9]>
-    <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
+    <script src="/global/vendor/html5shiv/html5shiv.min.js"></script>
     <![endif]-->
   <!--[if lt IE 10]>
-    <script src="../../global/vendor/media-match/media.match.min.js"></script>
-    <script src="../../global/vendor/respond/respond.min.js"></script>
+    <script src="/global/vendor/media-match/media.match.min.js"></script>
+    <script src="/global/vendor/respond/respond.min.js"></script>
     <![endif]-->
   <!-- Scripts -->
   <script src="/global/vendor/modernizr/modernizr.js"></script>
@@ -81,64 +96,22 @@
                 </i>
             </a>
           </li>
-          <li class="hidden-xs" id="toggleFullscreen">
-            <a class="icon icon-fullscreen" data-toggle="fullscreen" href="#" role="button">
-              <span class="sr-only">Toggle fullscreen</span>
-            </a>
-          </li>
-          <li class="hidden-float">
-            <a class="icon wb-search" data-toggle="collapse" href="#" data-target="#site-navbar-search"
-            role="button">
-              <span class="sr-only">Toggle Search</span>
-            </a>
-          </li>
+
 
         </ul>
         <!-- End Navbar Toolbar -->
         <!-- Navbar Toolbar Right -->
         <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
-            aria-expanded="false" role="button">
-              <span class="flag-icon flag-icon-us"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li role="presentation">
-                <a href="javascript:void(0)" role="menuitem">
-                  <span class="flag-icon flag-icon-gb"></span> English</a>
-              </li>
-              <li role="presentation">
-                <a href="javascript:void(0)" role="menuitem">
-                  <span class="flag-icon flag-icon-fr"></span> French</a>
-              </li>
-              <li role="presentation">
-                <a href="javascript:void(0)" role="menuitem">
-                  <span class="flag-icon flag-icon-cn"></span> Chinese</a>
-              </li>
-              <li role="presentation">
-                <a href="javascript:void(0)" role="menuitem">
-                  <span class="flag-icon flag-icon-de"></span> German</a>
-              </li>
-              <li role="presentation">
-                <a href="javascript:void(0)" role="menuitem">
-                  <span class="flag-icon flag-icon-nl"></span> Dutch</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
             <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
             data-animation="scale-up" role="button">
-              <span class="avatar avatar-online">
-                <img src="../../global/portraits/5.jpg" alt="...">
+              <span class="avatar">
+                <img src="/global/portraits/5.jpg" alt="...">
                 <i></i>
               </span>
             </a>
           </li>
-          <li id="toggleChat">
-            <a  href="javascript:void(0)" title="Chat" data-url="site-sidebar.tpl">
-              <i class="icon wb-settings" aria-hidden="true"></i>
-            </a>
-          </li>
+
         </ul>
         <!-- End Navbar Toolbar Right -->
       </div>
@@ -273,6 +246,34 @@
   <!-- Page -->
 
   <!-- End Page -->
+  <div class="page animsition" style="animation-duration: 800ms; opacity: 1;">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Page Widget -->
+          <div class="widget widget-shadow text-center">
+            <div class="widget-header">
+              <div class="widget-header-content">
+                <a class="avatar avatar-lg" href="javascript:void(0)">
+                  <img src="/global/portraits/5.jpg" alt="...">
+                </a>
+                <h4 class="profile-user">Terrance arnold</h4>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Page Widget -->
+        </div>
+        <div class="col-md-9" id="main">
+          <!-- Panel -->
+          <!-- <IFRAME src="/profile" ></IFRAME> -->
+          <% include ./profile %>
+          <!-- End Panel -->
+
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Footer -->
   <footer class="site-footer">
     <div class="site-footer-legal">© 2017 <a href="">Matcha</a></div>
@@ -281,40 +282,83 @@
     </div>
   </footer>
   <!-- Core  -->
-  <script src="/global/vendor/jquery/jquery.js"></script>
-  <script src="/global/vendor/bootstrap/bootstrap.js"></script>
-  <script src="/global/vendor/animsition/animsition.js"></script>
-  <script src="/global/vendor/asscroll/jquery-asScroll.js"></script>
-  <script src="/global/vendor/mousewheel/jquery.mousewheel.js"></script>
-  <script src="/global/vendor/asscrollable/jquery.asScrollable.all.js"></script>
-  <script src="/global/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
-  <!-- Plugins -->
-  <script src="/global/vendor/switchery/switchery.min.js"></script>
-  <script src="/global/vendor/intro-js/intro.js"></script>
-  <script src="/global/vendor/screenfull/screenfull.js"></script>
-  <script src="/global/vendor/slidepanel/jquery-slidePanel.js"></script>
-  <script src="/global/vendor/skycons/skycons.js"></script>
-  <script src="/global/vendor/chartist-js/chartist.min.js"></script>
-  <script src="/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.js"></script>
-  <script src="/global/vendor/aspieprogress/jquery-asPieProgress.min.js"></script>
-  <script src="/global/vendor/jvectormap/jquery.jvectormap.min.js"></script>
-  <script src="/global/vendor/jvectormap/maps/jquery-jvectormap-au-mill-en.js"></script>
-  <script src="/global/vendor/matchheight/jquery.matchHeight-min.js"></script>
-  <!-- Scripts -->
-  <script src="/global/js/core.js"></script>
-  <script src="/assets/js/site.js"></script>
-  <script src="/assets/js/sections/menu.js"></script>
-  <script src="/assets/js/sections/menubar.js"></script>
-  <script src="/assets/js/sections/gridmenu.js"></script>
-  <script src="/assets/js/sections/sidebar.js"></script>
-  <script src="/global/js/configs/config-colors.js"></script>
-  <script src="/assets/js/configs/config-tour.js"></script>
-  <script src="/global/js/components/asscrollable.js"></script>
-  <script src="/global/js/components/animsition.js"></script>
-  <script src="/global/js/components/slidepanel.js"></script>
-  <script src="/global/js/components/switchery.js"></script>
-  <script src="/global/js/components/matchheight.js"></script>
-  <script src="/global/js/components/jvectormap.js"></script>
-  <script src="/assets/examples/js/dashboard/v1.js"></script>
-</body>
-</html>
+  <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+        </script>
+        <!-- Core  -->
+        <script src="/global/vendor/jquery/jquery.js"></script>
+        <script src="/global/vendor/bootstrap/bootstrap.js"></script>
+        <script src="/global/vendor/animsition/animsition.js"></script>
+        <script src="/global/vendor/asscroll/jquery-asScroll.js"></script>
+        <script src="/global/vendor/mousewheel/jquery.mousewheel.js"></script>
+        <script src="/global/vendor/asscrollable/jquery.asScrollable.all.js"></script>
+        <script src="/global/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
+        <!-- Plugins -->
+        <script src="/global/vendor/switchery/switchery.min.js"></script>
+        <script src="/global/vendor/intro-js/intro.js"></script>
+        <script src="/global/vendor/screenfull/screenfull.js"></script>
+        <script src="/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+        <script src="/global/vendor/select2/select2.full.min.js"></script>
+        <script src="/global/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script>
+        <script src="/global/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+        <script src="/global/vendor/bootstrap-select/bootstrap-select.js"></script>
+        <script src="/global/vendor/icheck/icheck.min.js"></script>
+        <script src="/global/vendor/switchery/switchery.min.js"></script>
+        <script src="/global/vendor/asrange/jquery-asRange.min.js"></script>
+        <script src="/global/vendor/asspinner/jquery-asSpinner.min.js"></script>
+        <script src="/global/vendor/clockpicker/bootstrap-clockpicker.min.js"></script>
+        <script src="/global/vendor/ascolor/jquery-asColor.min.js"></script>
+        <script src="/global/vendor/asgradient/jquery-asGradient.min.js"></script>
+        <script src="/global/vendor/ascolorpicker/jquery-asColorPicker.min.js"></script>
+        <script src="/global/vendor/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+        <script src="/global/vendor/jquery-knob/jquery.knob.js"></script>
+        <script src="/global/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+        <script src="/global/vendor/card/jquery.card.js"></script>
+        <script src="/global/vendor/jquery-labelauty/jquery-labelauty.js"></script>
+        <script src="/global/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+        <script src="/global/vendor/jt-timepicker/jquery.timepicker.min.js"></script>
+        <script src="/global/vendor/datepair-js/datepair.min.js"></script>
+        <script src="/global/vendor/datepair-js/jquery.datepair.min.js"></script>
+        <script src="/global/vendor/jquery-strength/jquery-strength.min.js"></script>
+        <script src="/global/vendor/multi-select/jquery.multi-select.js"></script>
+        <script src="/global/vendor/typeahead-js/bloodhound.min.js"></script>
+        <script src="/global/vendor/typeahead-js/typeahead.jquery.min.js"></script>
+        <script src="/global/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+        <!-- Scripts -->
+        <script src="/global/js/core.js"></script>
+        <script src="/assets/js/site.js"></script>
+        <script src="/assets/js/sections/menu.js"></script>
+        <script src="/assets/js/sections/menubar.js"></script>
+        <script src="/assets/js/sections/gridmenu.js"></script>
+        <script src="/assets/js/sections/sidebar.js"></script>
+        <script src="/global/js/configs/config-colors.js"></script>
+        <script src="/assets/js/configs/config-tour.js"></script>
+        <script src="/global/js/components/asscrollable.js"></script>
+        <script src="/global/js/components/animsition.js"></script>
+        <script src="/global/js/components/slidepanel.js"></script>
+        <script src="/global/js/components/switchery.js"></script>
+        <script src="/global/js/components/select2.js"></script>
+        <script src="/global/js/components/bootstrap-tokenfield.js"></script>
+        <script src="/global/js/components/bootstrap-tagsinput.js"></script>
+        <script src="/global/js/components/bootstrap-select.js"></script>
+        <script src="/global/js/components/icheck.js"></script>
+        <script src="/global/js/components/switchery.js"></script>
+        <script src="/global/js/components/asrange.js"></script>
+        <script src="/global/js/components/asspinner.js"></script>
+        <script src="/global/js/components/clockpicker.js"></script>
+        <script src="/global/js/components/ascolorpicker.js"></script>
+        <script src="/global/js/components/bootstrap-maxlength.js"></script>
+        <script src="/global/js/components/jquery-knob.js"></script>
+        <script src="/global/js/components/bootstrap-touchspin.js"></script>
+        <script src="/global/js/components/card.js"></script>
+        <script src="/global/js/components/jquery-labelauty.js"></script>
+        <script src="/global/js/components/bootstrap-datepicker.js"></script>
+        <script src="/global/js/components/jt-timepicker.js"></script>
+        <script src="/global/js/components/datepair-js.js"></script>
+        <script src="/global/js/components/jquery-strength.js"></script>
+        <script src="/global/js/components/multi-select.js"></script>
+        <script src="/global/js/components/jquery-placeholder.js"></script>
+        <script src="/assets/examples/js/forms/advanced.js"></script>
+      </body>
+      </html>

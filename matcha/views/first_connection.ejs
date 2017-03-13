@@ -52,7 +52,7 @@
       <h2 class="brand-text">Matcha</h2>
     </div>
     <p>complete your profil</p>
-    <form method="post" role="form" action="ya">
+    <form method="post" enctype="multipart/form-data" action="ya">
       <div class="form-group">
         <label class="radio-inline">
           <input type="radio" name="optradio" value="homo">homo
@@ -71,7 +71,8 @@
         <textarea class="form-control" rows="5" placeholder="add tags (#vélo #fruit)"></textarea>
       </div>
       <div>
-        <input type="file" name="photo" onchange="previewFile()" multiple>
+        <input type="file" name="upload" onchange="previewFile()" multiple>
+        <!-- <input type="submit" value="Upload"> -->
         <!-- <input type="submit" value="Upload"> -->
         <!-- <input type="file" name="photo" onchange="previewFile()"><br> -->
         <img id="oki" name="photo" src="" height="200" alt="Image preview...">
@@ -80,6 +81,10 @@
 
       <button type="submit" class="btn btn-primary btn-block">Register</button>
     </form>
+    <!-- <form action="ya" enctype="multipart/form-data" method="post">
+        <input type="file" name="upload" multiple>
+        <input type="submit" value="Upload">
+    </form> -->
 
     <p>Still no account? Please go to <a href="register">Register</a></p>
     <footer class="page-copyright page-copyright-inverse">
