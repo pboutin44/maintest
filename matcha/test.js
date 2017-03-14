@@ -42,6 +42,9 @@ app.use(express.static('/views'));
 app.get('/', function(req, res) {
   res.render('page.ejs');
 });
+app.get('/test', function(req, res) {
+  res.render('test.ejs');
+});
 app.get('/connexion', function(req, res) {
   res.render('login.ejs');
 });

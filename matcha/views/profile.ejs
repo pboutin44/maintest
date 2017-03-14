@@ -23,7 +23,7 @@
           </select>
         </div>
         <div class="example">
-          <p class=" col-md-6">current location :</p><input class=" col-md-6">
+          <p class=" col-md-6">current location :</p><input id="pac-input" class=" col-md-6">
 
         </input>
         </div>
@@ -41,11 +41,20 @@
             <option value="Beijing">Beijing</option>
             <option value="Cairo">Cairo</option>
           </select>
+        </div>  <button type="button" class="btn btn-dark">
+          <!-- <i class="icon wb-upload" aria-hidden="true"></i> -->
+        <input type="file"  onchange="previewFile()" multiple> Upload photos</input></button>
+        <div>
+          <img id="oki1"  onclick="deletephoto('oki1')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+          <img id="oki2"  onclick="deletephoto('oki2')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+          <img id="oki3"  onclick="deletephoto('oki3')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+          <img id="oki4"  onclick="deletephoto('oki4')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+          <img id="oki5"  onclick="deletephoto('oki5')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
         </div>
-        <button type="button" class="btn btn-dark"><i class="icon wb-upload" aria-hidden="true"></i> Upload photos</button>
         <div class="form-group" style="padding-top:1.5cm;">
           <button type="button" class="btn btn-primary">Submit</button>
         </div>
+
 
 
 
@@ -54,3 +63,51 @@
     </div>
   </div>
 </div>
+
+<script>
+function deletephoto(id) {
+document.querySelector("#"+id).src = "http://localhost:8080/global/photos/placeholder.png";
+}
+function previewFile() {
+
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+//    preview1.src = reader.result;
+    var i = 1;
+    while(i < 6)
+    {
+      console.log(document.querySelector('#oki'+i).src);
+      if (document.querySelector('#oki'+i).src == "http://localhost:8080/global/photos/placeholder.png")
+      {
+        console.log("oulala");
+        document.querySelector('#oki'+i).src = reader.result;
+        i = 5;
+      }
+      i++;
+    }
+  //  preview1.src = reader.result;
+    //  $.post('/ya', {'image' : preview.src});
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+  // This example requires the Places library. Include the libraries=places
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+  function initMap() {
+
+
+    var input = document.getElementById('pac-input');
+
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg&signed_in=true&libraries=places&callback=initMap"
+    async defer></script>
