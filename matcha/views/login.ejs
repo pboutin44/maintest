@@ -25,6 +25,11 @@
   <link rel="stylesheet" href="/global/fonts/web-icons/web-icons.min.css">
   <link rel="stylesheet" href="/global/fonts/brand-icons/brand-icons.min.css">
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+  <link rel="stylesheet" href="/tokenfield/stylesheets/token-field.css">
+
+<script src="/global/vendor/jquery/jquery.js"></script>
+  <script src="/tokenfield/javascripts/jquery.token-field.js"></script>
+  <!-- <script src="/global/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script> -->
   <!--[if lt IE 9]>
     <script src="assets/global/vendor/html5shiv/html5shiv.min.js"></script>
     <![endif]-->
@@ -51,6 +56,9 @@
         <img class="brand-img" src="../../assets//images/logo.png" alt="...">
         <h2 class="brand-text">Matcha</h2>
       </div>
+
+      <input type="text" class="form-control token-field" data-plugin="tokenfield" value="red,green,blue"
+      />
       <p>Sign into your pages account</p>
       <form method="post" action="main">
         <!-- <div class="form-group">
