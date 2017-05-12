@@ -11,11 +11,9 @@ var url = 'mongodb://localhost:27017/myproject';
 // var query = url_parts.query;
 
 router.get('/', function(req, res) {
-  console.log("petard");
-  console.log(req.session.email);
-  console.log("dodos");
-  console.log(req.session.email);
-  res.render("discover/html/discover.ejs");
+  // console.log("petard");
+  // console.log(req.session.email);
+  res.render("likedyou/html/likedyou.ejs");
 });
 
 router.get('/like_someone', function(req, res) {
@@ -94,7 +92,9 @@ router.get('/all_profil', function(req, res) {
         console.log(docs);
         console.log("cratere1");
         res.send(docs)
+
       });
+
       //  res.render('mainpage.ejs');
       db.close();
     });

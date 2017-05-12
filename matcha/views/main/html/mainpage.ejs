@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/tokenfield-typeahead.min.css"/>
-<!-- <link rel="stylesheet" href="../../../global/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css"> -->
+  <!-- <link rel="stylesheet" href="../../../global/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css"> -->
 
   <!--[if lt IE 9]>
   <script src="/global/vendor/html5shiv/html5shiv.min.js"></script>
@@ -164,7 +164,7 @@
               <!-- <div class="site-menu-badge">
               <span class="badge badge-success">3</span>
             </div> -->
-            <span class="site-menu-arrow"></span>
+            <!-- <span class="site-menu-arrow"></span> -->
           </a>
           <!-- <ul class="site-menu-sub">
           <li class="site-menu-item active">
@@ -195,53 +195,53 @@
 </ul> -->
 </li>
 <!-- <li class="site-menu-item has-sub">
-  <a href="javascript:void(0)">
-    <i class="site-menu-icon wb-library" aria-hidden="true"></i>
-    <span class="site-menu-title">Discover</span>
-    <span class="site-menu-arrow"></span>
-  </a>
+<a href="javascript:void(0)">
+<i class="site-menu-icon wb-library" aria-hidden="true"></i>
+<span class="site-menu-title">Discover</span>
+<span class="site-menu-arrow"></span>
+</a>
 </li> -->
 <li class="site-menu-item has-sub">
   <a href="javascript:void(0)">
     <i class="site-menu-icon wb-chat-text" aria-hidden="true"></i>
     <span class="site-menu-title">Messages</span>
-    <span class="site-menu-arrow"></span>
+    <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
-<li class="site-menu-item has-sub">
+<li class="site-menu-item has-sub" id="likedyou">
   <a href="javascript:void(0)">
     <i class="site-menu-icon wb-heart" aria-hidden="true"></i>
     <span class="site-menu-title">Liked you</span>
-    <span class="site-menu-arrow"></span>
+    <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
-<li class="site-menu-item has-sub">
+<li class="site-menu-item has-sub" >
   <a href="javas  cript:void(0)">
     <i class="site-menu-icon wb-eye" aria-hidden="true"></i>
     <span class="site-menu-title">Visitors</span>
-    <span class="site-menu-arrow"></span>
+    <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
 <li class="site-menu-item has-sub">
   <a href="javas  cript:void(0)">
     <i class="site-menu-icon wb-eye" aria-hidden="true"></i>
     <span class="site-menu-title">research</span>
-    <span class="site-menu-arrow"></span>
+    <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
 <!-- <li class="site-menu-item has-sub">
-  <a href="javascript:void(0)">
-    <i class="site-menu-icon wb-star" aria-hidden="true"></i>
-    <span class="site-menu-title">Favorites</span>
-    <span class="site-menu-arrow"></span>
-  </a>
+<a href="javascript:void(0)">
+<i class="site-menu-icon wb-star" aria-hidden="true"></i>
+<span class="site-menu-title">Favorites</span>
+<span class="site-menu-arrow"></span>
+</a>
 </li>
 <li class="site-menu-item has-sub">
-  <a href="javascript:void(0)">
-    <i class="site-menu-icon wb-envelope" aria-hidden="true"></i>
-    <span class="site-menu-title">Invite Friends</span>
-    <span class="site-menu-arrow"></span>
-  </a>
+<a href="javascript:void(0)">
+<i class="site-menu-icon wb-envelope" aria-hidden="true"></i>
+<span class="site-menu-title">Invite Friends</span>
+<span class="site-menu-arrow"></span>
+</a>
 </li> -->
 
 <div class="site-menubar-section">
@@ -273,7 +273,7 @@
 <div class="page animsition" style="animation-duration: 800ms; opacity: 1;" id="main">
 
   <!-- Panel -->
-   <!-- <IFRAME src="/profile" ></IFRAME> -->
+  <!-- <IFRAME src="/profile" ></IFRAME> -->
 
   <!-- End Panel -->
 </div>
@@ -304,8 +304,14 @@
 
 var socket = io.connect('http://localhost:8080');
 socket.on('connect', function(data) {
+  socket.emit('join', 'Hello World from client');
+  //  socket.on('pierromoutarde', function(data) {
   //  socket.emit('join', 'Hello World from client');
-  console.log("hello world");
+  socket.on('toto', function(data) { alert();});
+
+  //  alert();
+
+  console.log("tas de viande");
 });
 function test1() {
   $("#main").empty();
@@ -419,11 +425,48 @@ socket.on('pierromoutarde', function(data) {
 <script src="/assets/examples/js/forms/advanced.js"></script>
 <script>
 
-  test2();
+test2();
+if(navigator.geolocation)
+{
+  function showLocation(position)
+{
+  //  alert('Latitude : '+ position.coords.latitude +' - Longitude : '+ position.coords.longitude);
+    $.ajax({
+      url : 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+', '+position.coords.longitude+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg',
+      type : 'GET',
+      // dataType : 'html',
+      success : function(code_html, statut){
+        console.log("ralatif");
+        console.log(code_html);
+        $.ajax({
+          url : 'main/CurrentPosition',
+          type : 'GET',
+          data : code_html,
+          success : function(code_html, statut){
+          //  console.log("ralatif");
+          //  console.log(code_html);
+          }
+        });
+      }
+    });
+}
+  var errorHandler;
+  navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
+}
+else
+{
+  alert('Votre navigateur ne prend malheureusement pas en charge la géolocalisation.');
+}
 
 $('#discover').click(function(){
   $("#main").empty();
   $.get("/discover", function(data) {
+    $("#main").append(data);
+  });
+})
+$('#likedyou').click(function(){
+  $("#main").empty();
+  $.get("/likedyou", function(data) {
     $("#main").append(data);
   });
 })

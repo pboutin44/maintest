@@ -36,23 +36,39 @@ var url = 'mongodb://localhost:27017/myproject';
 // }
 
 var app = express();
-var sess;
+//var sess;
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+console.log("BONJOUR")
 app.use(session({secret: 'ssshhhhh',resave: true,
 saveUninitialized: true}));
+
 //var urlencodedParser = bodyParser.urlencoded({limit: '50mb', extended: true });
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
 //app.use(formidable());
  app.use(express.static('assets'));
 console.log('bonjourTest', path.resolve('.'))
 app.use(express.static('./views'));
+app.use(express.static('./photos'));
 console.log('k')
 //app.use( express.static(path.resolve('.')));
 
-app.use('/', require('./controllers/page.js'));
+app.use('/', require('./controllers/register.js'));
 app.use('/profile', require('./controllers/profile.js'));
  app.use('/discover', require('./controllers/discover.js'));
+ app.use('/likedyou', require('./controllers/likedyou.js'));
+
+app.use(function(err, req, res, next) {
+  console.error('ERRROR !!!!', err);
+  res.status(500).send('Something broke!');
+});
+io.on('connection', function (socket) {
+  socket.on('join', function(fref){ console.log("dit bonjour");
+  socket.broadcast.emit('toto', { receivers: 'everyone but socket'});
+});
+//  io.emit('pierromoutarde', {"pierre": "moutarde"});
+  console.log('Un client est connecté !');
+});
 app.get('/test', function(req, res) {
   res.render('test.ejs');
 });
@@ -80,7 +96,7 @@ app.use('/confirmation', require('./controllers/confirm.js'))
     res.end('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
   });
   app.use('/main', require('./controllers/main.js'));
-    app.get('/forgot-password', function(req, res) {
+  app.get('/forgot-password', function(req, res) {
       res.render('forgot-password.ejs');
     });
     var G_token;
@@ -223,7 +239,7 @@ app.use('/confirmation', require('./controllers/confirm.js'))
       var birthday = req.body.Birthday;
       var email = req.body.email;
       var password = req.body.password;
-      var male = req.body.inputRadioGender;
+    //  var male = req.body.inputRadioGender;
       console.log("3fpo34kf");
       console.log(req.body.inputRadioGender);
       //var femmale = req.params.inputRadioGender2;
@@ -247,7 +263,11 @@ app.use('/confirmation', require('./controllers/confirm.js'))
                 {login : login, firstname : firstname, surname : surname, birthday : birthday, email : email, password : hash, token : token, activate : "0"}
               ]);
               fs.mkdirSync("./photos/"+email);
-
+              fs.openSync("./photos/"+email+"/photo1.png", 'w');
+              fs.openSync("./photos/"+email+"/photo2.png", 'w');
+              fs.openSync("./photos/"+email+"/photo3.png", 'w');
+              fs.openSync("./photos/"+email+"/photo4.png", 'w');
+              fs.openSync("./photos/"+email+"/photo5.png", 'w');
               let transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {

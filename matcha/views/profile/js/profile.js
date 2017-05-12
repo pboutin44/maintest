@@ -7,8 +7,22 @@ $('#tokenfield').tokenfield({
   showAutocompleteOnFocus: true
 });
 
-function previewFile() {
 
+$.ajax({
+  url : '/profile/bizarre',
+  type : 'POST',
+  // dataType : 'html',
+  success : function(code_html, statut){
+    console.log("toktok");
+    $("#profile-photo").attr('src', "/"+code_html.email+"/photo1.png")
+  //  console.log(code_html);
+  //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
+  },
+  error : function(resultat, erreur){
+    console.log("pierromoutarde", resultat.responseText, erreur);
+  },
+});
+function previewFile() {
   var file    = document.querySelector('input[type=file]').files[0];
   var reader  = new FileReader();
   reader.addEventListener("load", function () {
@@ -67,16 +81,19 @@ $('#submit').click(function(){
     photo4: oki4,
     photo5: oki5
   }
+  var dec = window.btoa(oki1);
+//  console.log(oki1 );
+  console.log(dec);
   $.ajax({
     url : '/profile/stock',
-    type : 'GET',
+    type : 'POST',
     data : data,
     // dataType : 'html',
     success : function(code_html, statut){
       console.log("toktok");
     },
-    error : function(resultat, statut, erreur){
-      console.log("pierromoutarde");
+    error : function(resultat, erreur){
+      console.log("pierromoutarde", resultat.responseText, erreur);
     },
   });
 });
@@ -110,11 +127,37 @@ $.ajax({
     {
       $('#tokenfield').tokenfield('createToken', tab[i]);
     }
-    $('#oki1').attr('src', code_html[0].photo1);
-    $('#oki2').attr('src', code_html[0].photo2);
-    $('#oki3').attr('src', code_html[0].photo3);
-    $('#oki4').attr('src', code_html[0].photo4);
-    $('#oki5').attr('src', code_html[0].photo5);
+    console.log("tata");
+    // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo1))));
+    // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo2))));
+    // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo3))));
+    // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo4))));
+    // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo5))));
+    if(btoa(unescape(encodeURIComponent(code_html[0].photo1))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      $('#oki1').attr('src', "/"+code_html[0].email+"/photo1.png");
+    else {
+      $('#oki1').attr('src', "/global/photos/placeholder.png");
+    }
+    if(btoa(unescape(encodeURIComponent(code_html[0].photo2))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      $('#oki2').attr('src', "/"+code_html[0].email+"/photo2.png");
+      else {
+        $('#oki2').attr('src', "/global/photos/placeholder.png");
+      }
+    if(btoa(unescape(encodeURIComponent(code_html[0].photo3))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      $('#oki3').attr('src', "/"+code_html[0].email+"/photo3.png");
+      else {
+        $('#oki3').attr('src', "/global/photos/placeholder.png");
+      }
+    if(btoa(unescape(encodeURIComponent(code_html[0].photo4))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      $('#oki4').attr('src', "/"+code_html[0].email+"/photo4.png");
+      else {
+        $('#oki4').attr('src', "/global/photos/placeholder.png");
+      }
+    if(btoa(unescape(encodeURIComponent(code_html[0].photo5))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      $('#oki5').attr('src', "/"+code_html[0].email+"/photo5.png");
+      else {
+        $('#oki5').attr('src', "/global/photos/placeholder.png");
+      }
     // console.log("debeug1"+code_html[0].photo1);
     // console.log(code_html[0].photo2);
     // console.log(code_html[0].photo3);
