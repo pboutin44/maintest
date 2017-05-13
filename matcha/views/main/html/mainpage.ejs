@@ -457,7 +457,19 @@ else
 {
   alert('Votre navigateur ne prend malheureusement pas en charge la géolocalisation.');
 }
-
+$.ajax({
+  url : 'main/popularity',
+  type : 'GET',
+  success : function(code_html, statut){
+    console.log("dio16");
+    console.log(code_html[0].popularity);
+    console.log(code_html);
+    $('.pull-right').html(code_html[0].popularity+"%");
+    $(".progress-bar-warning").attr('style', "width : "+code_html[0].popularity+"%")
+  //  console.log("ralatif");
+  //  console.log(code_html);
+  }
+});
 $('#discover').click(function(){
   $("#main").empty();
   $.get("/discover", function(data) {

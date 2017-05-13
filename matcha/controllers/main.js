@@ -25,15 +25,17 @@ router.get('/CurrentPosition', function(req, res) {
     // Get the documents collection
     var collection = db.collection('clients');
     // Insert some documents
+    var email = req.session.email;
     collection.find(
       {email : req.session.email}).toArray(function(err, docs){
         //    var activate = docs.param("activate");
         console.log(docs);
-        //  console.log(docs[0].activate);
+          console.log("nectare");
         if(docs.length > 0 && docs[0].activate == 1)
         {
-          collection.update({email : docs[0].email}, {
-            $Set:{CurrentPosition : final_position}
+          console.log("nectare2");
+          collection.update({email : email}, {
+            $set:{CurrentPosition : final_position}
           });
         }
         else {
@@ -41,10 +43,31 @@ router.get('/CurrentPosition', function(req, res) {
         }
       });
       //  res.render('mainpage.ejs');
-      db.close();
+    //  db.close();
     });
   console.log("Dino3");
   res.send("ok");
+
+});
+
+router.get('/popularity', function(req, res) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    // Get the documents collection
+    var collection = db.collection('clients');
+    // Insert some documents
+    var email = req.session.email;
+    collection.find(
+      {email : req.session.email}).toArray(function(err, docs){
+        //    var activate = docs.param("activate");
+        res.send(docs)
+      });
+      //  res.render('mainpage.ejs');
+    //  db.close();
+    });
+  //console.log("Dino3");
+//  res.send("ok");
 
 });
 

@@ -57,6 +57,7 @@ app.use('/', require('./controllers/register.js'));
 app.use('/profile', require('./controllers/profile.js'));
  app.use('/discover', require('./controllers/discover.js'));
  app.use('/likedyou', require('./controllers/likedyou.js'));
+ app.use('/user_profil', require('./controllers/user_profil.js'));
 
 app.use(function(err, req, res, next) {
   console.error('ERRROR !!!!', err);
@@ -260,7 +261,7 @@ app.use('/confirmation', require('./controllers/confirm.js'))
             if(docs.length == 0)
             {
               collection.insertMany([
-                {login : login, firstname : firstname, surname : surname, birthday : birthday, email : email, password : hash, token : token, activate : "0"}
+                {login : login, firstname : firstname, surname : surname, birthday : birthday, email : email, password : hash, token : token, activate : "0", popularity : "0"}
               ]);
               fs.mkdirSync("./photos/"+email);
               fs.openSync("./photos/"+email+"/photo1.png", 'w');
