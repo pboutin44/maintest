@@ -62,6 +62,9 @@ router.get('/like_someone', function(req, res) {
 
             //   alert("edokedk");
             collection.update({email : docs[0].email}, {
+              $inc : {popularity : +1}
+            });
+            collection.update({email : docs[0].email}, {
               $addToSet:{liked : req.session.email}
             });
             // res.render('confirmation.ejs');

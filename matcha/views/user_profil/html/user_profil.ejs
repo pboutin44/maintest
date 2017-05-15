@@ -8,15 +8,21 @@
             <a class="avatar avatar-lg" href="javascript:void(0)">
               <img src="/global/portraits/client.png" id="profile-photo" alt="...">
             </a>
-            <h4 class="profile-user"></h4>
+              <h4 class="profile-user"></h4>
           </div>
         </div>
 
       </div>
       <!-- End Page Widget -->
     </div>
+ <p id="email" style='display:none'><%= status %></p>
+    <script >
+    // var placeUrls = !{place_urls};
+    //var someData = #{data};
+    //var local_data =!{JSON.stringify(data)}
+    //console.log(someData);
+    </script>
     <div class="col-md-9" id="main">
-
 <div class="panel">
   <div class="panel-body nav-tabs-animate">
     <ul class="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
@@ -27,47 +33,37 @@
 
       <div class="active tab-pane animation-slide-left" id="profile" role="tabpanel">
         <div class="example">
-          <p class=" col-md-6">first name :</p><input id="firstname" class=" col-md-6">
+          <p class=" col-md-6">first name :</p><span id="firstname" class=" col-md-6">
 
-        </input>
+        </span>
         </div>
         <div class="example">
-          <p class=" col-md-6">surname :</p><input id="surname" class=" col-md-6">
+          <p class=" col-md-6">surname :</p><span id="surname" class=" col-md-6">
 
-        </input>
+        </span>
         </div>
         <div class="example">
-          <p class=" col-md-6">email :</p><input id="email" class=" col-md-6">
+          <p class=" col-md-6">sex :</p><span id="sex" class=" col-md-6">
 
-        </input>
+          </span>
         </div>
         <div class="example">
-          <p class=" col-md-6">sex :</p><select id="sex" class=" col-md-6">
-            <option>man</option>
-            <option>woman</option>
-            <option>transexual</option>
-          </select>
-        </div>
-        <div class="example">
-          <p class=" col-md-6">sexuality :</p><select id="sexuality" class=" col-md-6">
-            <option>Gay</option>
-            <option>Open-minded</option>
-            <option>Straight</option>
-            <option>Bisexual</option>
-          </select>
-        </div>
-        <div class="example">
-          <p class=" col-md-6">current location :</p><input id="pac-input" class=" col-md-6">
+          <p class=" col-md-6">sexuality :</p><span id="sexuality" class=" col-md-6">
 
-        </input>
+        </span>
+        </div>
+        <div class="example">
+          <p class=" col-md-6">current location :</p><span id="pac-input" class=" col-md-6">
+
+        </span>
         </div>
         <div class="example">
           <p class=" col-md-12">bio :</p><div class="col-md-12">
-            <textarea class="form-control" id="bio" placeholder="Briefly Describe Yourself"></textarea>
+            <span class="form-control" id="bio" placeholder="Briefly Describe Yourself"></span>
           </div>
         </div>
         <div class="example">
-          <p class=" col-md-12">Indiquez vos centres d'interet :</p>
+          <p class=" col-md-12">centres d'interet :</p>
           <!-- <select class=" col-md-12" data-plugin="tagsinput" multiple>
             <option value="Amsterdam">Amsterdam</option>
             <option value="Washington">Washington</option>
@@ -79,9 +75,7 @@
             <input type="text" class="form-control" id="tokenfield" value="" />
 
                 </div>
-        </div>  <button type="button" class="btn btn-dark">
-          <!-- <i class="icon wb-upload" aria-hidden="true"></i> -->
-        <input type="file"  onchange="previewFile()" multiple> Upload photos</input></button>
+        </div>
         <div>
           <img id="oki1"  onclick="deletephoto('oki1')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
           <img id="oki2"  onclick="deletephoto('oki2')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
@@ -89,9 +83,7 @@
           <img id="oki4"  onclick="deletephoto('oki4')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
           <img id="oki5"  onclick="deletephoto('oki5')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
         </div>
-        <div class="form-group" style="padding-top:1.5cm;">
-          <button type="button" id="submit" class="btn btn-primary">Submit</button>
-        </div>
+
 
       </div>
     </div>
@@ -103,7 +95,7 @@
 
 </div>
 
-<script src="/user_profile/js/user_profile.js"></script>
+<script src="/user_profil/js/user_profil.js"></script>
 
 <!-- <script>
 function previewFile() {

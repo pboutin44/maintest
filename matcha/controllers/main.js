@@ -14,6 +14,20 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var url = 'mongodb://localhost:27017/myproject';
 
+router.get('/signout', function(req, res) {
+  // if (config.debug)
+  //   console.log("user.signout()");
+
+  req.session.destroy(function (err) {
+   console.log("tibone");
+  // res.send("okok");
+    res.redirect("/"); //Inside a callback… bulletproof!
+  });
+  //res.redirect("login.ejs");
+  //res.send("ko");
+});
+
+
 router.get('/CurrentPosition', function(req, res) {
   console.log("Dino");
   var first_position = req.query.results[2].formatted_address;

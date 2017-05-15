@@ -1,12 +1,28 @@
-
-$('#tokenfield').tokenfield({
-  autocomplete: {
-    //source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
-    //  delay: 100
+// $('#tokenfield').tokenfield({
+//   autocomplete: {
+//     //source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
+//     //  delay: 100
+//   },
+//   showAutocompleteOnFocus: true
+// });
+//alert($('#email').html());
+var email = $('#email').html();
+console.log("samara");
+console.log(email);
+$.ajax({
+  url : '/user_profil/information',
+  type : 'GET',
+  data : {email : email},
+  success : function(code_html, statut){
+    console.log("toktok");
+  //   $("#profile-photo").attr('src', "/"+code_html.email+"/photo1.png")
+  // //  console.log(code_html);
+  // //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
+   },
+  error : function(resultat, erreur){
+    console.log("pierromoutarde", resultat.responseText, erreur);
   },
-  showAutocompleteOnFocus: true
 });
-
 
 $.ajax({
   url : '/profile/bizarre',
@@ -14,7 +30,7 @@ $.ajax({
   // dataType : 'html',
   success : function(code_html, statut){
     console.log("toktok");
-    $("#profile-photo").attr('src', "/"+code_html.email+"/photo1.png")
+    $("#profile-photo").attr('src', "/"+$('#email').html()+"/photo1.png")
   //  console.log(code_html);
   //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
   },
@@ -48,78 +64,25 @@ function previewFile() {
   }
 }
 console.log("poilu");
-$('#submit').click(function(){
-  console.log("houra");
-  var firstname = $("#firstname").val();
-  var surname = $("#surname").val();
-  var email = $("#email").val();
-  console.log(email);
-  console.log(surname);
-  console.log(firstname);
-  var sex = $("#sex option:selected").text();
-  var sexuality = $("#sexuality option:selected").text();
-  var pacinput = $("#pac-input").val();
-  var bio = $("#bio").val();
-  var tokenfield = $("#tokenfield").val();
-  var oki1 = $("#oki1").attr('src');
-  var oki2 = $("#oki2").attr('src');
-  var oki3 = $("#oki3").attr('src');
-  var oki4 = $("#oki4").attr('src');
-  var oki5 = $("#oki5").attr('src');
-  var data = {
-    firstname: firstname,
-    surname: surname,
-    email: email,
-    sex: sex,
-    sexuality: sexuality,
-    pacinput: pacinput,
-    bio: bio,
-    tokenfield: tokenfield,
-    photo1: oki1,
-    photo2: oki2,
-    photo3: oki3,
-    photo4: oki4,
-    photo5: oki5
-  }
-  var dec = window.btoa(oki1);
-//  console.log(oki1 );
-  console.log(dec);
-  $.ajax({
-    url : '/profile/stock',
-    type : 'POST',
-    data : data,
-    // dataType : 'html',
-    success : function(code_html, statut){
-      console.log("toktok");
-    },
-    error : function(resultat, erreur){
-      console.log("pierromoutarde", resultat.responseText, erreur);
-    },
-  });
-});
-
-function deletephoto(arg){
-  $('#'+arg).attr('src','/global/photos/placeholder.png');
-  // alert(arg);
-}
-
 console.log("papamaman");
+var email = $('#email').html();
 $.ajax({
-  url : '/profile/dodo',
+  url : '/profile/dodo2',
   type : 'GET',
-  // dataType : 'html',
+  data : {email : email},
   success : function(code_html, statut){
+
     console.log("toktok");
     console.log(code_html);
     $('.profile-user').append(code_html[0].surname+"  "+code_html[0].firstname);
-    $('#firstname').val(code_html[0].firstname);
-    $('#surname').val(code_html[0].surname);
-    $('#email').val(code_html[0].email);
-    $('#sex').val(code_html[0].sex);
-    $('#sexuality').val(code_html[0].sexuality);
-    $('#pac-input').val(code_html[0].pacinput);
-    $('#bio').val(code_html[0].bio);
-    //$('#tokenfield').attr("value", code_html[0].tokenfield);
+    $('#firstname').html(code_html[0].firstname);
+    $('#surname').html(code_html[0].surname);
+    $('#email').html(code_html[0].email);
+    $('#sex').html(code_html[0].sex);
+    $('#sexuality').html(code_html[0].sexuality);
+    $('#pac-input').html(code_html[0].pacinput);
+    $('#bio').html(code_html[0].bio);
+    $('#tokenfield').attr("value", code_html[0].tokenfield);
     if(code_html[0].tokenfield)
     {
       var tab = code_html[0].tokenfield.split(",");
@@ -175,8 +138,8 @@ $.ajax({
   },
 });
 
-function initMap() {
-  var input = document.getElementById('pac-input');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-}
-initMap();
+// function initMap() {
+//   var input = document.getElementById('pac-input');
+//   var autocomplete = new google.maps.places.Autocomplete(input);
+// }
+// initMap();

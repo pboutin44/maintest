@@ -95,14 +95,14 @@
   <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
     <!-- Navbar Toolbar -->
     <ul class="nav navbar-toolbar">
-      <li class="hidden-float" id="toggleMenubar">
+      <!-- <li class="hidden-float" id="toggleMenubar">
         <a data-toggle="menubar" href="#" role="button">
           <i class="icon hamburger hamburger-arrow-left">
             <span class="sr-only">Toggle menubar</span>
             <span class="hamburger-bar"></span>
-          </i>
+          </i>"/global/portraits/client.png"
         </a>
-      </li>
+      </li> -->
 
 
     </ul>
@@ -113,7 +113,7 @@
         <a onclick="test2()" class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
         data-animation="scale-up" role="button">
         <span class="avatar">
-          <img src="/global/portraits/client.png" alt="...">
+          <img id="photo_profil" src="/global/portraits/client.png" alt="...">
           <!-- "/global/portraits/5.jpg" -->
           <!-- <i></i> -->
         </span>
@@ -125,7 +125,7 @@
     </div> -->
     <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
     data-animation="scale-up" role="button">
-    <div class="icondemo vertical-align-middle">
+    <div id="signout" class="icondemo vertical-align-middle">
       <i class="icon wb-power" aria-hidden="true"></i>
     </div>
   </a>
@@ -215,8 +215,8 @@
     <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
-<li class="site-menu-item has-sub" >
-  <a href="javas  cript:void(0)">
+<li class="site-menu-item has-sub" id="visitor">
+  <a href="javascript:void(0)">
     <i class="site-menu-icon wb-eye" aria-hidden="true"></i>
     <span class="site-menu-title">Visitors</span>
     <!-- <span class="site-menu-arrow"></span> -->
@@ -256,7 +256,7 @@
 </div>
 </div>
 </div>
-<div class="site-menubar-footer">
+<!-- <div class="site-menubar-footer">
   <a href="javascript: void(0);" class="fold-show" data-placement="top" data-toggle="tooltip"
   data-original-title="Settings">
   <span class="icon wb-settings" aria-hidden="true"></span>
@@ -264,10 +264,10 @@
 <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
   <span class="icon wb-eye-close" aria-hidden="true"></span>
 </a>
-<a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+<a href="register" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
   <span class="icon wb-power" aria-hidden="true"></span>
 </a>
-</div>
+</div> -->
 </div>
 <!-- Page -->
 <div class="page animsition" style="animation-duration: 800ms; opacity: 1;" id="main">
@@ -466,6 +466,7 @@ $.ajax({
     console.log(code_html);
     $('.pull-right').html(code_html[0].popularity+"%");
     $(".progress-bar-warning").attr('style', "width : "+code_html[0].popularity+"%")
+    $("#photo_profil").attr('src',  code_html[0].email+'/photo1.png')
   //  console.log("ralatif");
   //  console.log(code_html);
   }
@@ -482,6 +483,28 @@ $('#likedyou').click(function(){
     $("#main").append(data);
   });
 })
+
+$('#visitor').click(function(){
+  $("#main").empty();
+  $.get("/visitor", function(data) {
+    $("#main").append(data);
+  });
+})
+
+$('#signout').click(function(){
+  //alert("okoko");
+  socket.disconnect();
+
+  $.get("/main/signout", function(data) {
+    console.log("wofh");
+    window.location = "/";
+//    $(".dashboard").empty();
+  //    $.get("/", function(data) {
+  // //     $(".dashboard").append(data);
+  //    })
+ });
+})
+
 
 
 

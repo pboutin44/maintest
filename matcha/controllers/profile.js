@@ -26,6 +26,70 @@ router.post('/bizarre', function(req, res) {
   res.send(email);
 });
 
+router.get('/dodo2', function(req, res) {
+  var photo1;
+  var photo2;
+  var photo3;
+  var photo4;
+  var photo5;
+  console.log("grominet");
+  fs.readFile('photos/'+req.query.email+'/photo1.png', 'utf8', (err, data) => {
+  if (err) throw err;
+  photo1 = data;
+  });
+  fs.readFile('photos/'+req.query.email+'/photo2.png', 'utf8', (err, data) => {
+  if (err) throw err;
+  photo2 = data;
+  });
+  fs.readFile('photos/'+req.query.email+'/photo3.png', 'utf8', (err, data) => {
+  if (err) throw err;
+  photo3 = data;
+  });
+  fs.readFile('photos/'+req.query.email+'/photo4.png', 'utf8', (err, data) => {
+  if (err) throw err;
+  photo4 = data;
+  });
+  fs.readFile('photos/'+req.query.email+'/photo5.png', 'utf8', (err, data) => {
+  if (err) throw err;
+  photo5 = data;
+  });
+  console.log("photo4 :"+ photo4);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    // Get the documents collection
+    var collection = db.collection('clients');
+    // Insert some documents
+    collection.find(
+      {email : req.query.email}).toArray(function(err, docs){
+        if(docs.length == 0)
+        {
+          console.log(docs);
+          console.log(email);
+          console.log(token);
+          console.log("coco")
+          res.send('register.ejs');
+        }
+        else {
+      //    console.log(photo1);
+          docs[0].photo1 = photo1;
+          docs[0].photo2 = photo2;
+          docs[0].photo3 = photo3;
+          docs[0].photo4 = photo4;
+          docs[0].photo5 = photo5;
+          res.send(docs);
+          console.log("c'estgood");
+    //      console.log(docs);
+      //    $('.profile-user').append("erhfrthf")
+        }
+      });
+
+
+      console.log("okokok");
+      //db.close();
+    });
+  console.log("kamikaze");
+});
 
 router.get('/dodo', function(req, res) {
   var photo1;

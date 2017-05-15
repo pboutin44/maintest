@@ -54,7 +54,10 @@ console.log('k')
 //app.use( express.static(path.resolve('.')));
 
 app.use('/', require('./controllers/register.js'));
+//app.use('/', require('./controllers/register.js'));
 app.use('/profile', require('./controllers/profile.js'));
+app.use('/visitor', require('./controllers/visitor.js'));
+app.use('/chat', require('./controllers/chat.js'));
  app.use('/discover', require('./controllers/discover.js'));
  app.use('/likedyou', require('./controllers/likedyou.js'));
  app.use('/user_profil', require('./controllers/user_profil.js'));
@@ -200,11 +203,11 @@ app.use('/confirmation', require('./controllers/confirm.js'))
 
               // setup email data with unicode symbols
               let mailOptions = {
-                from: '"Fred Foo 👻" <TheMatcha@Sbulba.com>', // sender address
+                from: '"Fred F 👻" <TheMatcha@Sbulba.com>', // sender address
                 to: 'pierboutin@gmail.com', // list of receivers
                 subject: 'changepassword', // Subject line
                 text: 'Hello world ?', // plain text body
-                html: '<b>Hello world ?</b> <a href="http://localhost:8080/change?token='+docs[0].token+'&email='+email+'">clique ici </a>' // html body
+                html: '<b>Hello ld ?</b> <a href="http://localhost:8080/change?token='+docs[0].token+'&email='+email+'">clique ici </a>' // html body
               };
 
               // send mail with defined transport object
@@ -256,12 +259,13 @@ app.use('/confirmation', require('./controllers/confirm.js'))
         // Get the documents collection
         var collection = db.collection('clients');
         // Insert some documents
+        var tache = 0;
         collection.find(
           {email : email}).toArray(function(err, docs){
             if(docs.length == 0)
             {
               collection.insertMany([
-                {login : login, firstname : firstname, surname : surname, birthday : birthday, email : email, password : hash, token : token, activate : "0", popularity : "0"}
+                {login : login, firstname : firstname, surname : surname, birthday : birthday, email : email, password : hash, token : token, activate : "0", popularity : tache}
               ]);
               fs.mkdirSync("./photos/"+email);
               fs.openSync("./photos/"+email+"/photo1.png", 'w');
