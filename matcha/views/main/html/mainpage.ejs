@@ -222,9 +222,9 @@
     <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
-<li class="site-menu-item has-sub">
-  <a href="javas  cript:void(0)">
-    <i class="site-menu-icon wb-eye" aria-hidden="true"></i>
+<li class="site-menu-item has-sub" id="search">
+  <a href="javascript:void(0)">
+    <i class="site-menu-icon wb-search" aria-hidden="true"></i>
     <span class="site-menu-title">research</span>
     <!-- <span class="site-menu-arrow"></span> -->
   </a>
@@ -487,6 +487,13 @@ $('#likedyou').click(function(){
 $('#visitor').click(function(){
   $("#main").empty();
   $.get("/visitor", function(data) {
+    $("#main").append(data);
+  });
+})
+
+$('#search').click(function(){
+  $("#main").empty();
+  $.get("/search", function(data) {
     $("#main").append(data);
   });
 })

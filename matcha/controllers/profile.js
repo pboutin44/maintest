@@ -192,7 +192,7 @@ console.log('It\'s saved!');
     // Insert some documents
     collection.updateOne(
         { "email" : req.session.email },
-        { $set: { "email" : req.param("email"), "sex" : req.param("sex"), "sexuality" : req.param("sexuality"), "pacinput" : req.param("pacinput"), "bio" : req.param("bio"), "tokenfield" : req.param("tokenfield"), "firstname" : req.param("firstname"), "surname" : req.param("surname")} }
+        { $set: { "email" : req.param("email"), "sex" : req.param("sex"), "age" : req.param("age"), "sexuality" : req.param("sexuality"), "pacinput" : req.param("pacinput"), "bio" : req.param("bio"), "tokenfield" : req.param("tokenfield"), "firstname" : req.param("firstname"), "surname" : req.param("surname")} }
      );
 
       res.send("ok");

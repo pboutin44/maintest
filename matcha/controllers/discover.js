@@ -50,6 +50,7 @@ router.get('/like_someone', function(req, res) {
       });
       collection.find(
         {email : req.query.email}).toArray(function(err, docs){
+
           if(docs.length == 0)
           {
             console.log(docs);
@@ -61,12 +62,15 @@ router.get('/like_someone', function(req, res) {
           else {
 
             //   alert("edokedk");
+          if(docs[0].liked.indexOf(req.session.email) != 0)
+          {
             collection.update({email : docs[0].email}, {
               $inc : {popularity : +1}
             });
             collection.update({email : docs[0].email}, {
               $addToSet:{liked : req.session.email}
             });
+          }
             // res.render('confirmation.ejs');
           }
         });
@@ -92,7 +96,7 @@ router.get('/all_profil', function(req, res) {
     collection.find().toArray(function(err, docs){
         //    var activate = docs.param("activate");
       //  docs.mine = req.session.email;
-        docs.push(req.session.email);
+        docs.push({mine : req.session.email});
         console.log("cratere");
         console.log(docs);
         console.log("cratere1");

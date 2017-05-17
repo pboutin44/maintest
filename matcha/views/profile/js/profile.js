@@ -61,6 +61,7 @@ $('#submit').click(function(){
   var pacinput = $("#pac-input").val();
   var bio = $("#bio").val();
   var tokenfield = $("#tokenfield").val();
+  var age = $("#age").val();
   var oki1 = $("#oki1").attr('src');
   var oki2 = $("#oki2").attr('src');
   var oki3 = $("#oki3").attr('src');
@@ -74,6 +75,7 @@ $('#submit').click(function(){
     sexuality: sexuality,
     pacinput: pacinput,
     bio: bio,
+    age: age,
     tokenfield: tokenfield,
     photo1: oki1,
     photo2: oki2,
@@ -116,6 +118,7 @@ $.ajax({
     $('#surname').val(code_html[0].surname);
     $('#email').val(code_html[0].email);
     $('#sex').val(code_html[0].sex);
+    $('#age').val(code_html[0].age);
     $('#sexuality').val(code_html[0].sexuality);
     $('#pac-input').val(code_html[0].pacinput);
     $('#bio').val(code_html[0].bio);

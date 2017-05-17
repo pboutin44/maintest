@@ -53,6 +53,9 @@ router.get('/information', function(req, res) {
           collection.update({email : email}, {
             $addToSet:{visit : req.session.email}
           });
+          collection.update({email : req.session.email}, {
+            $addToSet:{visitorof : email}
+          });
           res.send('ok');
           console.log("okok");
         }

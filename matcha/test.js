@@ -57,6 +57,7 @@ app.use('/', require('./controllers/register.js'));
 //app.use('/', require('./controllers/register.js'));
 app.use('/profile', require('./controllers/profile.js'));
 app.use('/visitor', require('./controllers/visitor.js'));
+app.use('/search', require('./controllers/search.js'));
 app.use('/chat', require('./controllers/chat.js'));
  app.use('/discover', require('./controllers/discover.js'));
  app.use('/likedyou', require('./controllers/likedyou.js'));
@@ -94,6 +95,23 @@ app.get('/testFile', function(req, res) {
 app.use('/confirmation', require('./controllers/confirm.js'))
   app.get('/email_send', function(req, res) {
     res.render('email_send.ejs');
+  });
+  app.get('/glocktest', function(req, res) {
+    var options = {
+  host: url,
+  port: 80,
+  path: 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=17th%20arrondissement,%2075017%20Paris,%20France&destinations=Paris,%20France&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg',
+  method: 'POST'
+};
+
+http.request(options, function(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+  res.setEncoding('utf8');
+  res.on('data', function (chunk) {
+    console.log('BODY: ' + chunk);
+  });
+}).end();
   });
   app.get('/sous-sol', function(req, res) {
     res.setHeader('Content-Type', 'text/plain');
@@ -240,7 +258,7 @@ app.use('/confirmation', require('./controllers/confirm.js'))
       var login = req.body.login;
       var firstname = req.body.firstname;
       var surname = req.body.surname;
-      var birthday = req.body.Birthday;
+      var age = req.body.age;
       var email = req.body.email;
       var password = req.body.password;
     //  var male = req.body.inputRadioGender;
@@ -265,14 +283,17 @@ app.use('/confirmation', require('./controllers/confirm.js'))
             if(docs.length == 0)
             {
               collection.insertMany([
-                {login : login, firstname : firstname, surname : surname, birthday : birthday, email : email, password : hash, token : token, activate : "0", popularity : tache}
+                {login : login, firstname : firstname, surname : surname, age : age, email : email, password : hash, token : token, activate : "0", popularity : tache}
               ]);
+              if (!fs.existsSync("./photos/"+email))
+              {
               fs.mkdirSync("./photos/"+email);
               fs.openSync("./photos/"+email+"/photo1.png", 'w');
               fs.openSync("./photos/"+email+"/photo2.png", 'w');
               fs.openSync("./photos/"+email+"/photo3.png", 'w');
               fs.openSync("./photos/"+email+"/photo4.png", 'w');
               fs.openSync("./photos/"+email+"/photo5.png", 'w');
+              }
               let transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {

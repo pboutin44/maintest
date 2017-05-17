@@ -79,8 +79,10 @@ $.ajax({
     $('#surname').html(code_html[0].surname);
     $('#email').html(code_html[0].email);
     $('#sex').html(code_html[0].sex);
+    $('#age').html(code_html[0].age);
     $('#sexuality').html(code_html[0].sexuality);
     $('#pac-input').html(code_html[0].pacinput);
+    $('#popularity').html(code_html[0].popularity);
     $('#bio').html(code_html[0].bio);
     $('#tokenfield').attr("value", code_html[0].tokenfield);
     if(code_html[0].tokenfield)

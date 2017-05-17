@@ -30,9 +30,9 @@ router.get('/signout', function(req, res) {
 
 router.get('/CurrentPosition', function(req, res) {
   console.log("Dino");
-  var first_position = req.query.results[2].formatted_address;
-  var second_position = first_position.split(",");
-  var final_position = second_position[0];
+  var first_position = req.query.results[1].formatted_address;
+//  var second_position = first_position.split(",");
+  var final_position = first_position;
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
