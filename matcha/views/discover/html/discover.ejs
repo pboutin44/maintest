@@ -1,16 +1,65 @@
-<!-- <div class="col-lg-3 col-md-6">
-  <div class="widget widget-shadow">
-    <div class="widget-header bg-green-600 padding-30 white">
-      <a class="avatar avatar-100 img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)">
-        <img src="../../../global/portraits/11.jpg" alt="">
-      </a>
-      <div class="vertical-align height-100 text-truncate">
-        <div class="vertical-align-middle">
-          <div class="font-size-20 margin-bottom-5 text-truncate">Gwendolyn Wheeler</div>
-          <div class="font-size-14 text-truncate">Adminnistrator</div>
+<link rel="stylesheet" href="/search/css/search.css">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group" id="adv-search">
+        <div class="form-group">
+          <!-- <label for="filter">Filter by</label> -->
+          <select class="form-control">
+            <option value="0" selected>sort by localisation</option>
+            <option value="1">sort by hobbies</option>
+            <option value="2">sort by popularity</option>
+            <option value="2">sort by age</option>
+          </select>
         </div>
+        <div class="input-group-btn">
+          <div class="btn-group" role="group">
+            <div class="dropdown dropdown-lg">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+              <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <form class="form-horizontal" role="form">
+                  <div for="filter">Filter by</div>
+                  <div class="form-group">
+                    <label for="filter" class="col-md-6 trn">age :</label>
+                    <input type="text" id="from" class="col-md-3" placeholder="From" "form-control"="" data-date-format="yyyy" name="from">
+                    <input type="text" id="to" class="col-md-3" placeholder="To" "form-control"="" data-date-format="yyyy" name="to">
+                  </div>
+                  <div class="form-group">
+                    <label for="filter" class="col-md-6 trn">popularity :</label>
+                    <input type="text" id="from" class="col-md-3" placeholder="From" "form-control"="" data-date-format="yyyy" name="from">
+                    <input type="text" id="to" class="col-md-3" placeholder="To" "form-control"="" data-date-format="yyyy" name="to">
+                  </div>
+                  <div class="form-group">
+                    <label for="filter" class="col-md-6 trn">number of commun tags :</label>
+                    <input type="text" id="from" class="col-md-6" placeholder="number" "form-control"="" data-date-format="yyyy" name="number">
+                  </div>
+                  <div class="form-group">
+                    <label for="filter" class="col-md-6 trn">location</label>
+                    <select style="display:inline-block" class="form-control">
+                      <option value="0" selected> no filter</option>
+                      <option value="1"> < 50 km </option>
+                      <option value="2">< 100 km </option>
+                      <option value="2">< 500 km </option>
+                    </select>
+                  </div>
+                  <!-- <div class="form-group col-md-6 col-xs-12 col-sm-6 col-lg-2 col-md-2 col-lg-4">
+                  <select style="display:inline-block" class="form-control">
+                  <option value="0" selected>sort by localisation</option>
+                  <option value="1">sort by hobbies</option>
+                  <option value="2">sort by popularity</option>
+                </select>
+              </div> -->
+
+              <!-- <button type="submit" class="btn btn-primary"><span class="site-menu-icon wb-search" aria-hidden="true"></span></button> -->
+            </form>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary"><span class="site-menu-icon wb-search" aria-hidden="true"></span></button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
+</div>
+</div>
+</div>
 <script src="/discover/js/discover.js"></script>
