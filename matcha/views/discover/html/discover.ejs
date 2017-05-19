@@ -5,7 +5,7 @@
       <div class="input-group" id="adv-search">
         <div class="form-group">
           <!-- <label for="filter">Filter by</label> -->
-          <select class="form-control">
+          <select id="sort" class="form-control">
             <option value="0" selected>sort by localisation</option>
             <option value="1">sort by hobbies</option>
             <option value="2">sort by popularity</option>
@@ -21,25 +21,25 @@
                   <div for="filter">Filter by</div>
                   <div class="form-group">
                     <label for="filter" class="col-md-6 trn">age :</label>
-                    <input type="text" id="from" class="col-md-3" placeholder="From" "form-control"="" data-date-format="yyyy" name="from">
-                    <input type="text" id="to" class="col-md-3" placeholder="To" "form-control"="" data-date-format="yyyy" name="to">
+                    <input type="text" id="age_from" class="col-md-3" placeholder="From" "form-control"="" data-date-format="yyyy" name="from">
+                    <input type="text" id="age_to" class="col-md-3" placeholder="To" "form-control"="" data-date-format="yyyy" name="to">
                   </div>
                   <div class="form-group">
                     <label for="filter" class="col-md-6 trn">popularity :</label>
-                    <input type="text" id="from" class="col-md-3" placeholder="From" "form-control"="" data-date-format="yyyy" name="from">
-                    <input type="text" id="to" class="col-md-3" placeholder="To" "form-control"="" data-date-format="yyyy" name="to">
+                    <input type="text" id="popularity_from" class="col-md-3" placeholder="From" "form-control"="" data-date-format="yyyy" name="from">
+                    <input type="text" id="popularity_to" class="col-md-3" placeholder="To" "form-control"="" data-date-format="yyyy" name="to">
                   </div>
                   <div class="form-group">
                     <label for="filter" class="col-md-6 trn">number of commun tags :</label>
-                    <input type="text" id="from" class="col-md-6" placeholder="number" "form-control"="" data-date-format="yyyy" name="number">
+                    <input type="text" id="tags" class="col-md-6" placeholder="number" "form-control"="" data-date-format="yyyy" name="number">
                   </div>
                   <div class="form-group">
                     <label for="filter" class="col-md-6 trn">location</label>
-                    <select style="display:inline-block" class="form-control">
+                    <select style="display:inline-block" id="location" class="form-control">
                       <option value="0" selected> no filter</option>
                       <option value="1"> < 50 km </option>
                       <option value="2">< 100 km </option>
-                      <option value="2">< 500 km </option>
+                      <option value="3">< 500 km </option>
                     </select>
                   </div>
                   <!-- <div class="form-group col-md-6 col-xs-12 col-sm-6 col-lg-2 col-md-2 col-lg-4">
@@ -54,12 +54,14 @@
             </form>
           </div>
         </div>
-        <button type="button" class="btn btn-primary"><span class="site-menu-icon wb-search" aria-hidden="true"></span></button>
+        <button id="submit" type="button" class="btn btn-primary"><span class="site-menu-icon wb-search" aria-hidden="true"></span></button>
       </div>
     </div>
   </div>
 </div>
 </div>
 </div>
+</div>
+<div id="main2">
 </div>
 <script src="/discover/js/discover.js"></script>
