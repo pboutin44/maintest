@@ -139,6 +139,8 @@ router.get('/tags', function(req, res) {
         j++;
       }
       j = 0;
+      if(docs[key].tokenfield)
+      {
       var table2 = docs[key].tokenfield.split(",");
       var table3 = [];
       console.log("2");
@@ -171,7 +173,7 @@ router.get('/tags', function(req, res) {
         docs[i]["ponderation"] = table3[i];
         i++;
       }
-
+}
       i = 0;
       //  console.log(docs);
       console.log("gourou");
@@ -248,7 +250,7 @@ router.get('/tags', function(req, res) {
                 return(a.distance - b.distance);
             }
             else {
-                    return(a.ponderation - b.ponderation);
+                    return(-(a.ponderation - b.ponderation));
             }
 
           })
@@ -299,6 +301,8 @@ router.get('/tags', function(req, res) {
           j++;
         }
         j = 0;
+        if(docs[key].tokenfield)
+        {
         var table2 = docs[key].tokenfield.split(",");
         var table3 = [];
         console.log("2");
@@ -331,7 +335,7 @@ router.get('/tags', function(req, res) {
           docs[i]["ponderation"] = table3[i];
           i++;
         }
-
+  }
         i = 0;
         //  console.log(docs);
         console.log("gourou");
@@ -460,6 +464,8 @@ router.get('/tags', function(req, res) {
           j++;
         }
         j = 0;
+        if(docs[key].tokenfield)
+        {
         var table2 = docs[key].tokenfield.split(",");
         var table3 = [];
         console.log("2");
@@ -492,7 +498,7 @@ router.get('/tags', function(req, res) {
           docs[i]["ponderation"] = table3[i];
           i++;
         }
-
+}
         i = 0;
         //  console.log(docs);
         console.log("gourou");
@@ -570,7 +576,7 @@ router.get('/tags', function(req, res) {
                   }
               }
               else {
-                      return(a.popularity - b.popularity);
+                      return(-(a.popularity - b.popularity));
               }
 
             })
@@ -612,6 +618,7 @@ router.get('/tags', function(req, res) {
           var key;
           var j = 0;
           console.log("1");
+
           while(j < docs.length)
           {
             if(docs[j].email == req.session.email)
@@ -621,6 +628,8 @@ router.get('/tags', function(req, res) {
             j++;
           }
           j = 0;
+          if(docs[key].tokenfield)
+          {
           var table2 = docs[key].tokenfield.split(",");
           var table3 = [];
           console.log("2");
@@ -653,7 +662,7 @@ router.get('/tags', function(req, res) {
             docs[i]["ponderation"] = table3[i];
             i++;
           }
-
+}
           i = 0;
           //  console.log(docs);
           console.log("gourou");
@@ -720,18 +729,18 @@ router.get('/tags', function(req, res) {
               }
               console.log(docs);
               docs.sort(function (a, b){
-                if (a.popularity == b.popularity)
+                if (a.age == b.age)
                 {
-                    if(a.distance == b.distance)
+                    if(a.location == b.location)
                     {
                       return(a.ponderation - b.ponderation);
                     }
                     else {
-                      return(a.distance - b.distance);
+                      return(a.location - b.location);
                     }
                 }
                 else {
-                        return(a.popularity - b.popularity);
+                        return(a.age - b.age);
                 }
 
               })

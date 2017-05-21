@@ -301,13 +301,36 @@
 // 	for (var n = 0; n < arr.length; n++)
 // 		eval(arr[n].innerHTML);
 // }
-
+console.log("tibolepaf");
 var socket = io.connect('http://localhost:8080');
 socket.on('connect', function(data) {
+  $.ajax({
+    url : 'main/connection',
+    type : 'GET',
+    success : function(code_html, statut){
+    //  console.log("ralatif");
+    //  console.log(code_html);
+    }
+  });
+
   socket.emit('join', 'Hello World from client');
   //  socket.on('pierromoutarde', function(data) {
   //  socket.emit('join', 'Hello World from client');
+  console.log("taratata");
   socket.on('toto', function(data) { alert();});
+  socket.on('disconnect', function(){
+    $.ajax({
+      url : 'main/disconnection',
+      type : 'GET',
+      success : function(code_html, statut){
+      //  console.log("ralatif");
+      //  console.log(code_html);
+      socket.disconnect();
+      }
+    });
+  //  socket.disconnect();
+    console.log('user disconnected');
+  });
 
   //  alert();
 

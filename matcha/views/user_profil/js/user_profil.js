@@ -34,6 +34,7 @@ $.ajax({
   //  console.log(code_html);
   //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
   },
+
   error : function(resultat, erreur){
     console.log("pierromoutarde", resultat.responseText, erreur);
   },
@@ -74,6 +75,9 @@ $.ajax({
 
     console.log("toktok");
     console.log(code_html);
+    $("#like").attr("onclick", "like("+code_html[0].email+");")
+    $("#chat").attr("onclick", "chat("+code_html[0].email+");")
+    $("#report").attr("onclick", "report('"+code_html[0].email+"');")
     $('.profile-user').append(code_html[0].surname+"  "+code_html[0].firstname);
     $('#firstname').html(code_html[0].firstname);
     $('#surname').html(code_html[0].surname);
@@ -84,6 +88,7 @@ $.ajax({
     $('#pac-input').html(code_html[0].pacinput);
     $('#popularity').html(code_html[0].popularity);
     $('#bio').html(code_html[0].bio);
+    $('#LastConnection').html(code_html[0].connection);
     $('#tokenfield').attr("value", code_html[0].tokenfield);
     if(code_html[0].tokenfield)
     {
@@ -139,6 +144,74 @@ $.ajax({
 
   },
 });
+function like(email){
+
+  $.ajax({
+    url : '/discover/like_someone',
+    type : 'GET',
+    data : {'email' : email},
+    success : function(code_html, statut){
+      console.log("toktok");
+      console.log(code_html);
+    }
+  })
+
+
+}
+function Chat(email){
+  $("#main").empty();
+  // $.get("/user_profil", function(data) {
+  //   $("#main").append(data);
+  $.ajax({
+    url : "/chat",
+    type : 'GET',
+    data : {'email' : email},
+    success : function(code_html, statut){
+      console.log("requin");
+      console.log(code_html);
+      console.log("requin2");
+      $("#main").append(code_html);
+      //console.log(code_html);
+    }
+  })
+}
+
+function report(email){
+//  $("#main").empty();
+  // $.get("/user_profil", function(data) {
+  //   $("#main").append(data);
+  $.ajax({
+    url : "/user_profil/report",
+    type : 'GET',
+    data : {'email' : email},
+    success : function(code_html, statut){
+      // console.log("requin");
+      // console.log(code_html);
+       console.log("requin2");
+      // $("#main").append(code_html);
+      //console.log(code_html);
+    }
+  })
+}
+
+$.ajax({
+  url : '/user_profil/maintips',
+  type : 'GET',
+  success : function(code_html, statut){
+    console.log("verifcotcah");
+    console.log(code_html[0].flag);
+    if(code_html[0].flag == 1)
+    {
+      $("#like").remove();
+      $("#chat").remove();
+    }
+  //  console.log($('#oki1').attr('src'));
+  //  console.log("/"+code_html[0].email+"/photo1.png");
+
+//    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
+  }
+})
+
 
 // function initMap() {
 //   var input = document.getElementById('pac-input');

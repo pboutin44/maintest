@@ -64,6 +64,108 @@ router.get('/CurrentPosition', function(req, res) {
 
 });
 
+router.get('/connection', function(req, res) {
+  console.log("Dino");
+//  var first_position = req.query.results[1].formatted_address;
+//  var second_position = first_position.split(",");
+//  var final_position = first_position;
+  var now = new Date();
+  var annee   = now.getFullYear();
+  var mois    = now.getMonth() + 1;
+  var jour    = now.getDate();
+  var heure   = now.getHours();
+  var minute  = now.getMinutes();
+  var seconde = now.getSeconds();
+  var date = jour+"/"+mois+"/"+annee+"/"+heure+"h"+minute+"m"+seconde+"s";
+  console.log("lafeteabamaco");
+  console.log(date);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    // Get the documents collection
+    var collection = db.collection('clients');
+    // Insert some documents
+    var email = req.session.email;
+    collection.find(
+      {email : req.session.email}).toArray(function(err, docs){
+        //    var activate = docs.param("activate");
+        console.log(docs);
+          console.log("nectare");
+        if(docs.length > 0 && docs[0].activate == 1)
+        {
+          console.log("nectare2");
+          collection.update({email : email}, {
+            $set:{connection : "enligne"}
+          });
+        }
+        else {
+          res.render('login.ejs');
+        }
+      });
+      //  res.render('mainpage.ejs');
+    //  db.close();
+    });
+  console.log("Dino3");
+  res.send("ok");
+
+});
+
+router.get('/disconnection', function(req, res) {
+  console.log("Dino");
+//  var first_position = req.query.results[1].formatted_address;
+//  var second_position = first_position.split(",");
+//  var final_position = first_position;
+  var now = new Date();
+  var annee   = now.getFullYear();
+  var mois    = now.getMonth() + 1;
+  var jour    = now.getDate();
+  var heure   = now.getHours();
+  var minute  = now.getMinutes();
+  var seconde = now.getSeconds();
+  var date = jour+"/"+mois+"/"+annee+"/"+heure+"h"+minute+"m"+seconde+"s";
+  console.log("lafeteabamaco");
+  console.log(date);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    // Get the documents collection
+    var collection = db.collection('clients');
+    // Insert some documents
+    var email = req.session.email;
+    collection.find(
+      {email : req.session.email}).toArray(function(err, docs){
+        //    var activate = docs.param("activate");
+        console.log(docs);
+          console.log("nectare");
+        if(docs.length > 0 && docs[0].activate == 1)
+        {
+          console.log("nectare2");
+          collection.update({email : email}, {
+            $set:{connection : date}
+          });
+        }
+        else {
+          res.render('login.ejs');
+        }
+      });
+      //  res.render('mainpage.ejs');
+    //  db.close();
+    });
+  console.log("Dino3");
+  res.send("ok");
+
+});
+
+
+
+
+
+
+
+
+
+
+
 router.get('/popularity', function(req, res) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);

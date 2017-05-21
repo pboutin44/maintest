@@ -162,26 +162,60 @@ router.post('/stock', function(req, res) {
   var base64Data3 = req.param("photo3").replace(/^data:image\/png;base64,/, "");
   var base64Data4 = req.param("photo4").replace(/^data:image\/png;base64,/, "");
   var base64Data5 = req.param("photo5").replace(/^data:image\/png;base64,/, "");
+  console.log(req.param("photo2"));
+  console.log("laterrevaexploser");
+
+if(req.param("photo1") == '/global/photos/placeholder.png')
+{
+  fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+req.session.email+"/photo1.png"));
+}
+else {
   fs.writeFile('photos/'+req.session.email+'/photo1.png', base64Data1, 'base64', function (err) {
   if (err) throw err;
   console.log('It\'s saved!');
 });
+}
+if(req.param("photo2") == '/global/photos/placeholder.png')
+{
+  fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+req.session.email+"/photo2.png"));
+}
+else {
 fs.writeFile('photos/'+req.session.email+'/photo2.png', base64Data2, 'base64', function (err) {
 if (err) throw err;
 console.log('It\'s saved!');
 });
+}
+if(req.param("photo3") == '/global/photos/placeholder.png')
+{
+  fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+req.session.email+"/photo3.png"));
+}
+else {
 fs.writeFile('photos/'+req.session.email+'/photo3.png', base64Data3, 'base64', function (err) {
 if (err) throw err;
 console.log('It\'s saved!');
 });
+}
+
+if(req.param("photo4") == '/global/photos/placeholder.png')
+{
+  fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+req.session.email+"/photo4.png"));
+}
+else {
 fs.writeFile('photos/'+req.session.email+'/photo4.png', base64Data4, 'base64', function (err) {
 if (err) throw err;
 console.log('It\'s saved!');
 });
+}
+if(req.param("photo5") == '/global/photos/placeholder.png')
+{
+  fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+req.session.email+"/photo5.png"));
+}
+else {
 fs.writeFile('photos/'+req.session.email+'/photo5.png', base64Data5, 'base64', function (err) {
 if (err) throw err;
 console.log('It\'s saved!');
 });
+}
 
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);

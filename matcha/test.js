@@ -71,6 +71,45 @@ io.on('connection', function (socket) {
   socket.on('join', function(fref){ console.log("dit bonjour");
   socket.broadcast.emit('toto', { receivers: 'everyone but socket'});
 });
+socket.on('disconnect', function(){
+  // var now = new Date();
+  // var annee   = now.getFullYear();
+  // var mois    = now.getMonth() + 1;
+  // var jour    = now.getDate();
+  // var heure   = now.getHours();
+  // var minute  = now.getMinutes();
+  // var seconde = now.getSeconds();
+  // var date = jour+"/"+mois+"/"+annee+"/"+heure+"h"+minute+"m"+seconde+"s";
+  // console.log("lafeteabamaco");
+  // console.log(date);
+  // MongoClient.connect(url, function(err, db) {
+  //   assert.equal(null, err);
+  //   console.log("Connected successfully to server");
+  //   // Get the documents collection
+  //   var collection = db.collection('clients');
+  //   // Insert some documents
+  //   var email = req.session.email;
+  //   collection.find(
+  //     {email : req.session.email}).toArray(function(err, docs){
+  //       //    var activate = docs.param("activate");
+  //       console.log(docs);
+  //         console.log("nectare");
+  //       if(docs.length > 0 && docs[0].activate == 1)
+  //       {
+  //         console.log("nectare2");
+  //         collection.update({email : email}, {
+  //           $set:{connection : date}
+  //         });
+  //       }
+  //     });
+  //     //  res.render('mainpage.ejs');
+  //   //  db.close();
+  //   });
+  // console.log("Dino3");
+        console.log('user disconnected');
+    });
+socket.on('disco', function(fref){ console.log("a plus +++++++++++++++")
+});
 //  io.emit('pierromoutarde', {"pierre": "moutarde"});
   console.log('Un client est connecté !');
 });
@@ -283,16 +322,25 @@ http.request(options, function(res) {
             if(docs.length == 0)
             {
               collection.insertMany([
-                {login : login, firstname : firstname, surname : surname, age : age, email : email, password : hash, token : token, activate : "0", popularity : tache}
+                {login : login, firstname : firstname, surname : surname, age : age, email : email, password : hash, token : token, activate : "0", popularity : tache, connection : "0"}
               ]);
               if (!fs.existsSync("./photos/"+email))
               {
               fs.mkdirSync("./photos/"+email);
               fs.openSync("./photos/"+email+"/photo1.png", 'w');
+//               fs.copy( "./global/photos/placeholder.png" , "./photos/"+email+"/photo1.png", err => {
+//   if (err) return console.error(err)
+//   console.log('success!')
+// });
+              fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+email+"/photo1.png"));
               fs.openSync("./photos/"+email+"/photo2.png", 'w');
+              fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+email+"/photo2.png"));
               fs.openSync("./photos/"+email+"/photo3.png", 'w');
+              fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+email+"/photo3.png"));
               fs.openSync("./photos/"+email+"/photo4.png", 'w');
+              fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+email+"/photo4.png"));
               fs.openSync("./photos/"+email+"/photo5.png", 'w');
+              fs.createReadStream("./global/photos/placeholder.png").pipe(fs.createWriteStream("./photos/"+email+"/photo5.png"));
               }
               let transporter = nodemailer.createTransport({
                 service: 'gmail',
