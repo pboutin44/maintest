@@ -381,8 +381,13 @@ router.get('/tags', function(req, res) {
                 else
                 {
                   var p = new Promise((resolve, reject) => {
+                    console.log('helpbis');
+                    console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg');
                     request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                       body1 = JSON.parse(body1);
+                      console.log("help1");
+                      console.log(body1.rows[0].elements[0].distance);
+                      console.log("help2");
                       resolve(body1.rows[0].elements[0].distance.value);  });
                     });
                     table.push(p);

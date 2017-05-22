@@ -23,24 +23,49 @@ $.ajax({
   },
 });
 function previewFile() {
+  console.log("cesarmillan");
   var file    = document.querySelector('input[type=file]').files[0];
   var reader  = new FileReader();
   reader.addEventListener("load", function () {
-    //    preview1.src = reader.result;
-    var i = 1;
-    while(i < 6)
-    {
-      console.log(document.querySelector('#oki'+i).src);
-      if (document.querySelector('#oki'+i).src == "http://localhost:8080/global/photos/placeholder.png")
-      {
-        console.log("oulala");
-        document.querySelector('#oki'+i).src = reader.result;
-        i = 5;
+  //  preview1.src = reader.result;
+  var i = 1;
+  //  while(i < 6)
+  //  {
+  $.ajax({
+    url : '/profile/findplace',
+    type : 'POST',
+    success : function(code_html, statut){
+      console.log("success");
+      console.log(code_html);
+      var k = -1;
+      var j = 0;
+      var flag = 0;
+      while (j < 6) {
+        if (code_html[j] == 1 && flag == 0)
+        {
+          console.log("bagnole");
+          console.log(j);
+          flag = 1;
+          k = j;
+        }
+        j++;
       }
-      i++;
+      if(k == -1)
+      {
+        k = 1;
+      }
+      else {
+        k++;
+      }
+      console.log("naruto");
+      console.log(k);
+      console.log(document.querySelector('#oki'+i).src);
+    //  if (document.querySelector('#oki'+i).src == "http://localhost:8080/global/photos/placeholder.png")
+    //  {
+        console.log("oulala");
+        document.querySelector('#oki'+k).src = reader.result;
     }
-    //  preview1.src = reader.result;
-    //  $.post('/ya', {'image' : preview.src});
+    })
   }, false);
 
   if (file) {
@@ -139,31 +164,31 @@ $.ajax({
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo3))));
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo4))));
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo5))));
-    if(btoa(unescape(encodeURIComponent(code_html[0].photo1))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+  //  if(btoa(unescape(encodeURIComponent(code_html[0].photo1))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
       $('#oki1').attr('src', "/"+code_html[0].email+"/photo1.png");
-    else {
-      $('#oki1').attr('src', "/global/photos/placeholder.png");
-    }
-    if(btoa(unescape(encodeURIComponent(code_html[0].photo2))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+    // else {
+    //   $('#oki1').attr('src', "/global/photos/placeholder.png");
+    // }
+    // if(btoa(unescape(encodeURIComponent(code_html[0].photo2))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
       $('#oki2').attr('src', "/"+code_html[0].email+"/photo2.png");
-      else {
-        $('#oki2').attr('src', "/global/photos/placeholder.png");
-      }
-    if(btoa(unescape(encodeURIComponent(code_html[0].photo3))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      // else {
+        // $('#oki2').attr('src', "/global/photos/placeholder.png");
+      // }
+    // if(btoa(unescape(encodeURIComponent(code_html[0].photo3))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
       $('#oki3').attr('src', "/"+code_html[0].email+"/photo3.png");
-      else {
-        $('#oki3').attr('src', "/global/photos/placeholder.png");
-      }
-    if(btoa(unescape(encodeURIComponent(code_html[0].photo4))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      // else {
+        // $('#oki3').attr('src', "/global/photos/placeholder.png");
+      // }
+    // if(btoa(unescape(encodeURIComponent(code_html[0].photo4))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
       $('#oki4').attr('src', "/"+code_html[0].email+"/photo4.png");
-      else {
-        $('#oki4').attr('src', "/global/photos/placeholder.png");
-      }
-    if(btoa(unescape(encodeURIComponent(code_html[0].photo5))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
+      // else {
+        // $('#oki4').attr('src', "/global/photos/placeholder.png");
+      // }
+    // if(btoa(unescape(encodeURIComponent(code_html[0].photo5))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
       $('#oki5').attr('src', "/"+code_html[0].email+"/photo5.png");
-      else {
-        $('#oki5').attr('src', "/global/photos/placeholder.png");
-      }
+      // else {
+        // $('#oki5').attr('src', "/global/photos/placeholder.png");
+      // }
     // console.log("debeug1"+code_html[0].photo1);
     // console.log(code_html[0].photo2);
     // console.log(code_html[0].photo3);

@@ -13,6 +13,17 @@ $.ajax({
     console.log("toktok");
     console.log(code_html);
     console.log(code_html.mine);
+    var k = 0;
+    for(var j= 0; j < code_html.length - 1; j++)
+    {
+      if(code_html[j].email == code_html[code_html.length - 1].mine)
+      {
+        k = j;
+      }
+    }
+    console.log("petit_peter");
+    console.log(typeof(code_html[k]));
+    console.log(code_html[k]);
     for(var i= 0; i < code_html.length - 1; i++)
     {
 
@@ -35,9 +46,12 @@ $.ajax({
       console.log($("#tags").val());
       console.log($("#location").val());
       console.log("tonnerre2");
-      if(code_html[i].email != code_html[code_html.length - 1].mine)
+      console.log(code_html[k].block);
+      console.log(code_html[i].email);
+      console.log(code_html[k].block.indexOf(code_html[i].email));
+      if(code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
       {
-        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div><button type="button" id="id" onclick="like(`'+code_html[i].email+'`);" class="btn btn-outline">Like</button>  <button type="button" id="id" onclick="Chat(`'+code_html[i].email+'`);" class="btn btn-outline">Chat</button></div></div></div>');
+        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
       }
     }
   },
@@ -50,6 +64,18 @@ function filter(code_html){
   console.log("toktok");
   console.log(code_html);
   console.log(code_html.mine);
+  var k = 0;
+  for(var j= 0; j < code_html.length - 1; j++)
+  {
+    if(code_html[j].email == code_html[code_html.length - 1].mine)
+    {
+      k = j;
+    }
+  }
+  console.log("grand_peter");
+  console.log(typeof(code_html[k]));
+  console.log(code_html[k]);
+
   for(var i= 0; i < code_html.length - 1; i++)
   {
 
@@ -131,9 +157,9 @@ function filter(code_html){
     console.log(code_html[i].distance);
     console.log(location);
     console.log($("#location").val());
-    if(code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to)
+    if(code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
     {
-      $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div><button type="button" id="id" onclick="like(`'+code_html[i].email+'`);" class="btn btn-outline">Like</button>  <button type="button" id="id" onclick="Chat(`'+code_html[i].email+'`);" class="btn btn-outline">Chat</button></div></div></div>');
+      $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
     }
   }
 

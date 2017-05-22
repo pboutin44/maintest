@@ -77,7 +77,8 @@ $.ajax({
     console.log(code_html);
     $("#like").attr("onclick", "like("+code_html[0].email+");")
     $("#chat").attr("onclick", "chat("+code_html[0].email+");")
-    $("#report").attr("onclick", "report('"+code_html[0].email+"');")
+    $("#report").attr("onclick", "report("+code_html[0].email+");")
+    $("#blocker").attr("onclick", "block('"+code_html[0].email+"');")
     $('.profile-user').append(code_html[0].surname+"  "+code_html[0].firstname);
     $('#firstname').html(code_html[0].firstname);
     $('#surname').html(code_html[0].surname);
@@ -193,6 +194,24 @@ function report(email){
     }
   })
 }
+function block(email){
+//  $("#main").empty();
+  // $.get("/user_profil", function(data) {
+  //   $("#main").append(data);
+  $.ajax({
+    url : "/user_profil/block",
+    type : 'GET',
+    data : {'email' : email},
+    success : function(code_html, statut){
+      // console.log("requin");
+      // console.log(code_html);
+       console.log("requin2");
+      // $("#main").append(code_html);
+      //console.log(code_html);
+    }
+  })
+}
+
 
 $.ajax({
   url : '/user_profil/maintips',
@@ -205,6 +224,12 @@ $.ajax({
       $("#like").remove();
       $("#chat").remove();
     }
+    var email = $('#email').html();
+    if(code_html[0].like.indexOf(email) == -1 || code_html[0].liked.indexOf(email) == -1)
+    {
+      $("#chat").remove();
+    }
+
   //  console.log($('#oki1').attr('src'));
   //  console.log("/"+code_html[0].email+"/photo1.png");
 
