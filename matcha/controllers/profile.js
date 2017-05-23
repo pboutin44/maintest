@@ -137,6 +137,22 @@ router.get('/dodo2', function(req, res) {
           docs[0].photo3 = photo3;
           docs[0].photo4 = photo4;
           docs[0].photo5 = photo5;
+          console.log("joshoua");
+    //      console.log(docs[0]);
+          if(docs[0].like.indexOf(req.session.email) != -1 &&  docs[0].liked.indexOf(req.session.email) != -1)
+          {
+            docs[0]["match"] = 1;
+          }
+          else if(docs[0].like.indexOf(req.session.email) == -1 &&  docs[0].liked.indexOf(req.session.email) != -1){
+            docs[0]["match"] = 2;
+          }
+          else if(docs[0].like.indexOf(req.session.email) == -1 &&  docs[0].liked.indexOf(req.session.email) == -1){
+            docs[0]["match"] = 3;
+          }
+          else if(docs[0].like.indexOf(req.session.email) != -1 &&  docs[0].liked.indexOf(req.session.email) == -1){
+            docs[0]["match"] = 4;
+          }
+          console.log(docs[0]);
           res.send(docs);
           console.log("c'estgood");
           //      console.log(docs);
@@ -144,7 +160,7 @@ router.get('/dodo2', function(req, res) {
         }
       });
 
-
+      console.log("gourifob");
       console.log("okokok");
       //db.close();
     });

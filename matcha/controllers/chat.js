@@ -22,4 +22,12 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/basic', function(req, res) {
+  console.log("latable");
+  //console.log(req.session.email);
+  //console.log(req.query.email);
+  //var someData = { message: 'hi' };
+  res.send(req.session.email);
+});
+
 module.exports = router;

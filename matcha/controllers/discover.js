@@ -21,6 +21,78 @@ router.get('/', function(req, res) {
   res.render("discover/html/discover.ejs");
 });
 
+
+router.get('/unlike', function(req, res) {
+  console.log("lachine");
+  console.log(req.session.email);
+  //console.log(req.params);
+  console.log(req.query.email);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    // Get the documents collection
+    var collection = db.collection('clients');
+    // Insert some documents
+    collection.find(
+      {email : req.session.email}).toArray(function(err, docs){
+        if(docs.length == 0)
+        {
+          // console.log(docs);
+          // console.log(email);
+          // console.log(token);
+          console.log("coco")
+          res.render('register.ejs');
+        }
+        else {
+
+          //   alert("edokedk");
+          collection.update({email : docs[0].email}, {
+            $pull:{like : req.query.email}
+          });
+          // res.render('confirmation.ejs');
+        }
+      });
+      collection.find(
+        {email : req.query.email}).toArray(function(err, docs){
+
+          if(docs.length == 0)
+          {
+            console.log(docs);
+            console.log(email);
+            console.log(token);
+            console.log("coco")
+            res.render('register.ejs');
+          }
+          else {
+
+          //  console.log(docs[0]);
+            collection.update({email : docs[0].email}, {
+              $pull:{liked : req.session.email}
+            });
+          // if(docs[0].liked.indexOf(req.session.email) != 0)
+          // {
+            collection.update({email : docs[0].email}, {
+              $inc : {popularity : -1}
+            });
+
+          // }
+            // res.render('confirmation.ejs');
+          }
+        });
+
+
+      console.log("okokok");
+      res.send('send');
+      //db.close();
+    });
+  // console.log("petard");
+  // console.log(req.session.email);
+  // res.render("discover/html/discover.ejs");
+});
+
+
+
+
 router.get('/like_someone', function(req, res) {
   console.log("letourisme");
   console.log(req.session.email);
@@ -79,7 +151,7 @@ router.get('/like_someone', function(req, res) {
           }
         });
 
-
+      res.send('send');
       console.log("okokok");
       //db.close();
     });
@@ -186,7 +258,9 @@ router.get('/tags', function(req, res) {
           if(docs[i].pacinput)
           {
             var p = new Promise((resolve, reject) => {
-              request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+              var pos1 = encodeURIComponent(docs[i].pacinput);
+              var pos2 = encodeURIComponent(docs[key].pacinput);
+              request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                 body1 = JSON.parse(body1);
                 resolve(body1.rows[0].elements[0].distance.value);  });
               });
@@ -196,7 +270,9 @@ router.get('/tags', function(req, res) {
             {
               var p = new Promise((resolve, reject) => {
             //    console.log(docs[i].CurrentPosition+"          "+docs[key].pacinput);
-                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+            var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+            var pos2 = encodeURIComponent(docs[key].pacinput);
+                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                   body1 = JSON.parse(body1);
                   //console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg');
                   console.log(body1);
@@ -210,7 +286,9 @@ router.get('/tags', function(req, res) {
             if(docs[i].pacinput)
             {
               var p = new Promise((resolve, reject) => {
-                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                var pos1 = encodeURIComponent(docs[i].pacinput);
+                var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                   body1 = JSON.parse(body1);
                   resolve(body1.rows[0].elements[0].distance.value);  });
                 });
@@ -219,7 +297,9 @@ router.get('/tags', function(req, res) {
               else
               {
                 var p = new Promise((resolve, reject) => {
-                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                  var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                  var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                     body1 = JSON.parse(body1);
                     resolve(body1.rows[0].elements[0].distance.value);  });
                   });
@@ -348,7 +428,9 @@ router.get('/tags', function(req, res) {
             if(docs[i].pacinput)
             {
               var p = new Promise((resolve, reject) => {
-                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                var pos1 = encodeURIComponent(docs[i].pacinput);
+                var pos2 = encodeURIComponent(docs[key].pacinput);
+                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                   body1 = JSON.parse(body1);
                   resolve(body1.rows[0].elements[0].distance.value);  });
                 });
@@ -358,7 +440,9 @@ router.get('/tags', function(req, res) {
               {
                 var p = new Promise((resolve, reject) => {
               //    console.log(docs[i].CurrentPosition+"          "+docs[key].pacinput);
-                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                  var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                  var pos2 = encodeURIComponent(docs[key].pacinput);
+                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                     body1 = JSON.parse(body1);
                     //console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg');
                     console.log(body1);
@@ -372,7 +456,9 @@ router.get('/tags', function(req, res) {
               if(docs[i].pacinput)
               {
                 var p = new Promise((resolve, reject) => {
-                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                  var pos1 = encodeURIComponent(docs[i].pacinput);
+                  var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                     body1 = JSON.parse(body1);
                     resolve(body1.rows[0].elements[0].distance.value);  });
                   });
@@ -383,10 +469,13 @@ router.get('/tags', function(req, res) {
                   var p = new Promise((resolve, reject) => {
                     console.log('helpbis');
                     console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg');
-                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                    var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                    var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins="'+pos1+'"&destinations="'+pos2+'"&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                       body1 = JSON.parse(body1);
                       console.log("help1");
-                      console.log(body1.rows[0].elements[0].distance);
+                      console.log(body1);
+                      console.log(body1.status);
                       console.log("help2");
                       resolve(body1.rows[0].elements[0].distance.value);  });
                     });
@@ -516,7 +605,9 @@ router.get('/tags', function(req, res) {
             if(docs[i].pacinput)
             {
               var p = new Promise((resolve, reject) => {
-                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                var pos1 = encodeURIComponent(docs[i].pacinput);
+                var pos2 = encodeURIComponent(docs[key].packinput);
+                request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                   body1 = JSON.parse(body1);
                   resolve(body1.rows[0].elements[0].distance.value);  });
                 });
@@ -526,7 +617,9 @@ router.get('/tags', function(req, res) {
               {
                 var p = new Promise((resolve, reject) => {
               //    console.log(docs[i].CurrentPosition+"          "+docs[key].pacinput);
-                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                  var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                  var pos2 = encodeURIComponent(docs[key].packinput);
+                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                     body1 = JSON.parse(body1);
                     //console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg');
                     console.log(body1);
@@ -540,7 +633,9 @@ router.get('/tags', function(req, res) {
               if(docs[i].pacinput)
               {
                 var p = new Promise((resolve, reject) => {
-                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                  var pos1 = encodeURIComponent(docs[i].pacinput);
+                  var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                     body1 = JSON.parse(body1);
                     resolve(body1.rows[0].elements[0].distance.value);  });
                   });
@@ -549,7 +644,9 @@ router.get('/tags', function(req, res) {
                 else
                 {
                   var p = new Promise((resolve, reject) => {
-                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                    var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                    var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                       body1 = JSON.parse(body1);
                       resolve(body1.rows[0].elements[0].distance.value);  });
                     });
@@ -680,7 +777,9 @@ router.get('/tags', function(req, res) {
               if(docs[i].pacinput)
               {
                 var p = new Promise((resolve, reject) => {
-                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                  var pos1 = encodeURIComponent(docs[i].pacinput);
+                  var pos2 = encodeURIComponent(docs[key].pacinput);
+                  request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                     body1 = JSON.parse(body1);
                     resolve(body1.rows[0].elements[0].distance.value);  });
                   });
@@ -690,7 +789,9 @@ router.get('/tags', function(req, res) {
                 {
                   var p = new Promise((resolve, reject) => {
                 //    console.log(docs[i].CurrentPosition+"          "+docs[key].pacinput);
-                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                    var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                    var pos2 = encodeURIComponent(docs[key].pacinput);
+                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                       body1 = JSON.parse(body1);
                       //console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].pacinput+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg');
                       console.log(body1);
@@ -704,7 +805,9 @@ router.get('/tags', function(req, res) {
                 if(docs[i].pacinput)
                 {
                   var p = new Promise((resolve, reject) => {
-                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].pacinput+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                    var pos1 = encodeURIComponent(docs[i].pacinput);
+                    var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                    request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                       body1 = JSON.parse(body1);
                       resolve(body1.rows[0].elements[0].distance.value);  });
                     });
@@ -713,7 +816,9 @@ router.get('/tags', function(req, res) {
                   else
                   {
                     var p = new Promise((resolve, reject) => {
-                      request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+docs[i].CurrentPosition+'&destinations='+docs[key].CurrentPosition+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
+                      var pos1 = encodeURIComponent(docs[i].CurrentPosition);
+                      var pos2 = encodeURIComponent(docs[key].CurrentPosition);
+                      request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                         body1 = JSON.parse(body1);
                         resolve(body1.rows[0].elements[0].distance.value);  });
                       });

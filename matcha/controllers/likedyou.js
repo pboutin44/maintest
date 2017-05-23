@@ -66,7 +66,7 @@ router.get('/like_someone', function(req, res) {
           }
         });
 
-
+      
       console.log("okokok");
       //db.close();
     });

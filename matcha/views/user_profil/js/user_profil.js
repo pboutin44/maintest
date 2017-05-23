@@ -15,10 +15,10 @@ $.ajax({
   data : {email : email},
   success : function(code_html, statut){
     console.log("toktok");
-  //   $("#profile-photo").attr('src', "/"+code_html.email+"/photo1.png")
-  // //  console.log(code_html);
-  // //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
-   },
+    //   $("#profile-photo").attr('src', "/"+code_html.email+"/photo1.png")
+    // //  console.log(code_html);
+    // //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
+  },
   error : function(resultat, erreur){
     console.log("pierromoutarde", resultat.responseText, erreur);
   },
@@ -31,8 +31,8 @@ $.ajax({
   success : function(code_html, statut){
     console.log("toktok");
     $("#profile-photo").attr('src', "/"+$('#email').html()+"/photo1.png")
-  //  console.log(code_html);
-  //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
+    //  console.log(code_html);
+    //  $("#profile-photo").attr('src', '/'+email+'/photo1.png');
   },
 
   error : function(resultat, erreur){
@@ -75,9 +75,20 @@ $.ajax({
 
     console.log("toktok");
     console.log(code_html);
-    $("#like").attr("onclick", "like("+code_html[0].email+");")
-    $("#chat").attr("onclick", "chat("+code_html[0].email+");")
-    $("#report").attr("onclick", "report("+code_html[0].email+");")
+    if(code_html[0].match == 3 || code_html[0].match == 4)
+    {
+      $("#like").attr("onclick", "like('"+code_html[0].email+"');")
+    }
+    else {
+      $("#like").attr("style", "color: red;")
+      $("#unlike").attr("onclick", "unlike('"+code_html[0].email+"');")
+    }
+    if(code_html[0].match == 1)
+    {
+      $("#like").attr("class", "btn-warning");
+    }
+    $("#chat").attr("onclick", "chat('"+code_html[0].email+"');")
+    $("#report").attr("onclick", "report('"+code_html[0].email+"');")
     $("#blocker").attr("onclick", "block('"+code_html[0].email+"');")
     $('.profile-user').append(code_html[0].surname+"  "+code_html[0].firstname);
     $('#firstname').html(code_html[0].firstname);
@@ -94,13 +105,13 @@ $.ajax({
     if(code_html[0].tokenfield)
     {
       var tab = code_html[0].tokenfield.split(",");
-  //  console.log("tableau :"+ tab[0]);
-    //  $('#tokenfield').tokenfield('createToken', 'purple');
-    for(var i= 0; i < tab.length; i++)
-    {
-      $('#tokenfield').tokenfield('createToken', tab[i]);
+      //  console.log("tableau :"+ tab[0]);
+      //  $('#tokenfield').tokenfield('createToken', 'purple');
+      for(var i= 0; i < tab.length; i++)
+      {
+        $('#tokenfield').tokenfield('createToken', tab[i]);
+      }
     }
-  }
     console.log("tata");
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo1))));
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo2))));
@@ -108,30 +119,30 @@ $.ajax({
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo4))));
     // console.log(btoa(unescape(encodeURIComponent(code_html[0].photo5))));
     if(btoa(unescape(encodeURIComponent(code_html[0].photo1))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
-      $('#oki1').attr('src', "/"+code_html[0].email+"/photo1.png");
+    $('#oki1').attr('src', "/"+code_html[0].email+"/photo1.png");
     else {
       $('#oki1').attr('src', "/global/photos/placeholder.png");
     }
     if(btoa(unescape(encodeURIComponent(code_html[0].photo2))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
-      $('#oki2').attr('src', "/"+code_html[0].email+"/photo2.png");
-      else {
-        $('#oki2').attr('src', "/global/photos/placeholder.png");
-      }
+    $('#oki2').attr('src', "/"+code_html[0].email+"/photo2.png");
+    else {
+      $('#oki2').attr('src', "/global/photos/placeholder.png");
+    }
     if(btoa(unescape(encodeURIComponent(code_html[0].photo3))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
-      $('#oki3').attr('src', "/"+code_html[0].email+"/photo3.png");
-      else {
-        $('#oki3').attr('src', "/global/photos/placeholder.png");
-      }
+    $('#oki3').attr('src', "/"+code_html[0].email+"/photo3.png");
+    else {
+      $('#oki3').attr('src', "/global/photos/placeholder.png");
+    }
     if(btoa(unescape(encodeURIComponent(code_html[0].photo4))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
-      $('#oki4').attr('src', "/"+code_html[0].email+"/photo4.png");
-      else {
-        $('#oki4').attr('src', "/global/photos/placeholder.png");
-      }
+    $('#oki4').attr('src', "/"+code_html[0].email+"/photo4.png");
+    else {
+      $('#oki4').attr('src', "/global/photos/placeholder.png");
+    }
     if(btoa(unescape(encodeURIComponent(code_html[0].photo5))) != "77+9CWht77+9f++/vRot77+977+96ZWnHu+/ve+/vV1677+9Zw==")
-      $('#oki5').attr('src', "/"+code_html[0].email+"/photo5.png");
-      else {
-        $('#oki5').attr('src', "/global/photos/placeholder.png");
-      }
+    $('#oki5').attr('src', "/"+code_html[0].email+"/photo5.png");
+    else {
+      $('#oki5').attr('src', "/global/photos/placeholder.png");
+    }
     // console.log("debeug1"+code_html[0].photo1);
     // console.log(code_html[0].photo2);
     // console.log(code_html[0].photo3);
@@ -146,6 +157,7 @@ $.ajax({
   },
 });
 function like(email){
+  //alert("okok");
 
   $.ajax({
     url : '/discover/like_someone',
@@ -159,7 +171,25 @@ function like(email){
 
 
 }
-function Chat(email){
+
+function unlike(email){
+  alert("okok");
+
+  $.ajax({
+    url : '/discover/unlike',
+    type : 'GET',
+    data : {'email' : email},
+    success : function(code_html, statut){
+      console.log("toktok");
+      console.log(code_html);
+    }
+  })
+
+
+}
+
+
+function chat(email){
   $("#main").empty();
   // $.get("/user_profil", function(data) {
   //   $("#main").append(data);
@@ -168,17 +198,25 @@ function Chat(email){
     type : 'GET',
     data : {'email' : email},
     success : function(code_html, statut){
-      console.log("requin");
-      console.log(code_html);
-      console.log("requin2");
-      $("#main").append(code_html);
-      //console.log(code_html);
+      $.ajax({
+        url : "/chat/basic",
+        type : 'GET',
+    //    data : {'email' : email},
+        success : function(code_html1, statut){
+          console.log("requin");
+          console.log(code_html);
+          console.log("requin2");
+          console.log(code_html1);
+          $("#main").append(code_html+"<b id='contact' style='display : none;'>"+email+"</b><b id='contact2' style='display : none;'>"+code_html1+"</b>");
+          //console.log(code_html);
+        }
+      })
     }
   })
 }
 
 function report(email){
-//  $("#main").empty();
+  //  $("#main").empty();
   // $.get("/user_profil", function(data) {
   //   $("#main").append(data);
   $.ajax({
@@ -188,14 +226,14 @@ function report(email){
     success : function(code_html, statut){
       // console.log("requin");
       // console.log(code_html);
-       console.log("requin2");
+      console.log("requin2");
       // $("#main").append(code_html);
       //console.log(code_html);
     }
   })
 }
 function block(email){
-//  $("#main").empty();
+  //  $("#main").empty();
   // $.get("/user_profil", function(data) {
   //   $("#main").append(data);
   $.ajax({
@@ -205,7 +243,7 @@ function block(email){
     success : function(code_html, statut){
       // console.log("requin");
       // console.log(code_html);
-       console.log("requin2");
+      console.log("requin2");
       // $("#main").append(code_html);
       //console.log(code_html);
     }
@@ -230,10 +268,10 @@ $.ajax({
       $("#chat").remove();
     }
 
-  //  console.log($('#oki1').attr('src'));
-  //  console.log("/"+code_html[0].email+"/photo1.png");
+    //  console.log($('#oki1').attr('src'));
+    //  console.log("/"+code_html[0].email+"/photo1.png");
 
-//    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
+    //    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
   }
 })
 
