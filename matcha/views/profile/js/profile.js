@@ -1,4 +1,4 @@
-
+console.log("tokard");
 $('#tokenfield').tokenfield({
   autocomplete: {
     //source: ['red','blue','green','yellow','violet','brown','purple','black','white'],

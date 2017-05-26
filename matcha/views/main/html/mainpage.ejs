@@ -202,7 +202,7 @@
 </a>
 </li> -->
 <li class="site-menu-item has-sub">
-  <a href="javascript:void(0)">
+  <a href="javascript:void(0)" id = "message_logo">
     <i class="site-menu-icon wb-chat-text" aria-hidden="true"></i>
     <span class="site-menu-title">Messages</span>
     <!-- <span class="site-menu-arrow"></span> -->
@@ -312,7 +312,7 @@ socket.on('connect', function(data) {
     //  console.log(code_html);
     }
   });
-  
+
 
   socket.emit('join', 'Hello World from client');
   //  socket.on('pierromoutarde', function(data) {
@@ -357,6 +357,14 @@ function test2() {
 socket.on('pierromoutarde', function(data) {
   console.log(data)
 });
+
+socket.on('chat-mes', function (message) {
+  $("#message_logo").append('<div class="site-menu-badge"><span class="badge badge-success">i</span></div>');
+  alert("jrefhrf");
+  console.log("todo");
+
+
+ })
 // function initMap() {
 //
 //
@@ -448,8 +456,9 @@ socket.on('pierromoutarde', function(data) {
 <script src="/global/js/components/jquery-placeholder.js"></script>
 <script src="/assets/examples/js/forms/advanced.js"></script>
 <script>
-
+console.log("tas de viande1");
 test2();
+console.log("tas de viande2");
 if(navigator.geolocation)
 {
   function showLocation(position)
@@ -468,12 +477,14 @@ if(navigator.geolocation)
           data : code_html,
           success : function(code_html, statut){
           //  console.log("ralatif");
+          console.log("tas de viande7");
           //  console.log(code_html);
           }
         });
       }
     });
 }
+console.log("tas de viande3");
   var errorHandler;
   navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
 }
@@ -481,6 +492,8 @@ else
 {
   alert('Votre navigateur ne prend malheureusement pas en charge la géolocalisation.');
 }
+console.log("tas de viande4");
+var blog = 0;
 $.ajax({
   url : 'main/popularity',
   type : 'GET',
@@ -495,6 +508,7 @@ $.ajax({
   //  console.log(code_html);
   }
 });
+console.log("tas de viande5");
 $('#discover').click(function(){
   $("#main").empty();
   $.get("/discover", function(data) {
@@ -538,7 +552,7 @@ $('#signout').click(function(){
 
 
 
-
+console.log("tas de viande6");
 </script>
 </body>
 </html>

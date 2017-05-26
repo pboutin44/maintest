@@ -78,7 +78,7 @@ socket.on('disconnect', function(){
 });
 socket.on('chat-message', function (message) {
    console.log(message);
-   socket.emit('chat-mes', "otfktkokookk");
+   socket.broadcast.emit('chat-mes', message);
 
  });
 socket.on('disco', function(fref){ console.log("a plus +++++++++++++++")
