@@ -24,6 +24,34 @@ $.ajax({
     console.log("petit_peter");
     console.log(typeof(code_html[k]));
     console.log(code_html[k]);
+    var sexuality;
+    var sex;
+    if(code_html[k].sexuality)
+    {
+      if(code_html[k].sexuality == "")
+      {
+        sexuality = "bisexuel";
+      }
+      else {
+        sexuality = code_html[k].sexuality;
+      }
+    }
+    else {
+      sexuality = "bisexuel";
+    }
+    if(code_html[k].sex)
+    {
+      if(code_html[k].sex == "")
+      {
+        sex = "";
+      }
+      else {
+        sex = code_html[k].sex;
+      }
+    }
+    else {
+      sex = "";
+    }
     for(var i= 0; i < code_html.length - 1; i++)
     {
 
@@ -38,7 +66,7 @@ $.ajax({
       // console.log(code_html[i].email);
       // console.log(code_html[code_html.length - 1]);
       console.log("tonnerre1");
-      console.log(code_html);
+      console.log(code_html[i]);
       console.log($("#age_from").val());
       console.log($("#age_to").val());
       console.log($("#popularity_from").val());
@@ -49,10 +77,67 @@ $.ajax({
       console.log(code_html[k].block);
       console.log(code_html[i].email);
       console.log(code_html[k].block.indexOf(code_html[i].email));
-      if(code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
+      var sexuality2;
+      var sex2;
+      if(code_html[i].sexuality)
       {
-        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+        if(code_html[i].sexuality == "")
+        {
+          sexuality2 = "bisexuel";
+        }
+        else {
+          sexuality2 = code_html[i].sexuality;
+        }
       }
+      else {
+        sexuality2 = "bisexuel";
+      }
+      if(code_html[i].sex)
+      {
+        if(code_html[i].sex == "")
+        {
+          sex2 = "";
+        }
+        else {
+          sex2 = code_html[i].sex;
+        }
+      }
+      else {
+        sex2 = "";
+      }
+      if(sexuality2 == "bisexuel" || sexuality2 == "open-minded")
+      {
+        if(code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
+        {
+          $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+        }
+      }
+      else if (sexuality2 == "Straight" && sex2 == "woman") {
+        if(sex2 == "man" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
+        {
+          $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+        }
+      }
+      else if (sexuality2 == "Straight" && sex2 == "man") {
+        if(sex2 == "woman" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
+        {
+          $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+        }
+      }
+      else if (sexuality2 == "Gay" && sex2 == "man") {
+        if(sex2 == "man" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
+        {
+          $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+        }
+      }
+      else if (sexuality2 == "Gay" && sex2 == "woman") {
+        if(sex2 == "woman" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[k].block.indexOf(code_html[i].email) == -1)
+        {
+          $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+        }
+      }
+
+
     }
   },
   error : function(resultat, statut, erreur){
@@ -74,21 +159,85 @@ function filter(code_html){
   }
   console.log("grand_peter");
   console.log(typeof(code_html[k]));
-  console.log(code_html[k]);
-
+  console.log(code_html[k].sexuality);
+  var sexuality;
+  var sex;
+  if(code_html[k].sexuality)
+  {
+    if(code_html[k].sexuality == "")
+    {
+      sexuality = "bisexuel";
+    }
+    else {
+      sexuality = code_html[k].sexuality;
+    }
+  }
+  else {
+    sexuality = "bisexuel";
+  }
+  if(code_html[k].sex)
+  {
+    if(code_html[k].sex == "")
+    {
+      sex = "";
+    }
+    else {
+      sex = code_html[k].sex;
+    }
+  }
+  else {
+    sex = "";
+  }
+  var j = 0;
+  if(code_html[k].tokenfield)
+  {
+    var table2 = code_html[k].tokenfield.split(",");
+    var table3 = [];
+    console.log("2");
+    while(j < code_html.length)
+    {
+      table3[j] = 0;
+      j++;
+    }
+    j = 0;
+    console.log("3");
+    while (j < table2.length)
+    {
+      var L = 0;
+      while(L < code_html.length)
+      {
+        if(code_html[L].tokenfield && code_html[L].tokenfield.indexOf(table2[j]) >= 0)
+        {
+          table3[L] = table3[L] + 1;
+        }
+        L++;
+      }
+      j++;
+    }
+    i = 0;
+    console.log("jardinno");
+    console.log(table3);
+    console.log("4");
+    while(i < code_html.length)
+    {
+      code_html[i]["ponderation"] = table3[i];
+      i++;
+    }
+  }
+  var ponderation = $("#tags").val();
+  console.log("titeuf");
+  console.log(ponderation);
+  if(ponderation == "")
+  {
+    ponderation = 0;
+  }
+  else if (isNaN(ponderation) == 'true') {
+    ponderation = 0;
+  }
+  console.log("terre,lune,mars");
+  console.log(code_html);
   for(var i= 0; i < code_html.length - 1; i++)
   {
-
-    //  console.log(ImageExist("/"+code_html[i].email+"/photo1.png"));
-    // if(ImageExist("/"+code_html[i].email+"/photo1.png") == true)
-
-    // console.log(code_html);
-    // console.log(code_html[i].email);
-    // console.log('DETER');
-    // console.log(code_html[code_html.length - 1]);
-    // console.log('DETER2');
-    // console.log(code_html[i].email);
-    // console.log(code_html[code_html.length - 1]);
     var age_from;
     var age_to;
     var popularity_from;
@@ -157,10 +306,67 @@ function filter(code_html){
     console.log(code_html[i].distance);
     console.log(location);
     console.log($("#location").val());
-    if(code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
+    var sexuality2;
+    var sex2;
+    if(code_html[i].sexuality)
     {
-      $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+      if(code_html[i].sexuality == "")
+      {
+        sexuality2 = "bisexuel";
+      }
+      else {
+        sexuality2 = code_html[i].sexuality;
+      }
     }
+    else {
+      sexuality2 = "bisexuel";
+    }
+    if(code_html[i].sex)
+    {
+      if(code_html[i].sex == "")
+      {
+        sex2 = "";
+      }
+      else {
+        sex2 = code_html[i].sex;
+      }
+    }
+    else {
+      sex2 = "";
+    }
+    if(sexuality2 == "bisexuel" || sexuality2 == "open-minded")
+    {
+    //  code_html[i].ponderation ==
+      if( code_html[i].ponderation >= ponderation && code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
+      {
+        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+      }
+    }
+    else if (sexuality2 == "Straight" && sex2 == "woman") {
+      if(code_html[i].ponderation >= ponderation && sex2 == "man" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
+      {
+        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+      }
+    }
+    else if (sexuality2 == "Straight" && sex2 == "man") {
+      if(code_html[i].ponderation >= ponderation && sex2 == "woman" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
+      {
+        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+      }
+    }
+    else if (sexuality2 == "Gay" && sex2 == "man") {
+      if(code_html[i].ponderation >= ponderation && sex2 == "man" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
+      {
+        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+      }
+    }
+    else if (sexuality2 == "Gay" && sex2 == "woman") {
+      if(code_html[i].ponderation >= ponderation && sex2 == "woman" && code_html[i].email != code_html[code_html.length - 1].mine && code_html[i].distance < location && code_html[i].age > age_from && code_html[i].age < age_to && code_html[k].block.indexOf(code_html[i].email) == -1)
+      {
+        $('#main2').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png" alt=""></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
+      }
+    }
+
   }
 
 
