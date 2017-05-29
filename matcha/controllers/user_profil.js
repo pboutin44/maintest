@@ -24,6 +24,14 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/data', function(req, res) {
+  //console.log("latable");
+  //console.log(req.session.email);
+  //console.log(req.query.email);
+  //var someData = { message: 'hi' };
+  res.send(req.session.email);
+});
+
 router.get('/maintips', function(req, res) {
   // console.log("latable");
   //console.log(req.session.email);
@@ -57,7 +65,7 @@ router.get('/maintips', function(req, res) {
       else {
         var flag = 0;
       }
-      
+
       MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
         // console.log("Connected successfully to server");

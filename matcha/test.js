@@ -81,6 +81,14 @@ socket.on('chat-message', function (message) {
    socket.broadcast.emit('chat-mes', message);
 
  });
+ socket.on('like', function (message) {
+    console.log("dolby atome");
+    console.log(message);
+
+    socket.broadcast.emit('like', message);
+
+  });
+
 socket.on('disco', function(fref){ console.log("a plus +++++++++++++++")
 });
 //  io.emit('pierromoutarde', {"pierre": "moutarde"});
@@ -304,7 +312,7 @@ app.post('/confirmation_change', function(req, res) {
               if(docs.length == 0)
               {
                 collection.insertMany([
-                  {login : login, firstname : firstname, surname : surname, age : age, email : email, password : hash, token : token, activate : "0", popularity : tache, connection : "0", block : [], like : [], liked : [], CurrentPosition : "17th arrondissement, 75017 Paris, France", sexuality : ""}
+                  {login : login, firstname : firstname, surname : surname, age : age, email : email, password : hash, token : token, activate : "0", popularity : tache, connection : "0", block : [], like : [], liked : [], notif : [],CurrentPosition : "17th arrondissement, 75017 Paris, France", sexuality : ""}
                 ]);
                 if (!fs.existsSync("./photos/"+email))
                 {

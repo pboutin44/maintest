@@ -158,126 +158,135 @@ $.ajax({
 });
 function like(email){
   //alert("okok");
-
   $.ajax({
-    url : '/discover/like_someone',
+    url : '/user_profil/data',
     type : 'GET',
-    data : {'email' : email},
     success : function(code_html, statut){
-      console.log("toktok");
+      console.log("dolby atome");
       console.log(code_html);
-    }
-  })
+      var myObject = {from : code_html,
+        to : email};
+        socket.emit('like', myObject);
 
-
-}
-
-function unlike(email){
-  alert("okok");
-
-  $.ajax({
-    url : '/discover/unlike',
-    type : 'GET',
-    data : {'email' : email},
-    success : function(code_html, statut){
-      console.log("toktok");
-      console.log(code_html);
-    }
-  })
-
-
-}
-
-
-function chat(email){
-  $("#main").empty();
-  // $.get("/user_profil", function(data) {
-  //   $("#main").append(data);
-  $.ajax({
-    url : "/chat",
-    type : 'GET',
-    data : {'email' : email},
-    success : function(code_html, statut){
-      $.ajax({
-        url : "/chat/basic",
-        type : 'GET',
-    //    data : {'email' : email},
-        success : function(code_html1, statut){
-          console.log("requin");
-          console.log(code_html);
-          console.log("requin2");
-          console.log(code_html1);
-          $("#main").append(code_html+"<b id='contact' style='display : none;'>"+email+"</b><b id='contact2' style='display : none;'>"+code_html1+"</b>");
-          //console.log(code_html);
-        }
-      })
-    }
-  })
-}
-
-function report(email){
-  //  $("#main").empty();
-  // $.get("/user_profil", function(data) {
-  //   $("#main").append(data);
-  $.ajax({
-    url : "/user_profil/report",
-    type : 'GET',
-    data : {'email' : email},
-    success : function(code_html, statut){
-      // console.log("requin");
-      // console.log(code_html);
-      console.log("requin2");
-      // $("#main").append(code_html);
-      //console.log(code_html);
-    }
-  })
-}
-function block(email){
-  //  $("#main").empty();
-  // $.get("/user_profil", function(data) {
-  //   $("#main").append(data);
-  $.ajax({
-    url : "/user_profil/block",
-    type : 'GET',
-    data : {'email' : email},
-    success : function(code_html, statut){
-      // console.log("requin");
-      // console.log(code_html);
-      console.log("requin2");
-      // $("#main").append(code_html);
-      //console.log(code_html);
-    }
-  })
-}
-
-
-$.ajax({
-  url : '/user_profil/maintips',
-  type : 'GET',
-  success : function(code_html, statut){
-    console.log("verifcotcah");
-    console.log(code_html[0].flag);
-    if(code_html[0].flag == 1)
-    {
-      $("#like").remove();
-      $("#chat").remove();
-    }
-    var email = $('#email').html();
-    if(code_html[0].like.indexOf(email) == -1 || code_html[0].liked.indexOf(email) == -1)
-    {
-      $("#chat").remove();
-    }
-
-    //  console.log($('#oki1').attr('src'));
-    //  console.log("/"+code_html[0].email+"/photo1.png");
-
-    //    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
+        $.ajax({
+          url : '/discover/like_someone',
+          type : 'GET',
+          data : {'email' : email},
+          success : function(code_html, statut){
+            console.log("toktok");
+            console.log(code_html);
+          }
+        })
+      }
+    })
   }
-})
+
+  function unlike(email){
+    alert("okok");
+
+    $.ajax({
+      url : '/discover/unlike',
+      type : 'GET',
+      data : {'email' : email},
+      success : function(code_html, statut){
+        console.log("toktok");
+        console.log(code_html);
+      }
+    })
 
 
-// function initMap() {
-//   var input = document.getElementById('pac-input');
-//   var autocomplete = new google.maps.places.Autocomplete(input);
-// }
-// initMap();
+  }
+
+
+  function chat(email){
+    $("#main").empty();
+    // $.get("/user_profil", function(data) {
+    //   $("#main").append(data);
+    $.ajax({
+      url : "/chat",
+      type : 'GET',
+      data : {'email' : email},
+      success : function(code_html, statut){
+        $.ajax({
+          url : "/chat/basic",
+          type : 'GET',
+          //    data : {'email' : email},
+          success : function(code_html1, statut){
+            console.log("requin");
+            console.log(code_html);
+            console.log("requin2");
+            console.log(code_html1);
+            $("#main").append(code_html+"<b id='contact' style='display : none;'>"+email+"</b><b id='contact2' style='display : none;'>"+code_html1+"</b>");
+            //console.log(code_html);
+          }
+        })
+      }
+    })
+  }
+
+  function report(email){
+    //  $("#main").empty();
+    // $.get("/user_profil", function(data) {
+    //   $("#main").append(data);
+    $.ajax({
+      url : "/user_profil/report",
+      type : 'GET',
+      data : {'email' : email},
+      success : function(code_html, statut){
+        // console.log("requin");
+        // console.log(code_html);
+        console.log("requin2");
+        // $("#main").append(code_html);
+        //console.log(code_html);
+      }
+    })
+  }
+  function block(email){
+    //  $("#main").empty();
+    // $.get("/user_profil", function(data) {
+    //   $("#main").append(data);
+    $.ajax({
+      url : "/user_profil/block",
+      type : 'GET',
+      data : {'email' : email},
+      success : function(code_html, statut){
+        // console.log("requin");
+        // console.log(code_html);
+        console.log("requin2");
+        // $("#main").append(code_html);
+        //console.log(code_html);
+      }
+    })
+  }
+
+
+  $.ajax({
+    url : '/user_profil/maintips',
+    type : 'GET',
+    success : function(code_html, statut){
+      console.log("verifcotcah");
+      console.log(code_html[0].flag);
+      if(code_html[0].flag == 1)
+      {
+        $("#like").remove();
+        $("#chat").remove();
+      }
+      var email = $('#email').html();
+      if(code_html[0].like.indexOf(email) == -1 || code_html[0].liked.indexOf(email) == -1)
+      {
+        $("#chat").remove();
+      }
+
+      //  console.log($('#oki1').attr('src'));
+      //  console.log("/"+code_html[0].email+"/photo1.png");
+
+      //    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
+    }
+  })
+
+
+  // function initMap() {
+  //   var input = document.getElementById('pac-input');
+  //   var autocomplete = new google.maps.places.Autocomplete(input);
+  // }
+  // initMap();

@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="/global/vendor/jquery-strength/jquery-strength.css">
   <link rel="stylesheet" href="/global/vendor/multi-select/multi-select.css">
   <link rel="stylesheet" href="/global/vendor/typeahead-js/typeahead.css">
+  <!-- <link rel="stylesheet" href="/global/new/dist/css/bootstrap-tokenfield.css"> -->
   <link rel="stylesheet" href="/assets/examples/css/forms/advanced.css">
   <!-- Fonts -->
   <link rel="stylesheet" href="/global/fonts/web-icons/web-icons.min.css">
@@ -61,6 +62,7 @@
   <!-- Scripts -->
   <script src="/global/vendor/modernizr/modernizr.js"></script>
   <script src="/global/vendor/breakpoints/breakpoints.js"></script>
+
   <script>
   Breakpoints();
   </script>
@@ -112,7 +114,7 @@
       <li class="dropdown">
         <a onclick="test2()" class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
         data-animation="scale-up" role="button">
-        <span class="avatar">
+        <span class="avatar toq">
           <img id="photo_profil" src="/global/portraits/client.png" alt="...">
           <!-- "/global/portraits/5.jpg" -->
           <!-- <i></i> -->
@@ -222,13 +224,12 @@
     <!-- <span class="site-menu-arrow"></span> -->
   </a>
 </li>
-<li class="site-menu-item has-sub" id="search">
+<!-- <li class="site-menu-item has-sub" id="search">
   <a href="javascript:void(0)">
     <i class="site-menu-icon wb-search" aria-hidden="true"></i>
     <span class="site-menu-title">research</span>
-    <!-- <span class="site-menu-arrow"></span> -->
   </a>
-</li>
+</li> -->
 <!-- <li class="site-menu-item has-sub">
 <a href="javascript:void(0)">
 <i class="site-menu-icon wb-star" aria-hidden="true"></i>
@@ -312,6 +313,18 @@ socket.on('connect', function(data) {
     //  console.log(code_html);
     }
   });
+
+  socket.on('like', function (message) {
+    console.log("graphiti");
+    var variable = $("#photo_profil").attr("src");
+//    alert(variable);
+    var variable2 = variable.split("/");
+    console.log(message.to);
+    if(message.to == variable2[0])
+    {
+      $(".avatar").append('<span class="badge badge-danger up">i</span>');
+    }
+   });
 
 
   socket.emit('join', 'Hello World from client');
@@ -440,6 +453,29 @@ function avion() {
       $('#pac-input').val(code_html[0].pacinput);
       $('#bio').val(code_html[0].bio);
       //$('#tokenfield').attr("value", code_html[0].tokenfield);
+      var y = 0;
+      console.log("tiboudien");
+      console.log();
+      if(code_html[0].notif)
+      {
+      if(code_html[0].notif.length > 0)
+      {
+        $(".toq").append('<span class="badge badge-danger up" id="badge" >i</span>');
+      }
+      while (y < code_html[0].notif.length) {
+    //    alert();
+        $("#main").prepend('<div class="panel panel-bordered animation-scale-up" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 0ms;"><div class="panel-heading"></div></div><div class="panel-body"><p>'+code_html[0].notif[y]+'</p></div></div>');
+        y++;
+      }
+      $.ajax({
+        url : '/profile/notif',
+        type : 'GET',
+        // dataType : 'html',
+        success : function(code_html, statut){
+          $("#badge").remove();
+        }
+      });
+    }
       if(code_html[0].tokenfield)
       {
         var tab = code_html[0].tokenfield.split(",");
@@ -574,7 +610,7 @@ socket.on('pierromoutarde', function(data) {
 
 socket.on('chat-mes', function (message) {
   $("#message_logo").append('<div class="site-menu-badge"><span class="badge badge-success">i</span></div>');
-  alert("jrefhrf");
+//  alert("jrefhrf");
   console.log("todo");
 
 
@@ -598,7 +634,7 @@ socket.on('chat-mes', function (message) {
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
-
+<!-- <script src="/global/new/dist/bootstrap-tokenfield.js"></script> -->
 <script src="/global/vendor/bootstrap/bootstrap.js"></script>
 <script src="/global/vendor/animsition/animsition.js"></script>
 <script src="/global/vendor/asscroll/jquery-asScroll.js"></script>
@@ -611,7 +647,7 @@ socket.on('chat-mes', function (message) {
 <script src="/global/vendor/screenfull/screenfull.js"></script>
 <script src="/global/vendor/slidepanel/jquery-slidePanel.js"></script>
 <script src="/global/vendor/select2/select2.full.min.js"></script>
-<script src="/global/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script>
+<!-- <script src="/global/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script> -->
 <script src="/global/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
 <script src="/global/vendor/bootstrap-select/bootstrap-select.js"></script>
 <script src="/global/vendor/icheck/icheck.min.js"></script>

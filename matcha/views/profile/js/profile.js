@@ -7,7 +7,6 @@ $('#tokenfield').tokenfield({
   showAutocompleteOnFocus: true
 });
 
-
 $.ajax({
   url : '/profile/bizarre',
   type : 'POST',
@@ -148,6 +147,15 @@ $.ajax({
     $('#pac-input').val(code_html[0].pacinput);
     $('#bio').val(code_html[0].bio);
     //$('#tokenfield').attr("value", code_html[0].tokenfield);
+    var y = 0;
+    if(code_html[0].notif.length > 0)
+    {
+
+    }
+    while (y < code_html[0].notif.length) {
+      $("#main").append('<div class="panel panel-bordered animation-scale-up" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 0ms;"><div class="panel-heading"><h3 class="panel-title">Panel Example</h3><div class="panel-actions"><a class="panel-action icon wb-refresh" data-toggle="panel-refresh" data-load-type="round-circle" data-load-callback="customRefreshCallback" aria-hidden="true"></a><a class="panel-action icon wb-minus" aria-expanded="true" data-toggle="panel-collapse" aria-hidden="true"></a><a class="panel-action icon wb-expand" data-toggle="panel-fullscreen" aria-hidden="true"></a><a class="panel-action icon wb-close" data-toggle="panel-close" aria-hidden="true"></a></div></div><div class="panel-body"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce velittortor, dictum in gravida nec, aliquet non lorem. pellentesque.ipiscingelit. Fusce velit tortor.</p></div></div>');
+      y++;
+    }
     if(code_html[0].tokenfield)
     {
       var tab = code_html[0].tokenfield.split(",");

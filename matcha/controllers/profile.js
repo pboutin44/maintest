@@ -26,6 +26,27 @@ router.post('/bizarre', function(req, res) {
   res.send(email);
 });
 
+router.get('/notif', function(req, res) {
+  console.log("petouch");
+  console.log(req.session.email);
+  var email = {
+    "email" : req.session.email
+  }
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    // Get the documents collection
+    console.log(req.param("sexuality"));
+    var collection = db.collection('clients');
+    // Insert some documents
+    collection.update(
+      { "email" : req.session.email },
+      { $unset : { notif : ""} }
+    );
+  });
+  res.send(email);
+});
+
 router.post('/findplace', function(req, res) {
   console.log("petouch");
   console.log(req.session.email);

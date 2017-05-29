@@ -138,7 +138,7 @@ router.get('/unlike', function(req, res) {
 
                 console.log(docs[0]);
                 collection.update({email : docs[0].email}, {
-                  $addToSet:{liked : req.session.email}
+                  $addToSet:{liked : req.session.email, notif : "someone like you"}
                 });
                 // if(docs[0].liked.indexOf(req.session.email) != 0)
                 // {
