@@ -10,6 +10,16 @@ var email = $('#email').html();
 console.log("samara");
 console.log(email);
 $.ajax({
+  url : '/user_profil/data',
+  type : 'GET',
+  success : function(code_html1, statut){
+    console.log("dolby atome");
+    console.log(code_html1);
+    var myObject = {from : code_html1,
+      to : email};
+      socket.emit('visit', myObject);
+
+$.ajax({
   url : '/user_profil/information',
   type : 'GET',
   data : {email : email},
@@ -23,6 +33,8 @@ $.ajax({
     console.log("pierromoutarde", resultat.responseText, erreur);
   },
 });
+}
+})
 
 $.ajax({
   url : '/profile/bizarre',
@@ -159,134 +171,159 @@ $.ajax({
 function like(email){
   //alert("okok");
   $.ajax({
-    url : '/user_profil/data',
+    url : '/user_profil/data2',
     type : 'GET',
     success : function(code_html, statut){
       console.log("dolby atome");
-      console.log(code_html);
-      var myObject = {from : code_html,
+      console.log(code_html[0].liked);
+      var myObject = {from : code_html[0].email,
         to : email};
-        socket.emit('like', myObject);
-
-        $.ajax({
-          url : '/discover/like_someone',
-          type : 'GET',
-          data : {'email' : email},
-          success : function(code_html, statut){
-            console.log("toktok");
-            console.log(code_html);
-          }
-        })
+        if(code_html[0].liked.indexOf(email) >= 0)
+        {
+          socket.emit('like', myObject);
+          $.ajax({
+            url : '/discover/like_someonereturn',
+            type : 'GET',
+            data : {'email' : email},
+            success : function(code_html, statut){
+              console.log("toktok");
+              console.log(code_html);
+            }
+          })
+        }
+        else {
+          socket.emit('like', myObject);
+          $.ajax({
+            url : '/discover/like_someone',
+            type : 'GET',
+            data : {'email' : email},
+            success : function(code_html, statut){
+              console.log("toktok");
+              console.log(code_html);
+            }
+          })
+        }
       }
     })
   }
 
   function unlike(email){
     alert("okok");
-
     $.ajax({
-      url : '/discover/unlike',
+      url : '/user_profil/data',
       type : 'GET',
-      data : {'email' : email},
       success : function(code_html, statut){
-        console.log("toktok");
+        console.log("dolby atome");
         console.log(code_html);
-      }
-    })
+        var myObject = {from : code_html,
+          to : email};
+          socket.emit('unlike', myObject);
+          $.ajax({
+            url : '/discover/unlike',
+            type : 'GET',
+            data : {'email' : email},
+            success : function(code_html, statut){
+              console.log("toktok");
+              console.log(code_html);
+
+            }
+          })
+        }
+      })
 
 
-  }
-
-
-  function chat(email){
-    $("#main").empty();
-    // $.get("/user_profil", function(data) {
-    //   $("#main").append(data);
-    $.ajax({
-      url : "/chat",
-      type : 'GET',
-      data : {'email' : email},
-      success : function(code_html, statut){
-        $.ajax({
-          url : "/chat/basic",
-          type : 'GET',
-          //    data : {'email' : email},
-          success : function(code_html1, statut){
-            console.log("requin");
-            console.log(code_html);
-            console.log("requin2");
-            console.log(code_html1);
-            $("#main").append(code_html+"<b id='contact' style='display : none;'>"+email+"</b><b id='contact2' style='display : none;'>"+code_html1+"</b>");
-            //console.log(code_html);
-          }
-        })
-      }
-    })
-  }
-
-  function report(email){
-    //  $("#main").empty();
-    // $.get("/user_profil", function(data) {
-    //   $("#main").append(data);
-    $.ajax({
-      url : "/user_profil/report",
-      type : 'GET',
-      data : {'email' : email},
-      success : function(code_html, statut){
-        // console.log("requin");
-        // console.log(code_html);
-        console.log("requin2");
-        // $("#main").append(code_html);
-        //console.log(code_html);
-      }
-    })
-  }
-  function block(email){
-    //  $("#main").empty();
-    // $.get("/user_profil", function(data) {
-    //   $("#main").append(data);
-    $.ajax({
-      url : "/user_profil/block",
-      type : 'GET',
-      data : {'email' : email},
-      success : function(code_html, statut){
-        // console.log("requin");
-        // console.log(code_html);
-        console.log("requin2");
-        // $("#main").append(code_html);
-        //console.log(code_html);
-      }
-    })
-  }
-
-
-  $.ajax({
-    url : '/user_profil/maintips',
-    type : 'GET',
-    success : function(code_html, statut){
-      console.log("verifcotcah");
-      console.log(code_html[0].flag);
-      if(code_html[0].flag == 1)
-      {
-        $("#like").remove();
-        $("#chat").remove();
-      }
-      var email = $('#email').html();
-      if(code_html[0].like.indexOf(email) == -1 || code_html[0].liked.indexOf(email) == -1)
-      {
-        $("#chat").remove();
-      }
-
-      //  console.log($('#oki1').attr('src'));
-      //  console.log("/"+code_html[0].email+"/photo1.png");
-
-      //    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
     }
-  })
 
 
-  // function initMap() {
-  //   var input = document.getElementById('pac-input');
-  //   var autocomplete = new google.maps.places.Autocomplete(input);
-  // }
-  // initMap();
+    function chat(email){
+      $("#main").empty();
+      // $.get("/user_profil", function(data) {
+      //   $("#main").append(data);
+      $.ajax({
+        url : "/chat",
+        type : 'GET',
+        data : {'email' : email},
+        success : function(code_html, statut){
+          $.ajax({
+            url : "/chat/basic",
+            type : 'GET',
+            //    data : {'email' : email},
+            success : function(code_html1, statut){
+              console.log("requin");
+              console.log(code_html);
+              console.log("requin2");
+              console.log(code_html1);
+              $("#main").append(code_html+"<b id='contact' style='display : none;'>"+email+"</b><b id='contact2' style='display : none;'>"+code_html1+"</b>");
+              //console.log(code_html);
+            }
+          })
+        }
+      })
+    }
+
+    function report(email){
+      //  $("#main").empty();
+      // $.get("/user_profil", function(data) {
+      //   $("#main").append(data);
+      $.ajax({
+        url : "/user_profil/report",
+        type : 'GET',
+        data : {'email' : email},
+        success : function(code_html, statut){
+          // console.log("requin");
+          // console.log(code_html);
+          console.log("requin2");
+          // $("#main").append(code_html);
+          //console.log(code_html);
+        }
+      })
+    }
+    function block(email){
+      //  $("#main").empty();
+      // $.get("/user_profil", function(data) {
+      //   $("#main").append(data);
+      $.ajax({
+        url : "/user_profil/block",
+        type : 'GET',
+        data : {'email' : email},
+        success : function(code_html, statut){
+          // console.log("requin");
+          // console.log(code_html);
+          console.log("requin2");
+          // $("#main").append(code_html);
+          //console.log(code_html);
+        }
+      })
+    }
+
+
+    $.ajax({
+      url : '/user_profil/maintips',
+      type : 'GET',
+      success : function(code_html, statut){
+        console.log("verifcotcah");
+        console.log(code_html[0].flag);
+        if(code_html[0].flag == 1)
+        {
+          $("#like").remove();
+          $("#chat").remove();
+        }
+        var email = $('#email').html();
+        if(code_html[0].like.indexOf(email) == -1 || code_html[0].liked.indexOf(email) == -1)
+        {
+          $("#chat").remove();
+        }
+
+        //  console.log($('#oki1').attr('src'));
+        //  console.log("/"+code_html[0].email+"/photo1.png");
+
+        //    if($('#oki1').attr('src', "/global/photos/placeholder.png");)
+      }
+    })
+
+
+    // function initMap() {
+    //   var input = document.getElementById('pac-input');
+    //   var autocomplete = new google.maps.places.Autocomplete(input);
+    // }
+    // initMap();

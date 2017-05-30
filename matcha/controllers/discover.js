@@ -67,6 +67,11 @@ router.get('/unlike', function(req, res) {
 
             //  console.log(docs[0]);
             collection.update({email : docs[0].email}, {
+              $addToSet:{liked : req.session.email, notif : "someone unlike you"}
+            });
+
+
+            collection.update({email : docs[0].email}, {
               $pull:{liked : req.session.email}
             });
             // if(docs[0].liked.indexOf(req.session.email) != 0)
@@ -90,7 +95,72 @@ router.get('/unlike', function(req, res) {
       // res.render("discover/html/discover.ejs");
     });
 
+    router.get('/like_someonereturn', function(req, res) {
+      console.log("letourisme");
+      console.log(req.session.email);
+      //console.log(req.params);
+      console.log(req.query.email);
+      MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        // Get the documents collection
+        var collection = db.collection('clients');
+        // Insert some documents
+        collection.find(
+          {email : req.session.email}).toArray(function(err, docs){
+            if(docs.length == 0)
+            {
+              // console.log(docs);
+              // console.log(email);
+              // console.log(token);
+              console.log("coco")
+              res.render('register.ejs');
+            }
+            else {
 
+              //   alert("edokedk");
+              collection.update({email : docs[0].email}, {
+                $addToSet:{like : req.query.email}
+              });
+              // res.render('confirmation.ejs');
+            }
+          });
+          collection.find(
+            {email : req.query.email}).toArray(function(err, docs){
+
+              if(docs.length == 0)
+              {
+                console.log(docs);
+                console.log(email);
+                console.log(token);
+                console.log("coco")
+                res.render('register.ejs');
+              }
+              else {
+
+                console.log(docs[0]);
+                collection.update({email : docs[0].email}, {
+                  $addToSet:{liked : req.session.email, notif : "someone like you in return"}
+                });
+                // if(docs[0].liked.indexOf(req.session.email) != 0)
+                // {
+                collection.update({email : docs[0].email}, {
+                  $inc : {popularity : +1}
+                });
+
+                // }
+                // res.render('confirmation.ejs');
+              }
+            });
+
+            res.send('send');
+            console.log("okokok");
+            //db.close();
+          });
+          // console.log("petard");
+          // console.log(req.session.email);
+          // res.render("discover/html/discover.ejs");
+        });
 
 
     router.get('/like_someone', function(req, res) {

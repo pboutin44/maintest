@@ -32,6 +32,26 @@ router.get('/data', function(req, res) {
   res.send(req.session.email);
 });
 
+router.get('/data2', function(req, res) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    var collection = db.collection('clients');
+    collection.find(
+      {email : req.session.email}).toArray(function(err, docs){
+        if(docs.length == 0)
+        {
+          res.send('register.ejs');
+        }
+        else {
+          res.send(docs);
+          console.log("c'estgood");
+        }
+      });
+      console.log("okokok");
+    });
+//  res.send(req.session.email);
+});
+
 router.get('/maintips', function(req, res) {
   // console.log("latable");
   //console.log(req.session.email);
@@ -189,6 +209,9 @@ router.get('/maintips', function(req, res) {
               res.render('register.ejs');
             }
             else {
+              collection.update({email : docs[0].email}, {
+                $addToSet:{notif : "someone visit you"}
+              });
               //   alert("edokedk");
               collection.update({email : email}, {
                 $addToSet:{visit : req.session.email}

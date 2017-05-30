@@ -84,10 +84,30 @@ socket.on('chat-message', function (message) {
  socket.on('like', function (message) {
     console.log("dolby atome");
     console.log(message);
-
     socket.broadcast.emit('like', message);
-
   });
+
+  // socket.on('likereturn', function (message) {
+  //    console.log("dolby atome");
+  //    console.log(message);
+  //    socket.broadcast.emit('likereturn', message);
+  //
+  //  });
+
+  socket.on('unlike', function (message) {
+     console.log("dolby atome");
+     console.log(message);
+
+     socket.broadcast.emit('unlike', message);
+
+   });
+   socket.on('visit', function (message) {
+      console.log("dolby atome");
+      console.log(message);
+
+      socket.broadcast.emit('visit', message);
+
+    });
 
 socket.on('disco', function(fref){ console.log("a plus +++++++++++++++")
 });
