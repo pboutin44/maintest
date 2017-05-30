@@ -208,7 +208,7 @@ function like(email){
   }
 
   function unlike(email){
-    alert("okok");
+    //alert("okok");
     $.ajax({
       url : '/user_profil/data',
       type : 'GET',

@@ -317,7 +317,6 @@ socket.on('connect', function(data) {
   socket.on('like', function (message) {
     console.log("graphiti");
     var variable = $("#photo_profil").attr("src");
-    //    alert(variable);
     var variable2 = variable.split("/");
     console.log(message.to);
     if(message.to == variable2[0])
@@ -329,7 +328,6 @@ socket.on('connect', function(data) {
   socket.on('unlike', function (message) {
     console.log("graphiti");
     var variable = $("#photo_profil").attr("src");
-    //    alert(variable);
     var variable2 = variable.split("/");
     console.log(message.to);
     if(message.to == variable2[0])
@@ -340,7 +338,6 @@ socket.on('connect', function(data) {
   socket.on('visit', function (message) {
     console.log("graphiti");
     var variable = $("#photo_profil").attr("src");
-    //    alert(variable);
     var variable2 = variable.split("/");
     console.log(message.to);
     if(message.to == variable2[0])
@@ -354,7 +351,6 @@ socket.on('connect', function(data) {
   //  socket.on('pierromoutarde', function(data) {
   //  socket.emit('join', 'Hello World from client');
   console.log("taratata");
-  socket.on('toto', function(data) { alert();});
   socket.on('disconnect', function(){
     $.ajax({
       url : 'main/disconnection',
@@ -368,8 +364,6 @@ socket.on('connect', function(data) {
     //  socket.disconnect();
     console.log('user disconnected');
   });
-
-  //  alert();
 
   console.log("tas de viande");
 });
@@ -486,7 +480,6 @@ function avion() {
           $(".toq").append('<span class="badge badge-danger up" id="badge" >i</span>');
         }
         while (y < code_html[0].notif.length) {
-          //    alert();
           $("#main").prepend('<div class="panel panel-bordered animation-scale-up" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 0ms;"><div class="panel-heading"></div></div><div class="panel-body"><p>'+code_html[0].notif[y]+'</p></div></div>');
           y++;
         }
@@ -565,6 +558,26 @@ function avion() {
 
 }
 
+function mini_profil(email){
+  //alert(email);
+  $("#main").empty();
+  // $.get("/user_profil", function(data) {
+  //   $("#main").append(data);
+  $.ajax({
+    url : "/user_profil",
+    type : 'GET',
+    data : {'email' : email},
+    success : function(code_html, statut){
+      console.log("pigeon");
+      console.log(code_html);
+      console.log("pigeon2");
+      $("#main").append(code_html);
+      //console.log(code_html);
+    }
+  })
+  // });
+}
+
 function test2() {
   $("#main").empty();
   $.get("/profile", function(data) {
@@ -633,7 +646,6 @@ socket.on('pierromoutarde', function(data) {
 
 socket.on('chat-mes', function (message) {
   $("#message_logo").append('<div class="site-menu-badge"><span class="badge badge-success">i</span></div>');
-  //  alert("jrefhrf");
   console.log("todo");
 
 
@@ -753,7 +765,6 @@ $.ajax({
 })
 
 $.get("http://ip-api.com/json", function(response) {
-  //alert(response.lat);
   $.ajax({
     url : 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+response.lat+', '+response.lon+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg',
     type : 'GET',
@@ -781,7 +792,6 @@ if(navigator.geolocation)
 {
   function showLocation(position)
   {
-    //  alert('Latitude : '+ position.coords.latitude +' - Longitude : '+ position.coords.longitude);
     $.ajax({
       url : 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+', '+position.coords.longitude+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg',
       type : 'GET',
@@ -855,7 +865,6 @@ $('#search').click(function(){
 })
 
 $('#signout').click(function(){
-  //alert("okoko");
   socket.disconnect();
 
   $.get("/main/signout", function(data) {
@@ -870,7 +879,6 @@ $('#signout').click(function(){
 
 function deletephoto(arg){
   $('#'+arg).attr('src','/global/photos/placeholder.png');
-  // alert(arg);
 }
 
 function previewFile() {

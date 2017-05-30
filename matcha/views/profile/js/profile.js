@@ -126,7 +126,6 @@ $('#submit').click(function(){
 
 function deletephoto(arg){
   $('#'+arg).attr('src','/global/photos/placeholder.png');
-  // alert(arg);
 }
 
 console.log("papamaman");

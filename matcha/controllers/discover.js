@@ -500,6 +500,9 @@ router.get('/unlike', function(req, res) {
                             var p = new Promise((resolve, reject) => {
                               var pos1 = encodeURIComponent(docs[i].pacinput);
                               var pos2 = encodeURIComponent(docs[key].pacinput);
+                              console.log("lekebab");
+                              console.log(pos1);
+                              console.log(pos2);
                               request('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+pos1+'&destinations='+pos2+'&key=AIzaSyAhMUSGep2jtfHo_jnMhViVj3BDnvwIQEg', function (error, response, body1) {
                                 body1 = JSON.parse(body1);
                                 resolve(body1.rows[0].elements[0].distance.value);  });
