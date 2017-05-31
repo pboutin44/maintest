@@ -321,6 +321,7 @@ router.get('/unlike', function(req, res) {
               console.log("gourou");
               i = 0;
               console.log("4");
+              console.log(docs);
               while(i < docs.length)
               {
                 if(docs[key].pacinput)

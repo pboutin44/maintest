@@ -39,6 +39,8 @@ router.get('/historique', function(req, res) {
     // Insert some documents
     var email1 = req.query.email1;
     var email2 = req.query.email2;
+    console.log(email1);
+    console.log(email2);
     if(email2 < email1)
     {
       var key = email1+"-"+email2;
@@ -46,6 +48,8 @@ router.get('/historique', function(req, res) {
     else {
       var key = email2+"-"+email1;
     }
+    console.log("tomboy");
+    console.log(key);
      collection.find(
        {key : key}).toArray(function(err, docs){
     console.log("pipo");

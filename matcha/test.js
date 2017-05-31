@@ -61,6 +61,7 @@ app.use('/search', require('./controllers/search.js'));
 app.use('/chat', require('./controllers/chat.js'));
 app.use('/discover', require('./controllers/discover.js'));
 app.use('/likedyou', require('./controllers/likedyou.js'));
+app.use('/message', require('./controllers/message.js'));
 app.use('/user_profil', require('./controllers/user_profil.js'));
 
 app.use(function(err, req, res, next) {

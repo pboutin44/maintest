@@ -52,6 +52,41 @@ router.get('/data2', function(req, res) {
 //  res.send(req.session.email);
 });
 
+router.get('/check_block', function(req, res) {
+  console.log("timon");
+  console.log(req.query.email);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    var collection = db.collection('clients');
+    collection.find(
+      {email : req.query.email}).toArray(function(err, docs){
+        if(docs.length == 0)
+        {
+    //      res.send('register.ejs');
+        }
+        else {
+          console.log("samara");
+          console.log(docs);
+          if(docs[0].block.indexOf(req.session.email) >= 0)
+          {
+            console.log("tachou");
+            res.send("0")
+          }
+          else {
+            console.log("timi");
+            res.send("1")
+          }
+          console.log("poumba");
+  //        res.send(docs);
+        //  console.log("c'estgood");
+        }
+      });
+  //    console.log("okokok");
+    });
+//  res.send(req.session.email);
+});
+
+
 router.get('/maintips', function(req, res) {
   // console.log("latable");
   //console.log(req.session.email);

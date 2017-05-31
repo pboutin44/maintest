@@ -1,19 +1,3 @@
-<!-- <div class="col-lg-3 col-md-6">
-  <div class="widget widget-shadow">
-    <div class="widget-header bg-green-600 padding-30 white">
-      <a class="avatar avatar-100 img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)">
-        <img src="../../../global/portraits/11.jpg" alt="">
-      </a>
-      <div class="vertical-align height-100 text-truncate">
-        <div class="vertical-align-middle">
-          <div class="font-size-20 margin-bottom-5 text-truncate">Gwendolyn Wheeler</div>
-          <div class="font-size-14 text-truncate">Adminnistrator</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-<script>
 function ImageExist(url)
 {
    var img = new Image();
@@ -29,14 +13,6 @@ $.ajax({
     console.log("toktok");
     console.log(code_html);
     console.log(code_html.mine);
-    var k = 0;
-    for(var j= 0; j < code_html.length - 1; j++)
-    {
-      if(code_html[j].email == code_html[code_html.length - 1].mine)
-      {
-        k = j;
-      }
-    }
     for(var i= 0; i < code_html.length - 1; i++)
     {
 
@@ -60,7 +36,7 @@ $.ajax({
           console.log(tab.indexOf(code_html[code_html.length - 1]));
           console.log(code_html[code_html.length - 1]);
           console.log("tintin");
-          if(tab.indexOf(code_html[code_html.length - 1].mine) >= 0 && code_html[k].block.indexOf(code_html[i].email) == -1)
+          if(tab.indexOf(code_html[code_html.length - 1].mine) >= 0)
           {
              $('#main').append('<div class="col-lg-3 col-md-6"><div class="widget widget-shadow"><div class="widget-header bg-green-600 padding-30 white"><a class="avatar avatar-100" onclick="mini_profil(`'+code_html[i].email+'`);" img-bordered bg-white pull-left margin-right-20" href="javascript:void(0)"><img style="width : 40px; height : 40px;" alt="" src= "/'+code_html[i].email+'/photo1.png"></a><div class="vertical-align height-100 text-truncate"><div class="vertical-align-middle"><div class="font-size-20 margin-bottom-5 text-truncate">'+code_html[i].firstname+' '+code_html[i].surname+'</div><div class="font-size-20 margin-bottom-5 text-truncate">Age : '+code_html[i].age+'</div><div class="font-size-20 margin-bottom-5 text-truncate">popularity : '+code_html[i].popularity+'</div></div></div></div></div></div>');
          }
@@ -88,9 +64,3 @@ function like(email){
 // $("#site-navbar-collapse").click(function(){
 //   alert();
 // });
-
-
-
-
-</script>
-<!-- <script src="/likedyou/js/likedyou.js"></script> -->

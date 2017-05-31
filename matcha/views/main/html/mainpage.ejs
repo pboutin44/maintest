@@ -203,7 +203,7 @@ data-animation="scale-up" role="button">
 <span class="site-menu-arrow"></span>
 </a>
 </li> -->
-<li class="site-menu-item has-sub">
+<li class="site-menu-item has-sub" id = "message">
   <a href="javascript:void(0)" id = "message_logo">
     <i class="site-menu-icon wb-chat-text" aria-hidden="true"></i>
     <span class="site-menu-title">Messages</span>
@@ -488,7 +488,7 @@ function avion() {
           type : 'GET',
           // dataType : 'html',
           success : function(code_html, statut){
-            $(".badge").remove();
+            $(".badge-danger").remove();
           }
         });
       }
@@ -645,7 +645,7 @@ socket.on('pierromoutarde', function(data) {
 });
 
 socket.on('chat-mes', function (message) {
-  $("#message_logo").append('<div class="site-menu-badge"><span class="badge badge-success">i</span></div>');
+  $("#message_logo").append('<div class="site-menu-badge" id="chat"><span class="badge badge-success">i</span></div>');
   console.log("todo");
 
 
@@ -846,6 +846,13 @@ $('#discover').click(function(){
 $('#likedyou').click(function(){
   $("#main").empty();
   $.get("/likedyou", function(data) {
+    $("#main").append(data);
+  });
+})
+
+$('#message').click(function(){
+  $("#main").empty();
+  $.get("/message", function(data) {
     $("#main").append(data);
   });
 })
