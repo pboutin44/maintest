@@ -1,63 +1,90 @@
 <div class="page-content">
-      <!-- Panel Title -->
-      <div class="panel">
-        <div class="panel-body">
-          <div class="chat-box">
-            <div class="chats">
-              <!-- <div class="chat">
+  <!-- Panel Title -->
+  <div class="panel">
+    <div class="panel-body">
+      <div class="chat-box">
+        <div class="chats">
+          <!-- <div class="chat">
 
-              </div>
-              <div class="chat chat-left">
-                <div class="chat-avatar">
-                  <a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher">
-                    <img src="../../../global/portraits/5.jpg" alt="Edward Fletcher">
-                  </a>
-                </div>
-                <div class="chat-body">
-                  <div class="chat-content">
-                    <p>You wait for notice.</p>
-                  </div>
-                  <div class="chat-content">
-                    <p>Consectetuorem ipsum dolor sit?</p>
-                    <time class="chat-time" datetime="2015-06-01T08:50">8:50 am</time>
-                  </div>
-                  <div class="chat-content">
-                    <p>OK?</p>
-                    <time class="chat-time" datetime="2015-06-01T08:55">8:55 am</time>
-                  </div>
-                </div>
-              </div>
-              <div class="chat">
-                <div class="chat-avatar">
-                  <a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="June Lane">
-                    <img src="../../../global/portraits/4.jpg" alt="June Lane">
-                  </a>
-                </div>
-                <div class="chat-body">
-                  <div class="chat-content">
-                    <p>OK!</p>
-                    <time class="chat-time" datetime="2015-06-01T09:00">9:00 am</time>
-                  </div>
-                </div>
-              </div> -->
-            </div>
-          </div>
         </div>
-        <div class="panel-footer">
-          <form>
-            <div class="input-group">
-              <input type="text" id="contenu" class="form-control" placeholder="Say something">
-              <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" id ="send" >Send</button>
-              </span>
-            </div>
-          </form>
-        </div>
-      </div>
-      <!-- End Panel Title -->
+        <div class="chat chat-left">
+        <div class="chat-avatar">
+        <a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher">
+        <img src="../../../global/portraits/5.jpg" alt="Edward Fletcher">
+      </a>
     </div>
+    <div class="chat-body">
+    <div class="chat-content">
+    <p>You wait for notice.</p>
+  </div>
+  <div class="chat-content">
+  <p>Consectetuorem ipsum dolor sit?</p>
+  <time class="chat-time" datetime="2015-06-01T08:50">8:50 am</time>
+</div>
+<div class="chat-content">
+<p>OK?</p>
+<time class="chat-time" datetime="2015-06-01T08:55">8:55 am</time>
+</div>
+</div>
+</div>
+<div class="chat">
+<div class="chat-avatar">
+<a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="June Lane">
+<img src="../../../global/portraits/4.jpg" alt="June Lane">
+</a>
+</div>
+<div class="chat-body">
+<div class="chat-content">
+<p>OK!</p>
+<time class="chat-time" datetime="2015-06-01T09:00">9:00 am</time>
+</div>
+</div>
+</div> -->
+</div>
+</div>
+</div>
+<div class="panel-footer">
+  <form id="form">
+    <div class="input-group">
+      <input type="text" id="contenu" class="form-control" placeholder="Say something">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" id ="send" >Send</button>
+      </span>
+    </div>
+  </form>
+</div>
+</div>
+<!-- End Panel Title -->
+</div>
 <!-- <script src="/chat/js/chat.js"></script> -->
 <script>
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+$("#form").submit(function(e) {
+  e.preventDefault();
+  $.ajax({
+    url : '/user_profil/check_block',
+    type : 'GET',
+    data : {email : email},
+    success : function(code_html, statut){
+      console.log(code_html);
+      if(code_html == 1)
+      {
+        var myObject = {from : $("#contact2").html(),
+        to : $("#contact").html(),
+        message : escape($("#contenu").val())};
+
+        $('.chats').append('<div class="chat chat-left"><div class="chat-body"><div class="chat-content"><p>'+escape($("#contenu").val()).replaceAll("%20", " ")+'</p></div></div></div>')
+        socket.emit('chat-message', myObject);
+        $("#contenu").val("");
+      }
+    }
+  });
+
+})
+
 var email1 = $("#photo_profil").attr("src");
 console.log(email1);
 var email = email1.split("/")[0];
@@ -67,7 +94,7 @@ $.ajax({
   //    data : {'email' : email},
   success : function(code_html1, statut){
     console.log("requin");
-  //  console.log(code_html);
+    //  console.log(code_html);
     console.log("requin2");
     console.log(code_html1);
     console.log("rasbian");
@@ -75,90 +102,119 @@ $.ajax({
     console.log(code_html1);
     //$("#main").append("<b id='contact' style='display : none;'>"+email+"</b><b id='contact2' style='display : none;'>"+code_html1+"</b>");
     setTimeout(function(){
-    //do what you need here
-    $.ajax({
-      url : '/chat/historique',
-      type : 'GET',
-      data : {'email1' : $("#contact2").html(),
-              'email2' : $("#contact").html()},
-      success : function(code_html, statut){
-        console.log("totoyoyo");
-        console.log(code_html);
-        console.log("tignous");
-        if(code_html[0].dialogue)
-        {
-          var tab = code_html[0].dialogue.split("*_**");
-        }
-        else {
-          var tab = [];
-        }
-        console.log(code_html);
-        console.log(tab);
-        var i = 0;
-        while(i < tab.length)
-        {
-             if(tab[i] == $("#contact").html()){
-               $('.chats').append('<div class="chat chat-left"><div class="chat-body"><div class="chat-content"><p>'+tab[i + 1]+'</p></div></div></div>')
-             }
-             else {
-               $('.chats').append('<div class="chat"><div class="chat-body"><div class="chat-content"><p>'+tab[i + 1]+'</p></div></div></div>')
-             }
-             i = i + 2;
-        }
+      //do what you need here
+      $.ajax({
+        url : '/chat/historique',
+        type : 'GET',
+        data : {'email1' : $("#contact2").html(),
+        'email2' : $("#contact").html()},
+        success : function(code_html, statut){
+          console.log("totoyoyo");
+          console.log(code_html);
+          console.log("tignous");
+          if(code_html[0].dialogue)
+          {
+            var tab = code_html[0].dialogue.split("*_**");
+          }
+          else {
+            var tab = [];
+          }
+          console.log(code_html);
+          console.log(tab);
+          var i = 0;
+          while(i < tab.length)
+          {
 
-      }
-    })
-}, 100);
+            var change3 = tab[i + 1].replaceAll("%20", " ")
+            console.log("dinoz");
+            console.log(tab[i + 1]);
+            console.log(change3);
+            if(tab[i] == $("#contact").html()){
+              $('.chats').append('<div class="chat chat-left"><div class="chat-body"><div class="chat-content"><p>'+change3+'</p></div></div></div>')
+            }
+            else {
+              $('.chats').append('<div class="chat"><div class="chat-body"><div class="chat-content"><p>'+change3+'</p></div></div></div>')
+            }
+            i = i + 2;
+          }
+
+        }
+      })
+    }, 100);
 
   }
 })
 
 
 $('#send').click(function(){
-
-var myObject = {from : $("#contact2").html(),
-                  to : $("#contact").html(),
-                message : $("#contenu").val()};
-$('.chats').append('<div class="chat chat-left"><div class="chat-body"><div class="chat-content"><p>'+$("#contenu").val()+'</p></div></div></div>')
-socket.emit('chat-message', myObject);
-$("#contenu").val("");
+  $.ajax({
+    url : '/user_profil/check_block',
+    type : 'GET',
+    data : {email : email},
+    success : function(code_html, statut){
+      console.log(code_html);
+      if(code_html == 1)
+      {
+        var myObject = {from : $("#contact2").html(),
+        to : $("#contact").html(),
+        message : escape($("#contenu").val())};
+        var change2 = myObject.message.replaceAll("%20", " ");
+        $('.chats').append('<div class="chat chat-left"><div class="chat-body"><div class="chat-content"><p>'+change2+'</p></div></div></div>')
+        socket.emit('chat-message', myObject);
+        $.ajax({
+          url : '/chat/stock_chat',
+          type : 'GET',
+          data : {'messageto' : myObject.to,
+          'messagefrom' : myObject.from,
+          'message' : myObject.message},
+          success : function(code_html, statut){
+            console.log("toktok");
+            console.log(code_html);
+          }
+        })
+        $("#contenu").val("");
+      }
+    }
+  });
 
 
 });
 
 
- $(document).ready(function() {
-   if (blog == "yo") {
-     return(0);
-   }
-   blog = "yo";
+$(document).ready(function() {
+  if (blog == "yo") {
+    return(0);
+  }
+  blog = "yo";
   socket.on('chat-mes', function (message) {
-     console.log(message);
-     console.log("tambour");
+    console.log(message);
+    console.log("tambour");
     console.log($("#contact2").html());
     console.log(message.to);
     console.log(message.from);
 
     if(message.to == $("#contact2").html())
     {
-      $.ajax({
-        url : '/chat/stock_chat',
-        type : 'GET',
-        data : {'messageto' : message.to,
-                'messagefrom' : message.from,
-                'message' : message.message},
-        success : function(code_html, statut){
-          console.log("toktok");
-          console.log(code_html);
-        }
-      })
+    //  alert();
+      // $.ajax({
+      //   url : '/chat/stock_chat',
+      //   type : 'GET',
+      //   data : {'messageto' : message.to,
+      //   'messagefrom' : message.from,
+      //   'message' : message.message},
+      //   success : function(code_html, statut){
+      //     console.log("toktok");
+      //     console.log(code_html);
+      //   }
+      // })
+      var change = message.message.replaceAll("%20", " ");
       $("#chat").remove();
-     $('.chats').append('<div class="chat"><div class="chat-body"><div class="chat-content"><p>'+message.message+'</p></div></div></div>')
+      $('.chats').append('<div class="chat"><div class="chat-body"><div class="chat-content"><p>'+change+'</p></div></div></div>')
     }
-   })
+  })
 
 
 
- })
+})
 
 </script>

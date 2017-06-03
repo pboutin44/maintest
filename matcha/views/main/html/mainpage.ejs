@@ -398,20 +398,43 @@ function avion() {
       console.log("pierromoutarde", resultat.responseText, erreur);
     },
   });
-
+  function isValid(str){
+    return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+  }
   console.log("poilu");
   $('#submit').click(function(){
     console.log("houra");
-    var firstname = $("#firstname").val();
-    var surname = $("#surname").val();
-    var email = $("#email").val();
+    var input = document.getElementById('pac-input');
+    var automoto = new google.maps.places.Autocomplete(input);
+    console.log(automoto.gm_accessors_.place);
+    console.log(automoto.gm_accessors_.place.Fc);
+    setTimeout(function() {
+  //your code to be executed after 1 second
+  console.log("tigger");
+  console.log(automoto.gm_accessors_.place.Fc.m.length);
+    if (automoto.gm_accessors_.place.Fc.m.length == 0)
+    {
+      alert("location not valid");
+      return 1
+    }
+    console.log(typeof(automoto.gm_accessors_.place.Fc));
+    console.log(automoto.gm_accessors_.place.Fc);
+    console.log("automoto");
+    if(!isValid($("#email").val()))
+    {
+      alert("email not valide");
+      return 1;
+    }
+    var firstname = escape($("#firstname").val());
+    var surname = escape($("#surname").val());
+    var email = escape($("#email").val());
     console.log(email);
     console.log(surname);
     console.log(firstname);
-    var sex = $("#sex option:selected").text();
-    var sexuality = $("#sexuality option:selected").text();
+    var sex = escape($("#sex option:selected").text());
+    var sexuality = escape($("#sexuality option:selected").text());
     var pacinput = $("#pac-input").val();
-    var bio = $("#bio").val();
+    var bio = escape($("#bio").val());
     var tokenfield = $("#tokenfield").val();
     var age = $("#age").val();
     var oki1 = $("#oki1").attr('src');
@@ -450,6 +473,7 @@ function avion() {
         console.log("pierromoutarde", resultat.responseText, erreur);
       },
     });
+    }, 500);
   });
 
   console.log("papamaman");
@@ -460,15 +484,15 @@ function avion() {
     success : function(code_html, statut){
       console.log("toktok");
       console.log(code_html);
-      $('.profile-user').append(code_html[0].surname+"  "+code_html[0].firstname);
-      $('#firstname').val(code_html[0].firstname);
-      $('#surname').val(code_html[0].surname);
+      $('.profile-user').text(unescape(code_html[0].surname)+"  "+unescape(code_html[0].firstname));
+      $('#firstname').val(unescape(code_html[0].firstname));
+      $('#surname').val(unescape(code_html[0].surname));
       $('#email').val(code_html[0].email);
       $('#sex').val(code_html[0].sex);
       $('#age').val(code_html[0].age);
       $('#sexuality').val(code_html[0].sexuality);
       $('#pac-input').val(code_html[0].pacinput);
-      $('#bio').val(code_html[0].bio);
+      $('#bio').val(unescape(code_html[0].bio));
       //$('#tokenfield').attr("value", code_html[0].tokenfield);
       var y = 0;
       console.log("tiboudien");
@@ -550,6 +574,7 @@ function avion() {
   function initMap() {
     var input = document.getElementById('pac-input');
     var autocomplete = new google.maps.places.Autocomplete(input);
+  //  console.log("lachica");
   }
   initMap();
 
@@ -584,13 +609,28 @@ function test2() {
     $("#main").append(data);
     function previewFile() {
       console.log("cesarmillan");
+      console.log("cesar2");
       var file    = document.querySelector('input[type=file]').files[0];
+      var file2    = document.querySelector('input[type=file]').files[0].size;
+      console.log("tableau de chasse");
+      console.log(file2);
+      // if (file2 > 100) {
+      //     alert("File too large!");
+      //     e.preventDefault();
+      //     return;
+      //   }
       var reader  = new FileReader();
+      // if (reader > 100) {
+      //     alert("File too large!");
+      //     e.preventDefault();
+      //     return;
+      //   }
       reader.addEventListener("load", function () {
         //  preview1.src = reader.result;
         var i = 1;
         //  while(i < 6)
         //  {
+        console.log("pasala");
         $.ajax({
           url : '/profile/findplace',
           type : 'POST',
@@ -891,6 +931,14 @@ function deletephoto(arg){
 function previewFile() {
   console.log("cesarmillan");
   var file    = document.querySelector('input[type=file]').files[0];
+  var file2    = document.querySelector('input[type=file]').files[0].size;
+  console.log("tableau de chasse");
+  console.log(file2);
+  // if (file2 > 100) {
+  //     alert("File too large!");
+  //     e.preventDefault();
+  //     return;
+  //   }
   var reader  = new FileReader();
   reader.addEventListener("load", function () {
     //  preview1.src = reader.result;

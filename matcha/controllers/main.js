@@ -222,7 +222,9 @@ router.get('/popularity', function(req, res) {
 //  res.send("ok");
 
 });
-
+router.get('/', function (req, res) {
+res.redirect('/')  
+})
 router.post('/', function(req, res) {
   // res.setHeader('Content-Type', 'text/plain');
   // var birthday = req.body.remember;
@@ -265,4 +267,5 @@ router.post('/', function(req, res) {
     console.log("okokok");
 
   });
+
   module.exports = router;

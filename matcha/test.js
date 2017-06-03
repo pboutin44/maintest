@@ -52,7 +52,7 @@ app.use(express.static('./views'));
 app.use(express.static('./photos'));
 console.log('k')
 //app.use( express.static(path.resolve('.')));
-
+app.use('/main', require('./controllers/main.js'));
 app.use('/', require('./controllers/register.js'));
 //app.use('/', require('./controllers/register.js'));
 app.use('/profile', require('./controllers/profile.js'));
@@ -158,7 +158,7 @@ app.get('/sous-sol', function(req, res) {
   res.setHeader('Content-Type', 'text/plain');
   res.end('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
 });
-app.use('/main', require('./controllers/main.js'));
+
 app.get('/forgot-password', function(req, res) {
   res.render('forgot-password.ejs');
 });
@@ -296,11 +296,11 @@ app.post('/confirmation_change', function(req, res) {
     });
     app.post('/yo', function(req, res) {
       //     res.setHeader('Content-Type', 'text/plain');
-      var login = req.body.login;
-      var firstname = req.body.firstname;
-      var surname = req.body.surname;
-      var age = req.body.age;
-      var email = req.body.email;
+      var login = escape(req.body.login);
+      var firstname = escape(req.body.firstname);
+      var surname = escape(req.body.surname);
+      var age = escape(req.body.age);
+      var email = escape(req.body.email);
       var password = req.body.password;
       //  var male = req.body.inputRadioGender;
       console.log("3fpo34kf");

@@ -92,11 +92,11 @@
               </div>
             </div>
             <div>
-              <img id="oki1"  onclick="deletephoto('oki1')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
-              <img id="oki2"  onclick="deletephoto('oki2')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
-              <img id="oki3"  onclick="deletephoto('oki3')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
-              <img id="oki4"  onclick="deletephoto('oki4')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
-              <img id="oki5"  onclick="deletephoto('oki5')" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+              <img id="oki1" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+              <img id="oki2" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+              <img id="oki3" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+              <img id="oki4" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
+              <img id="oki5" class="profile-uploaded" src="/global/photos/placeholder.png" height="200" style="padding-top:0.1cm;">
             </div>
             <button type="button" id="like" onclick="" class="btn btn-outline">Like</button>
             <button type="button" id="chat" onclick="Chat(`'+code_html[i].email+'`);" class="btn btn-outline">Chat</button>
@@ -202,6 +202,7 @@ $.ajax({
       //  preview1.src = reader.result;
       //  $.post('/ya', {'image' : preview.src});
     }, false);
+    console.log("kaway");
 
     if (file) {
       reader.readAsDataURL(file);
@@ -291,6 +292,7 @@ $.ajax({
       // console.log(code_html[0].photo3);
       // console.log(code_html[0].photo4);
       // console.log(code_html[0].photo5);
+      console.log("okok");
 
 
     },
