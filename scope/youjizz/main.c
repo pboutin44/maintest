@@ -12,24 +12,8 @@
 }*/
 float	*produit_matricielle4(float mat1[], float mat2[], float teta)
 {
-	float a;
-	float b;
-	float c;
-	float d;
-	float e;
-	float f;
-	float g;
-	float h;
-	float i;
-	float j;
-	float k;
-	float l;
-	float m;
-	float n;
-	float o;
-	float p;
 	float *final_matrix;
-	final_matrix = (float *)malloc(16);
+	final_matrix = (float *)malloc(16 * sizeof(float));
 /*	int q = 0;
 	
 while(q < 16)
@@ -43,6 +27,10 @@ while(q < 16)
 	printf("2 table %d: %f\n", q,  mat2[q]);
 	q++;
 }*/
+	float y = mat2[4] * mat1[1] + mat2[5] * mat1[5] + mat2[6] * mat1[9] + mat2[7] * mat1[13];
+	float u = mat2[5] * mat1[5];
+	puts("erferf");
+	printf("bille %f boule %f", u, y);
 	final_matrix[0] = mat2[0] * mat1[0] + mat2[1] * mat1[4] + mat2[2] * mat1[8] + mat2[3] * mat1[12];
 	final_matrix[1] = mat2[0] * mat1[1] + mat2[1] * mat1[5] + mat2[2] * mat1[9] + mat2[3] * mat1[13];
 	final_matrix[2] = mat2[0] * mat1[2] + mat2[1] * mat1[6] + mat2[2] * mat1[10] + mat2[3] * mat1[14];
@@ -59,17 +47,14 @@ while(q < 16)
 	final_matrix[13] = mat2[12] * mat1[1] + mat2[13] * mat1[5] + mat2[14] * mat1[9] + mat2[15] * mat1[13];
 	final_matrix[14] = mat2[12] * mat1[2] + mat2[13] * mat1[6] + mat2[14] * mat1[10] + mat2[15] * mat1[14];
 	final_matrix[15] = mat2[12] * mat1[3] + mat2[13] * mat1[7] + mat2[14] * mat1[11] + mat2[15] * mat1[15];
+	puts("tatayoyo");
 int q = 0;
 while(q < 16)
 {
 	printf("\ntableau %d: %f, fref%f, feerf%f\n", q,  final_matrix[q], mat1[q], mat2[q]);
 	q++;
 }
-/*	final_matrix = {
-	a, b, c, d,
-   	e, f, g, h,
-   	i, j, k, l,
-	m, n, o, p};*/
+	puts("marypopins");
 	return(final_matrix);
 };
 
@@ -107,8 +92,8 @@ int main() {
  0.0f, -0.906f, -0.422f, 0.0f,
  0.0f, 0.0f, 0.0f, 1.0f
 };*/
-/*float	*matrix;
-matrix = (float *)malloc(16);
+float	*matrix;
+matrix = (float *)malloc(16 * sizeof(float));
 matrix[0] = 1.0;
 matrix[1] = 0.0;
 matrix[2] = 0.0;
@@ -128,7 +113,7 @@ matrix[15] = 1.0;
 
 
 float	*matrix1;
-matrix1 = (float *)malloc(16);
+matrix1 = (float *)malloc(16 * sizeof(float));
 matrix1[0] = 1.0;
 matrix1[1] = 0.0;
 matrix1[2] = 0.0;
@@ -144,9 +129,9 @@ matrix1[11] = 0.0;
 matrix1[12] = 0.0;
 matrix1[13] = 0.0;
 matrix1[14] = 0.0;
-matrix1[15] = 1.0;*/
+matrix1[15] = 1.0;
 
-float matrix[] = { 
+/*float matrix[] = { 
  1.0f, 0.0f, 0.0f, 0.0f,
  0.0f, 1.0f, 0.0f, 0.0f,
  0.0f, 0.0f, 1.0f, 0.0f,
@@ -157,7 +142,7 @@ float matrix1[] = {
  0.0f, 1.0f, 0.0f, 0.0f,
  0.0f, 0.0f, 1.0f, 0.0f,
  0.0f, 0.0f, 0.0f, 1.0f
-};
+};*/
 //printf("test: %f", *matrix);
 
 
@@ -168,17 +153,17 @@ float matrix1[] = {
 };
 
 
-printf("caca %lu frcf", sizeof(matrix));
+//printf("caca %lu frcf", sizeof(matrix));
 
 
 float *matrix3;
-matrix3 = (float *)malloc(16);
+matrix3 = (float *)malloc(16 * sizeof(float));
 matrix3 = produit_matricielle4(matrix, matrix1, 1.0);
 
 int		l = 0;
 while(l < 16)
 {
-	printf("irefjerf: %f\n", matrix3[l]);
+	printf("\nirefjerf: %f", matrix3[l]);
 	l++;
 }
 
