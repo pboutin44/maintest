@@ -14,22 +14,8 @@ float	*produit_matricielle4(float mat1[], float mat2[], float teta)
 {
 	float *final_matrix;
 	final_matrix = (float *)malloc(16 * sizeof(float));
-/*	int q = 0;
-	
-while(q < 16)
-{
-	printf("1 table %d: %f\n",q,  mat1[q]);
-	q++;
-}
-q = 0;
-while(q < 16)
-{
-	printf("2 table %d: %f\n", q,  mat2[q]);
-	q++;
-}*/
 	float y = mat2[4] * mat1[1] + mat2[5] * mat1[5] + mat2[6] * mat1[9] + mat2[7] * mat1[13];
 	float u = mat2[5] * mat1[5];
-	puts("erferf");
 	printf("bille %f boule %f", u, y);
 	final_matrix[0] = mat2[0] * mat1[0] + mat2[1] * mat1[4] + mat2[2] * mat1[8] + mat2[3] * mat1[12];
 	final_matrix[1] = mat2[0] * mat1[1] + mat2[1] * mat1[5] + mat2[2] * mat1[9] + mat2[3] * mat1[13];
@@ -47,18 +33,57 @@ while(q < 16)
 	final_matrix[13] = mat2[12] * mat1[1] + mat2[13] * mat1[5] + mat2[14] * mat1[9] + mat2[15] * mat1[13];
 	final_matrix[14] = mat2[12] * mat1[2] + mat2[13] * mat1[6] + mat2[14] * mat1[10] + mat2[15] * mat1[14];
 	final_matrix[15] = mat2[12] * mat1[3] + mat2[13] * mat1[7] + mat2[14] * mat1[11] + mat2[15] * mat1[15];
-	puts("tatayoyo");
-int q = 0;
-while(q < 16)
-{
-	printf("\ntableau %d: %f, fref%f, feerf%f\n", q,  final_matrix[q], mat1[q], mat2[q]);
-	q++;
-}
-	puts("marypopins");
 	return(final_matrix);
 };
 
+float	*rotation_y(float mat1[], float mat2[], float teta)
+{
+	float *final_matrix;
+	final_matrix = (float *)malloc(16 * sizeof(float));
+	float y = mat2[4] * mat1[1] + mat2[5] * mat1[5] + mat2[6] * mat1[9] + mat2[7] * mat1[13];
+	float u = mat2[5] * mat1[5];
+	printf("bille %f boule %f", u, y);
+	final_matrix[0] = cos(teta) * mat1[0] + 0 * mat1[4] - sin(teta) * mat1[8] + 0 * mat1[12];
+	final_matrix[1] = cos(teta) * mat1[1] + 0 * mat1[5] - sin(teta) * mat1[9] + 0 * mat1[13];
+	final_matrix[2] = cos(teta) * mat1[2] + 0 * mat1[6] - sin(teta) * mat1[10] + 0 * mat1[14];
+	final_matrix[3] = cos(teta) * mat1[3] + 0 * mat1[7] - sin(teta) * mat1[11] + 0 * mat1[15];
+	final_matrix[4] = 0 * mat1[0] + 1 * mat1[4] + 0 * mat1[8] + 0 * mat1[12];
+	final_matrix[5] = 0 * mat1[1] + 1 * mat1[5] + 0 * mat1[9] + 0 * mat1[13];
+	final_matrix[6] = 0 * mat1[2] + 1 * mat1[6] + 0 * mat1[10] + 0 * mat1[14];
+	final_matrix[7] = 0 * mat1[3] + 1 * mat1[7] + 0 * mat1[11] + 0 * mat1[15];
+	final_matrix[8] = sin(teta) * mat1[0] + 0 * mat1[4] + cos(teta) * mat1[8] + 0 * mat1[12];
+	final_matrix[9] = sin(teta) * mat1[1] + 0 * mat1[5] + cos(teta) * mat1[9] + 0 * mat1[13];
+	final_matrix[10] = sin(teta) * mat1[2] + 0 * mat1[6] + cos(teta) * mat1[10] + 0 * mat1[14];
+	final_matrix[11] = sin(teta) * mat1[3] + 0 * mat1[7] + cos(teta) * mat1[11] + 0 * mat1[15];
+	final_matrix[12] = 0 * mat1[0] + 0 * mat1[4] -2*cos(teta) * mat1[8] + 1 * mat1[12];
+	final_matrix[13] = 0 * mat1[1] + 0 * mat1[5] -2*cos(teta) * mat1[9] + 1 * mat1[13];
+	final_matrix[14] = 0 * mat1[2] + 0 * mat1[6] -2*cos(teta) * mat1[10] + 1 * mat1[14];
+	final_matrix[15] = 0 * mat1[3] + 0 * mat1[7] -2*cos(teta) * mat1[11] + 1 * mat1[15];
+	return(final_matrix);
+}
 
+float	*matrix_y(float teta)
+{
+	float *final_matrix;
+	final_matrix = (float *)malloc(16 * sizeof(float));
+	final_matrix[0] = cos(teta);
+	final_matrix[1] = 0;
+	final_matrix[2] = -sin(teta);
+	final_matrix[3] = 0;
+	final_matrix[4] = 0;
+	final_matrix[5] = 1;
+	final_matrix[6] = 0;
+	final_matrix[7] = 0;
+	final_matrix[8] = sin(teta);
+	final_matrix[9] = 0;
+	final_matrix[10] = cos(teta);
+	final_matrix[11] = 0;
+	final_matrix[12] = 0;
+	final_matrix[13] = 0;
+	final_matrix[14] = 0;
+	final_matrix[15] = 1;
+	return(final_matrix);
+}
 
 
 
@@ -94,24 +119,64 @@ int main() {
 };*/
 float	*matrix;
 matrix = (float *)malloc(16 * sizeof(float));
-matrix[0] = 1.0;
+matrix[0] = 0.707;
 matrix[1] = 0.0;
-matrix[2] = 0.0;
+matrix[2] = -0.707;
 matrix[3] = 0.0;
 matrix[4] = 0.0;
 matrix[5] = 1.0;
 matrix[6] = 0.0;
 matrix[7] = 0.0;
-matrix[8] = 0.0;
+matrix[8] = 0.707;
 matrix[9] = 0.0;
-matrix[10] = 1.0;
+matrix[10] = 0.707;
 matrix[11] = 0.0;
 matrix[12] = 0.0;
 matrix[13] = 0.0;
-matrix[14] = 0.0;
+matrix[14] = -1.414;
 matrix[15] = 1.0;
 
+float	*matrix6;
+matrix6 = (float *)malloc(16 * sizeof(float));
+matrix6[0] = 0.707;
+matrix6[1] = 0.0;
+matrix6[2] = -0.707;
+matrix6[3] = 0.0;
+matrix6[4] = 0.0;
+matrix6[5] = 1.0;
+matrix6[6] = 0.0;
+matrix6[7] = 0.0;
+matrix6[8] = 0.707;
+matrix6[9] = 0.0;
+matrix6[10] = 0.707;
+matrix6[11] = 0.0;
+matrix6[12] = 0.0;
+matrix6[13] = 0.0;
+matrix6[14] = -1.414;
+matrix6[15] = 1.0;
 
+float	*matrix7;
+matrix7 = (float *)malloc(16 * sizeof(float));
+matrix7[0] = 1.0;
+matrix7[1] = 0.0;
+matrix7[2] = 0.0;
+matrix7[3] = 0.0;
+matrix7[4] = 0.0;
+matrix7[5] = 1.0;
+matrix7[6] = 0.0;
+matrix7[7] = 0.0;
+matrix7[8] = 0.0;
+matrix7[9] = 0.0;
+matrix7[10] = 1.0;
+matrix7[11] = 0.0;
+matrix7[12] = 0.0;
+matrix7[13] = 0.0;
+matrix7[14] = 0.0;
+matrix7[15] = 1.0;
+printf("sin(45) = %f", sin(45));
+float	*matrix8;
+matrix8 = (float *)malloc(16 * sizeof(float));
+matrix8 = matrix_y( 0); 
 float	*matrix1;
 matrix1 = (float *)malloc(16 * sizeof(float));
 matrix1[0] = 1.0;
@@ -304,14 +369,14 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 "layout(location = 1) in vec3 vc;" 
 
 //"uniform mat4 matrix;" // our matrix 
-"uniform mat4 matrix, view, proj;"
+"uniform mat4 matrix8, view, proj;"
 //"uniform mat4 matrix = mat4(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.5, 0.0, 0.0, 1.0);"
 //"uniform mat4 MVP;"
 "out vec3 colour;"
 
 "void main () {"
 "colour = vc;"
-"gl_Position = proj * view * matrix * vec4 (vp, 1.0);"
+"gl_Position = proj * view * matrix8 * vec4 (vp, 1.0);"
 "}";
 
 	/* the fragment shader colours each fragment (pixel-sized area of the
@@ -355,8 +420,8 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 	glBindAttribLocation (shader_programme, 1, "vc");*/
 	glLinkProgram( shader_programme );
 	glUseProgram (shader_programme);
-	int matrix_location = glGetUniformLocation (shader_programme, "matrix");
-	glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+	int matrix_location = glGetUniformLocation (shader_programme, "matrix8");
+	glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix8);
 	int view_mat_location = glGetUniformLocation (shader_programme, "view");
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (view_mat_location, 1, GL_FALSE, view_mat);
@@ -364,7 +429,12 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, proj_mat);
 
-
+/*	int x, y, n;
+	int force_channels = 4;
+	unsigned char* image_data = stbi_load ("./poney.png", &x, &y, &n, force_channels);
+	if (!image_data) {
+		fprintf (stderr, "ERROR: could not load %s\n", "./poney.png");
+	}*/
 	/* this loop clears the drawing surface, then draws the geometry described
 		 by the VAO onto the drawing surface. we 'poll events' to see if the window
 		 was closed, etc. finally, we 'swap the buffers' which displays our drawing
@@ -373,10 +443,12 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 		 surface. hence the 'swap' idea. in a single-buffering system we would see
 		 stuff being drawn
 	one-after-the-other */
+	float teta = 0;
 	float speed = 1.0f; // move at 1 unit per second 
 	float last_position = 0.0f; 
 	float last1_position = 0.0f; 
-	float last2_position = 0.0f; 
+	float last2_position = 0.0f;
+//	float last3_position = 0.0f
 	while ( !glfwWindowShouldClose( window ) ) {
 
 			// add a timer for doing animation 
@@ -385,6 +457,7 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 			double elapsed_seconds = current_seconds - previous_seconds; 
 			double elapsed1_seconds = current_seconds - previous_seconds; 
 			double elapsed2_seconds = current_seconds - previous_seconds; 
+			double elapsed3_seconds = current_seconds - previous_seconds; 
 			previous_seconds = current_seconds; 
 
 			// reverse direction when going to far left or right 
@@ -392,7 +465,41 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 					speed = -speed; 
 				}
 
+//float	*produit_matricielle4(float mat1[], float mat2[], float teta)
+		if (glfwGetKey (window, GLFW_KEY_EQUAL)) {
+//			glfwSetWindowShouldClose (window, 1);
+			// update the matrix 
+			matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position; 
+			last2_position = matrix7[14];
+			teta = teta + 0.01;
+			
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
+
+			glUseProgram (shader_programme); 
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
+		}
 		if (glfwGetKey (window, GLFW_KEY_RIGHT)) {
+//			glfwSetWindowShouldClose (window, 1);
+			// update the matrix 
+			matrix7[12] = elapsed_seconds * speed + last_position + 0.01f; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position; 
+			last2_position = matrix7[14];
+
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
+
+			glUseProgram (shader_programme); 
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
+		}
+/*		if (glfwGetKey (window, GLFW_KEY_RIGHT)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
 			matrix[12] = elapsed_seconds * speed + last_position + 0.01f; 
@@ -403,78 +510,90 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 			last2_position = matrix[14]; 
 			glUseProgram (shader_programme); 
 			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
-		}
+		}*/
 		if (glfwGetKey (window, GLFW_KEY_LEFT)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
-			matrix[12] = elapsed_seconds * speed + last_position - 0.01f; 
-			last_position = matrix[12]; 
-			matrix[13] = elapsed1_seconds * speed + last1_position; 
-			last1_position = matrix[13]; 
-			matrix[14] = elapsed2_seconds * speed + last2_position; 
-			last2_position = matrix[14]; 
+			matrix7[12] = elapsed_seconds * speed + last_position - 0.01f; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position; 
+			last2_position = matrix7[14]; 
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
 			glUseProgram (shader_programme); 
-			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
 		if (glfwGetKey (window, GLFW_KEY_UP)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
-			matrix[12] = elapsed_seconds * speed + last_position; 
-			last_position = matrix[12]; 
-			matrix[13] = elapsed1_seconds * speed + last1_position + 0.01f; 
-			last1_position = matrix[13]; 
-			matrix[14] = elapsed2_seconds * speed + last2_position; 
-			last2_position = matrix[14]; 
+			matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position + 0.01f; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position; 
+			last2_position = matrix7[14]; 
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
 			glUseProgram (shader_programme); 
-			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
 		if (glfwGetKey (window, GLFW_KEY_DOWN)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
-			matrix[12] = elapsed_seconds * speed + last_position; 
-			last_position = matrix[12]; 
-			matrix[13] = elapsed1_seconds * speed + last1_position - 0.01f; 
-			last1_position = matrix[13]; 
-			matrix[14] = elapsed2_seconds * speed + last2_position ;
-			last2_position = matrix[14];
+			matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position - 0.01f; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position ;
+			last2_position = matrix7[14];
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
 			glUseProgram (shader_programme); 
-			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
 		if (glfwGetKey (window, GLFW_KEY_SPACE)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
-			matrix[12] = elapsed_seconds * speed + last_position; 
-			last_position = matrix[12]; 
-			matrix[13] = elapsed1_seconds * speed + last1_position; 
-			last1_position = matrix[13]; 
-			matrix[14] = elapsed2_seconds * speed + last2_position + 0.01f; 
-			last2_position = matrix[14]; 
+			matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position + 0.01f; 
+			last2_position = matrix7[14]; 
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
 			glUseProgram (shader_programme); 
-			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
 		if (glfwGetKey (window, GLFW_KEY_M)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
-			matrix[12] = elapsed_seconds * speed + last_position; 
-			last_position = matrix[12]; 
-			matrix[13] = elapsed1_seconds * speed + last1_position; 
-			last1_position = matrix[13]; 
-			matrix[14] = elapsed2_seconds * speed + last2_position - 0.01f; 
-			last2_position = matrix[14]; 
+			matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position - 0.01f; 
+			last2_position = matrix7[14]; 
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
 			glUseProgram (shader_programme); 
-			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
 		if (glfwGetKey (window, GLFW_KEY_M)) {
 //			glfwSetWindowShouldClose (window, 1);
 			// update the matrix 
-			matrix[12] = elapsed_seconds * speed + last_position; 
-			last_position = matrix[12]; 
-			matrix[13] = elapsed1_seconds * speed + last1_position; 
-			last1_position = matrix[13]; 
-			matrix[14] = elapsed2_seconds * speed + last2_position - 0.01f; 
-			last2_position = matrix[14]; 
+			matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position - 0.01f; 
+			last2_position = matrix7[14]; 
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
 			glUseProgram (shader_programme); 
-			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix);
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
 	
 // update view matrix

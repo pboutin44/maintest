@@ -132,13 +132,18 @@ char *str;
 char **str1;
 char **str2;
 char *str3;
+float *str4;
 
+
+puts("tachedebeurre");
 fd = open(argv[1], O_RDONLY);
 //printf("%s", get_next_line(fd));
 int i = 0;
-str1 = (char **)malloc(500);
-str2 = (char **)malloc(2000);
-str3 = (char *)malloc(20000);
+str = (char *)malloc(500 * sizeof(char));
+str1 = (char **)malloc(500 * sizeof(char *));
+str2 = (char **)malloc(2000 * sizeof(char *));
+str3 = (char *)malloc(2000 * sizeof(char));
+str4 = (float *)malloc(2000 * sizeof(float));
 int	j = 0;
 char c;
 char v;
@@ -147,13 +152,13 @@ v = '9';
 write(1, &c, 1);
 while(j < 500)
 {
-	str1[j] = (char *)malloc(60);
+	str1[j] = (char *)malloc(600 * sizeof(char));
 	j++;
 }
 j = 0;
 while(j < 2000)
 {
-	str2[j] = (char *)malloc(3);
+	str2[j] = (char *)malloc(3 * sizeof(char));
 	j++;
 }
 j = 0;
@@ -164,28 +169,40 @@ j = 0;
 }*/
 write(1, &v, 1);
 int y = 0;
+puts("tachedebeurre2");
 while(i != -1)
 {
+	my_put_nbr(i);
+	str = (char *)malloc(1000 * sizeof(char));
+	puts("tachefromage");
 	str = get_next_line(fd);
+	puts("tachedesinge");
 	if(strstr(str, "off"))
 	{
 		str1[i] = "off";
 		i = -2;
+		puts("if");
 	}
 	else
 	{
-		y = 0;
-/*		while(str[y] != '\0')
-		{
-			str1[i][y] = str[y];
-			y++;
-		}
-		str1[i][y] = '\0';*/
+		puts("else");
 
-		str1[i] = str;
+		if(str[0] == 'v')
+		{
+			y = 0;
+/*			while(str[y] != '\0')
+			{
+				str1[i][y] = str[y];
+				y++;
+			}
+			str1[i][y] = '\0';*/
+	
+			str1[i] = str;
+		}
 	}
 	i++;
 }
+puts("tachedebeurre2");
 i = 0;
 while(i != -1)
 {
@@ -198,15 +215,19 @@ while(i != -1)
 	}
 	else
 	{
-		y = 0;
-/*		while(str[y] != '\0')
-		{
-			str1[i][y] = str[y];
-			y++;
-		}
-		str1[i][y] = '\0';*/
 
-		str2[i] = str;
+		if(str[0] == 'v')
+		{
+			y = 0;
+/*			while(str[y] != '\0')
+			{
+				str1[i][y] = str[y];
+				y++;
+			}
+			str1[i][y] = '\0';*/
+	
+			str2[i] = str;
+		}
 	}
 	i++;
 }
@@ -275,6 +296,12 @@ int fd2;
 fd2 = open("stock.txt", O_WRONLY);
 puts(str3);
 write(fd2, str3, 10000000);
+int o = 0;
+while(strcmp(str1[0], "off") != 0)
+{
+	puts(str1[o]);
+	o++;
+}
 
 
 //printf("%s", str3[0]);
