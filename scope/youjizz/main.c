@@ -135,13 +135,13 @@ points[17] = 1.477731;
  -0.227475, -0.745504, 2.843098,
  -0.227475, -0.745504, 1.477731,
 	   };*/
-
+/*
 int g = 0;
    while(g  < 18)
 {
     printf("\ndigits%d : %f", g, points[g]);
     g++;
-}
+}*/
 
 /*float matrix[] = { 
  1.0f, 0.0f, 0.0f, 0.0f,
@@ -285,14 +285,21 @@ while(str56[d] != 88888888)
 	d++;
 }
 d = 0;
+int a = 1;
    while(d  < h)
 {
-    printf("\ndigits%d : %f", d, str65[d]);
+    printf("\nd%dig%dats%d : %f",a , d, h,str65[d]);
     d++;
+	if( a == 3)
+	{
+		a = 0;
+		a++;	
+	}
+	else
+	{
+		a++;
+	}
 }
-
-
-
 
 
 
@@ -672,7 +679,7 @@ glUniformMatrix4fv (matrix_location, 1, GL_FALSE, view_mat.m);
 		glUseProgram( shader_programme );
 		glBindVertexArray( vao );
 		// draw points 0-3 from the currently bound VAO with current shader
-		glDrawArrays( GL_TRIANGLES, 0, 3*276);
+		glDrawArrays( GL_TRIANGLES, 0, 3*77);
 		// update other events like input handling
 		glfwPollEvents();
 		// put the stuff we've been drawing onto the display

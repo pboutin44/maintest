@@ -467,6 +467,7 @@ float	*point(char *objet)
 	l = 0;
 	char	*tmp;
 	char	*tmp1;
+	char	*tmp2;
 	tmp = (char *)malloc(100 * sizeof(char));
 	tmp1 = (char *)malloc(100 * sizeof(char));
 	while(strcmp(str2[j], "off") != 0)
@@ -482,10 +483,16 @@ float	*point(char *objet)
 		if(k == 3)
 		{
 			str2bis[l] = str2[j];
+//			puts("if");
+//			ft_putnbr(j);
+//			puts(str2[j]);
 		}
 		else
 		{
-	tmp = (char *)malloc(100 * sizeof(char));
+//			puts("else");
+//			ft_putnbr(j);
+//			puts(str2[j]);
+			tmp = (char *)malloc(100 * sizeof(char));
 			str_tmp = ft_strsplit(str2[j], ' ');
 			strcpy(tmp, str_tmp[0]);
 			tmp = strcat(tmp, " ");
@@ -495,19 +502,22 @@ float	*point(char *objet)
 			tmp = strcat(tmp, " ");
 			tmp = strcat(tmp, str_tmp[3]);
 
-			str2bis[l] = tmp;
+		//	str2bis[l] = tmp;
+			strcpy(str2bis[l], tmp);
 			l++;
-
-	tmp = (char *)malloc(100 * sizeof(char));
+			free(tmp);
+			tmp2 = (char *)malloc(100 * sizeof(char));
 			strcpy(tmp, str_tmp[0]);
-			tmp = strcat(tmp, " ");
-			tmp = strcat(tmp, str_tmp[2]);
-			tmp = strcat(tmp, " ");
-			tmp = strcat(tmp, str_tmp[3]);
-			tmp = strcat(tmp, " ");
-			tmp = strcat(tmp, str_tmp[4]);
+			tmp2 = strcat(tmp2, " ");
+			tmp2 = strcat(tmp2, str_tmp[1]);
+			tmp2 = strcat(tmp2, " ");
+			tmp2 = strcat(tmp2, str_tmp[3]);
+			tmp2 = strcat(tmp2, " ");
+			tmp2 = strcat(tmp2, str_tmp[4]);
 
-			str2bis[l] = tmp;
+		//	str2bis[l] = tmp2;
+			strcpy(str2bis[l], tmp2);
+
 		}
 
 		j++;
@@ -517,6 +527,7 @@ float	*point(char *objet)
 	i = 0;
 /*	while(strcmp(str2bis[i], "off") != 0)
 	{
+		ft_putnbr(i);
 		puts(str2bis[i]);
 		i++;
 	}
@@ -529,6 +540,7 @@ float	*point(char *objet)
 	}
 	i = 0;*/
 	v = 0;
+	free(str_tmp);
 	while(strcmp(str2bis[i], "off") != 0)
 	{
 		tmp = (char *)malloc(100 * sizeof(char));
@@ -546,7 +558,8 @@ float	*point(char *objet)
 		v++;
 		str3[v] = atof(str_tmp[3]);
 		v++;
-
+		
+		free(str_tmp);
 /*		printf("toobib: %f\n", atof(str_tmp[1]));
 		printf("toobib: %f\n", atof(str_tmp[2]));
 		printf("toobib: %f\n", atof(str_tmp[3]));
@@ -563,7 +576,8 @@ float	*point(char *objet)
 		v++;
 		str3[v] = atof(str_tmp[3]);
 		v++;
-
+		free(str_tmp);
+		
 //		puts(str1[atoi(str_tmp2[3]) - 1]);
 	  	str_tmp = ft_strsplit(str1[atoi(str_tmp2[3]) - 1], ' ');
 	//	puts(str_tmp[1]);
