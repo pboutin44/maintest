@@ -11,6 +11,7 @@
 //
 
 
+float	*point(char	*objet);
 #ifndef STBI_NO_STDIO
 #include <stdio.h>
 #endif // STBI_NO_STDIO

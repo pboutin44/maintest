@@ -87,7 +87,7 @@ float	*matrix_y(float teta)
 
 
 
-int main() {
+int main(int argc, char *argv[]){
 	GLFWwindow *window = NULL;
 	const GLubyte *renderer;
 	const GLubyte *version;
@@ -106,11 +106,43 @@ int main() {
 	}*/
 	/* geometry to use. these are 3 xyz points (9 floats total) to make a
 		 triangle */
-	float points[] = {
- 0.0f, 0.5f, 0.0f,
- 0.5f, -0.5f, 0.0f,
- -0.5f, -0.5f, 0.0f
-	   };
+float	points[18];
+//points = (float *)malloc(18 * sizeof(float));
+points[0] = 0.232406;
+points[1] = -0.745504;
+points[2] = 1.477731;
+points[3] = 0.232406;
+points[4] = -0.745504;
+points[5] = 2.843098;
+points[6] = -0.227475;
+points[7] = -0.745504;
+points[8] = 2.843098;
+points[9] = 0.232406;
+points[10] = -0.745504;
+points[11] = 2.843098;
+points[12] = -0.227475;
+points[13] = -0.745504;
+points[14] = 2.843098;
+points[15] = -0.227475;
+points[16] = -0.745504;
+points[17] = 1.477731;
+
+/*	float points[] = {
+  0.232406, -0.745504, 1.477731,
+ 0.232406, -0.745504, 2.843098,
+ -0.227475, -0.745504, 2.843098,
+ 0.232406, -0.745504, 2.843098,
+ -0.227475, -0.745504, 2.843098,
+ -0.227475, -0.745504, 1.477731,
+	   };*/
+
+int g = 0;
+   while(g  < 18)
+{
+    printf("\ndigits%d : %f", g, points[g]);
+    g++;
+}
+
 /*float matrix[] = { 
  1.0f, 0.0f, 0.0f, 0.0f,
  0.0f, -0.422f, 0.906f, 0.0f,
@@ -173,7 +205,7 @@ matrix7[12] = 0.0;
 matrix7[13] = 0.0;
 matrix7[14] = 0.0;
 matrix7[15] = 1.0;
-printf("sin(45) = %f", sin(45));
+//printf("sin(45) = %f", sin(45));
 float	*matrix8;
 matrix8 = (float *)malloc(16 * sizeof(float));
 matrix8 = matrix_y( 0); 
@@ -214,6 +246,9 @@ float matrix1[] = {
  float colours[] = {
  1.0f, 0.0f, 0.0f,
  0.0f, 1.0f, 0.0f,
+ 0.0f, 0.0f, 1.0f,
+ 1.0f, 0.0f, 0.0f,
+ 0.0f, 1.0f, 0.0f,
  0.0f, 0.0f, 1.0f
 };
 
@@ -226,14 +261,35 @@ matrix3 = (float *)malloc(16 * sizeof(float));
 matrix3 = produit_matricielle4(matrix, matrix1, 1.0);
 
 int		l = 0;
-while(l < 16)
+/*while(l < 16)
 {
 	printf("\nirefjerf: %f", matrix3[l]);
 	l++;
+}*/
+float	*str56;
+float	str65[684];
+int		h;
+int		d;
+//int		z;
+h = 0;
+str56 = point(argv[1]);
+while(str56[h] != 88888888)
+{
+	h++;
 }
-
-
-
+//str65 = (float *)malloc(18 *sizeof(float));
+d = 0;
+while(str56[d] != 88888888)
+{
+	str65[d] = str56[d];
+	d++;
+}
+d = 0;
+   while(d  < h)
+{
+    printf("\ndigits%d : %f", d, str65[d]);
+    d++;
+}
 
 
 
@@ -339,7 +395,7 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 		 data on the graphics adapter's memory. in our case - the vertex points */
 	glGenBuffers( 1, &vbo );
 	glBindBuffer( GL_ARRAY_BUFFER, vbo );
-	glBufferData( GL_ARRAY_BUFFER,  sizeof( points ), points, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER,  sizeof( str65 ), str65, GL_STATIC_DRAW );
 
 	GLuint colours_vbo = 0;
 	glGenBuffers (1, &colours_vbo);
@@ -376,7 +432,7 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 
 "void main () {"
 "colour = vc;"
-"gl_Position = proj * view * matrix8 * vec4 (vp, 1.0);"
+"gl_Position = proj * view * matrix8 * vec4 (vp, 2.0);"
 "}";
 
 	/* the fragment shader colours each fragment (pixel-sized area of the
@@ -386,7 +442,7 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 	"out vec4 frag_colour;"
 
 	"void main () {"
-	"frag_colour =  vec4 (colour, 1.0);"
+	"frag_colour =  vec4 (1.0, 1.0, 0.0, 1.0);"
 	"}";
 
 /*	GLuint colorbuffer;
@@ -616,7 +672,7 @@ glUniformMatrix4fv (matrix_location, 1, GL_FALSE, view_mat.m);
 		glUseProgram( shader_programme );
 		glBindVertexArray( vao );
 		// draw points 0-3 from the currently bound VAO with current shader
-		glDrawArrays( GL_TRIANGLES, 0, 3*1);
+		glDrawArrays( GL_TRIANGLES, 0, 3*276);
 		// update other events like input handling
 		glfwPollEvents();
 		// put the stuff we've been drawing onto the display

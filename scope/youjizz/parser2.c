@@ -4,6 +4,7 @@
 #include        <string.h>
 #include 		<fcntl.h>
 #include 		<assert.h>
+#include		"scope.h"
 # define MEM_SIZE 4096
 
 void my_putchar(char c)
@@ -361,7 +362,7 @@ char	*ft_strcat(char *s1, const char *s2)
 	return (s1);
 }
 
-int	main(int argc, char *argv[])
+float	*point(char *objet)
 {
 	int		fd;
 	char	*str;
@@ -375,16 +376,17 @@ int	main(int argc, char *argv[])
 	int		j;
 	int		k;
 	int		l;
+	int		v;
 	int		flag;
 
 	j = 0;
 	flag = 0;
-	fd = open(argv[1], O_RDONLY);
+	fd = open(objet, O_RDONLY);
 	str1 = (char **)malloc(500 * sizeof(char *));
 	str2 = (char **)malloc(1000 * sizeof(char *));
 	str2bis = (char **)malloc(1000 * sizeof(char *));
 	str_tmp = (char **)malloc(1000 * sizeof(char *));
-	str_tmp2 = (char **)malloc(1000 * sizeof(char *));
+//	str_tmp2 = (char **)malloc(1000 * sizeof(char *));
 	str3 = (float *)malloc(6000 * sizeof(float));
 	while(j < 500)
 	{
@@ -409,12 +411,12 @@ int	main(int argc, char *argv[])
 		str_tmp[j] = (char *)malloc(600 * sizeof(char));
 		j++;
 	}	
-	j = 0;	
+/*	j = 0;	
 	while(j < 1000)
 	{
 		str_tmp2[j] = (char *)malloc(600 * sizeof(char));
 		j++;
-	}	
+	}	*/
 	j = 0;
 	i = 0;
 	while(flag != 1)
@@ -492,10 +494,10 @@ int	main(int argc, char *argv[])
 			tmp = strcat(tmp, str_tmp[2]);
 			tmp = strcat(tmp, " ");
 			tmp = strcat(tmp, str_tmp[3]);
-			
+
 			str2bis[l] = tmp;
 			l++;
-			
+
 	tmp = (char *)malloc(100 * sizeof(char));
 			strcpy(tmp, str_tmp[0]);
 			tmp = strcat(tmp, " ");
@@ -504,8 +506,8 @@ int	main(int argc, char *argv[])
 			tmp = strcat(tmp, str_tmp[3]);
 			tmp = strcat(tmp, " ");
 			tmp = strcat(tmp, str_tmp[4]);
-			
-			str2bis[l] = tmp;	
+
+			str2bis[l] = tmp;
 		}
 
 		j++;
@@ -513,32 +515,80 @@ int	main(int argc, char *argv[])
 	}
 	str2bis[l] = "off";
 	i = 0;
-	while(strcmp(str2bis[i], "off") != 0)
+/*	while(strcmp(str2bis[i], "off") != 0)
 	{
 		puts(str2bis[i]);
 		i++;
 	}
 	i = 0;
+	while(strcmp(str1[i], "off") != 0)
+	{
+		puts(str1[i]);
+		ft_putnbr(i);
+		i++;
+	}
+	i = 0;*/
+	v = 0;
 	while(strcmp(str2bis[i], "off") != 0)
 	{
-//		tmp = (char *)malloc(100 * sizeof(char));
-	/*	str_tmp2 = ft_strsplit(str2bis[j], ' ');
-		puts(str_tmp2[1]);*/
-		puts(str2bis[i]);
-	//	puts(str1[atoi(str_tmp2[1])]); 
-		
-		
-		
-		
+		tmp = (char *)malloc(100 * sizeof(char));
+		str_tmp2 = ft_strsplit(str2bis[i], ' ');
+	//	tmp = str_tmp2[1];
+//		puts(str_tmp2[1]);
+	//	ft_putnbr(atoi(str_tmp2[1]));
+	//	puts(str2bis[i]);
+//		puts(str1[atoi(str_tmp2[1]) - 1]);
+	  	str_tmp = ft_strsplit(str1[atoi(str_tmp2[1]) - 1], ' ');
+	//	puts(str_tmp[1]);
+		str3[v] = atof(str_tmp[1]);
+		v++;
+		str3[v] = atof(str_tmp[2]);
+		v++;
+		str3[v] = atof(str_tmp[3]);
+		v++;
+
+/*		printf("toobib: %f\n", atof(str_tmp[1]));
+		printf("toobib: %f\n", atof(str_tmp[2]));
+		printf("toobib: %f\n", atof(str_tmp[3]));
+	*/	
+//		puts(str1[atoi(str_tmp2[2]) - 1]);
+	  	str_tmp = ft_strsplit(str1[atoi(str_tmp2[2]) - 1], ' ');
+	//	puts(str_tmp[1]);
+/*		printf("toobib1: %f\n", atof(str_tmp[1]));
+		printf("toobib1: %f\n", atof(str_tmp[2]));
+		printf("toobib1: %f\n", atof(str_tmp[3]));*/
+		str3[v] = atof(str_tmp[1]);
+		v++;
+		str3[v] = atof(str_tmp[2]);
+		v++;
+		str3[v] = atof(str_tmp[3]);
+		v++;
+
+//		puts(str1[atoi(str_tmp2[3]) - 1]);
+	  	str_tmp = ft_strsplit(str1[atoi(str_tmp2[3]) - 1], ' ');
+	//	puts(str_tmp[1]);
+/*		printf("toobib2: %f\n", atof(str_tmp[1]));
+		printf("toobib2: %f\n", atof(str_tmp[2]));
+		printf("toobib2: %f\n", atof(str_tmp[3]));*/
+		str3[v] = atof(str_tmp[1]);
+		v++;
+		str3[v] = atof(str_tmp[2]);
+		v++;
+		str3[v] = atof(str_tmp[3]);
+		v++;
 	/*	str_tmp = ft_strsplit(str2[j], ' ');
 		puts(str2bis[i]);
 		i++;*/
 		i++;
 	}
-	
+	str3[v] = 88888888;
 
-	
-	
+	i = 0;
+	while(str3[i] != 88888888)
+	{
+	//	printf("\nnumero%d : %f", i, str3[i]);
+		i++;
+	}
 
-	return(1);
+	return(str3);
 }
