@@ -62,6 +62,47 @@ float	*rotation_y(float mat1[], float mat2[], float teta)
 	return(final_matrix);
 }
 
+/*void    ft_putchar(char c)
+ {
+     write(1, &c, 1);
+ }
+
+void    ft_putstr(char const *s)
+{
+    while (*s)
+        write(1, s++, 1);
+}
+
+
+
+ void    ft_putnbr(int n)
+{
+    if (n == -2147483648)
+        ft_putstr("-2147483648");
+    else
+    {
+        if (n < 0)
+        {
+            ft_putchar('-');
+            n = -n;
+        }
+        if (n >= 10)
+        {
+            ft_putnbr(n / 10);
+            ft_putnbr(n % 10);
+        }
+        else
+        {
+            ft_putchar(n + 48);
+        }
+    }
+}*/
+
+
+
+
+
+
 float	*matrix_y(float teta)
 {
 	float *final_matrix;
@@ -108,25 +149,31 @@ int main(int argc, char *argv[]){
 		 triangle */
 float	points[18];
 //points = (float *)malloc(18 * sizeof(float));
-points[0] = 0.232406;
-points[1] = -0.745504;
-points[2] = 1.477731;
-points[3] = 0.232406;
-points[4] = -0.745504;
-points[5] = 2.843098;
-points[6] = -0.227475;
-points[7] = -0.745504;
-points[8] = 2.843098;
-points[9] = 0.232406;
-points[10] = -0.745504;
-points[11] = 2.843098;
-points[12] = -0.227475;
-points[13] = -0.745504;
-points[14] = 2.843098;
-points[15] = -0.227475;
-points[16] = -0.745504;
-points[17] = 1.477731;
+points[0] = 0.0;
+points[1] = 1.0;
+points[2] = 0.0;
+points[3] = 0.0;
+points[4] = 0.0;
+points[5] = 0.0;
+points[6] = 1.0;
+points[7] = 0.0;
+points[8] = -0.5;
+points[9] = 1.0;
+points[10] = 0.0;
+points[11] = -0.5;
+points[12] = 1.0;
+points[13] = 1.0;
+points[14] = -0.5;
+points[15] = 0.0;
+points[16] = 1.0;
+points[17] = 0.0;
 
+/*0.0f, 1.0f,
+0.0f, 0.0f,
+1.0, 0.0,
+1.0, 0.0,
+1.0, 1.0,
+0.0, 1.0*/
 /*	float points[] = {
   0.232406, -0.745504, 1.477731,
  0.232406, -0.745504, 2.843098,
@@ -288,7 +335,7 @@ d = 0;
 int a = 1;
    while(d  < h)
 {
-    printf("\nd%dig%dats%d : %f",a , d, h,str65[d]);
+  //  printf("\nd%dig%dats%d : %f",a , d, h,str65[d]);
     d++;
 	if( a == 3)
 	{
@@ -303,7 +350,7 @@ int a = 1;
 
 
 
-float cam_speed = 1.0f; // 1 unit per second
+float cam_speed = 30.0f; // 1 unit per second
 float cam_yaw_speed = 10.0f; // 10 degrees per second
 float cam_pos[] = {0.0f, 0.0f, 2.0f}; // don't start at zero, or we will be too close
 float cam_yaw = 0.0f; // y-rotation in degrees
@@ -350,16 +397,52 @@ while(z < 12)
 	z++;
 }
 
-
-
-
-
-
 int i;
-for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
+/*for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
     printf("%lf\n",matrix[i]);
-}
+}*/
+puts("lamaison2");
 
+int x, y, n;
+int force_channels = 4;
+unsigned char* image_data = stbi_load (argv[2], &x, &y, &n, force_channels);
+if (!image_data) {
+fprintf (stderr, "ERROR: could not loadidi %s\n", argv[2]);
+}
+ft_putnbr(x);
+ft_putnbr(y);
+// NPOT check
+if ((x & (x - 1)) != 0 || (y & (y - 1)) != 0) {
+fprintf (
+stderr, "WARNING: texture %s is not power-of-2 dimensions\n", argv[2]
+);
+}
+printf ("first 4 bytes are: %i %i %i %i\n",
+image_data[0], image_data[1], image_data[2], image_data[3]
+);
+puts("lamaison");
+int width_in_bytes = x * 4;
+unsigned char *top = NULL;
+unsigned char *bottom = NULL;
+unsigned char temp = 0;
+int half_height = y / 2;
+
+for (int row = 0; row < half_height; row++) {
+top = image_data + row * width_in_bytes;
+bottom = image_data + (y - row - 1) * width_in_bytes;
+for (int col = 0; col < width_in_bytes; col++) {
+temp = *top;
+*top = *bottom;
+*bottom = temp;
+top++;
+bottom++;
+}
+}
+puts("lamaisoni3");
+
+
+
+puts("lamaisoni4");
 	/* GL shader objects for vertex and fragment shader [components] */
 	GLuint vs, fs;
 	/* GL shader programme object [combined, to link] */
@@ -402,13 +485,42 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 		 data on the graphics adapter's memory. in our case - the vertex points */
 	glGenBuffers( 1, &vbo );
 	glBindBuffer( GL_ARRAY_BUFFER, vbo );
-	glBufferData( GL_ARRAY_BUFFER,  sizeof( str65 ), str65, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER,  sizeof( points ), points, GL_STATIC_DRAW );
 
 	GLuint colours_vbo = 0;
 	glGenBuffers (1, &colours_vbo);
 	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);
 	glBufferData (GL_ARRAY_BUFFER, sizeof (colours), colours, GL_STATIC_DRAW);
+GLuint tex = 0;
+glGenTextures (1, &tex);
+glActiveTexture (GL_TEXTURE0);
+glBindTexture (GL_TEXTURE_2D, tex);
+glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
+
+GLfloat texcoords[] = {
+0.0f, 1.0f,
+0.0f, 0.0f,
+1.0, 0.0,
+1.0, 0.0,
+1.0, 1.0,
+0.0, 1.0
+};
+GLuint vt_vbo;
+glGenBuffers (1, &vt_vbo);
+glBindBuffer (GL_ARRAY_BUFFER, vt_vbo);
+glBufferData (
+GL_ARRAY_BUFFER,
+sizeof (texcoords),
+texcoords,
+GL_STATIC_DRAW
+);
+
+puts("lamaisoni5");
 	/* the vertex array object (VAO) is a little descriptor that defines which
 	data from vertex buffer objects should be used as input variables to vertex
 	shaders. in our case - use our only VBO, and say 'every three floats is a
@@ -420,6 +532,11 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, NULL );
 	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);
 	glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+glBindBuffer (GL_ARRAY_BUFFER, vt_vbo);
+// note: I assume that vertex positions are location 0
+//dimensions = 2; // 2d data for texture coords
+glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+glEnableVertexAttribArray (2); // don't forget this!
 	glEnableVertexAttribArray (0);
 	glEnableVertexAttribArray (1);
 
@@ -430,14 +547,16 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 
 "layout(location = 0) in vec3 vp;" 
 "layout(location = 1) in vec3 vc;" 
-
-//"uniform mat4 matrix;" // our matrix 
+"layout(location = 2) in vec2 vt;" // per-vertex texture co-ords
+"out vec2 texture_coordinates;"
+"uniform mat4 matrix;" // our matrix 
 "uniform mat4 matrix8, view, proj;"
 //"uniform mat4 matrix = mat4(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.5, 0.0, 0.0, 1.0);"
 //"uniform mat4 MVP;"
 "out vec3 colour;"
 
 "void main () {"
+"texture_coordinates = vt;"
 "colour = vc;"
 "gl_Position = proj * view * matrix8 * vec4 (vp, 2.0);"
 "}";
@@ -447,9 +566,13 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 	const char *fragment_shader = "#version 330\n"
 	"in vec3 colour;"
 	"out vec4 frag_colour;"
+	"in vec2 texture_coordinates;"
+	"uniform sampler2D basic_texture;"
 
 	"void main () {"
-	"frag_colour =  vec4 (1.0, 1.0, 0.0, 1.0);"
+"vec4 texel = texture (basic_texture, texture_coordinates);"
+"frag_colour = texel;"
+//	"frag_colour =  vec4 (1.0, 1.0, 0.0, 1.0);"
 	"}";
 
 /*	GLuint colorbuffer;
@@ -470,6 +593,12 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 		 the inputs of the fragment shader, etc. and it is then ready to use */
 //	mat4 MVP;
 //	mat4_identity(MVP);
+
+
+
+
+
+
 	vs = glCreateShader( GL_VERTEX_SHADER );
 	glShaderSource( vs, 1, &vertex_shader, NULL );
 	glCompileShader( vs );
@@ -491,13 +620,13 @@ for (i=0;i < (sizeof (matrix) /sizeof (matrix[0]));i++) {
 	int proj_mat_location = glGetUniformLocation (shader_programme, "proj");
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, proj_mat);
+int tex_loc = glGetUniformLocation (shader_programme, "basic_texture");
+glUseProgram (shader_programme);
+glUniform1i (tex_loc, 0); // use active texture 0
 
-/*	int x, y, n;
-	int force_channels = 4;
-	unsigned char* image_data = stbi_load ("./poney.png", &x, &y, &n, force_channels);
-	if (!image_data) {
-		fprintf (stderr, "ERROR: could not load %s\n", "./poney.png");
-	}*/
+
+//	puts(image_data[65]);
+
 	/* this loop clears the drawing surface, then draws the geometry described
 		 by the VAO onto the drawing surface. we 'poll events' to see if the window
 		 was closed, etc. finally, we 'swap the buffers' which displays our drawing
