@@ -1,15 +1,6 @@
-/*#include <GL/glew.h>		// include GLEW and new version of GL on Windows 
-#include <GLFW/glfw3.h> // GLFW helper library 
-#include <stdio.h>
-#include <math.h>
-#include <stdbool.h>*/
 #include "scope.h"
 #include <stdlib.h>
 
-
-/*void glfw_error_callback (int error, const char* description) {
-  gl_log_err ("GLFW ERROR: code %i msg: %s\n", error, description);
-}*/
 float	*produit_matricielle4(float mat1[], float mat2[], float teta)
 {
 	float *final_matrix;
@@ -119,9 +110,9 @@ float	*matrix_y(float teta)
 	final_matrix[9] = 0;
 	final_matrix[10] = cos(teta);
 	final_matrix[11] = 0;
-	final_matrix[12] = 0;
+	final_matrix[12] = -0.5 * sin(teta);
 	final_matrix[13] = 0;
-	final_matrix[14] = 0;
+	final_matrix[14] = -0.5 * cos(teta);
 	final_matrix[15] = 1;
 	return(final_matrix);
 }
@@ -136,6 +127,7 @@ int main(int argc, char *argv[]){
 	GLuint vbo;
 	float width = 1640;
 	float height = 1480;
+	bool	textura;
 /*assert (restart_gl_log ());
 	// start GL context and O/S window using the GLFW helper library
 	gl_log ("starting GLFW\n%s\n", glfwGetVersionString ());
@@ -275,33 +267,33 @@ matrix1[13] = 0.0;
 matrix1[14] = 0.0;
 matrix1[15] = 1.0;
 
-/*float matrix[] = { 
- 1.0f, 0.0f, 0.0f, 0.0f,
- 0.0f, 1.0f, 0.0f, 0.0f,
- 0.0f, 0.0f, 1.0f, 0.0f,
- 0.0f, 0.0f, 0.0f, 1.0f
-};
-float matrix1[] = { 
- 1.0f, 0.0f, 0.0f, 0.0f,
- 0.0f, 1.0f, 0.0f, 0.0f,
- 0.0f, 0.0f, 1.0f, 0.0f,
- 0.0f, 0.0f, 0.0f, 1.0f
-};*/
-//printf("test: %f", *matrix);
+float	*matrix2;
+matrix2 = (float *)malloc(16 * sizeof(float));
+matrix2[0] = 1.0;
+matrix2[1] = 0.0;
+matrix2[2] = 0.0;
+matrix2[3] = 0.0;
+matrix2[4] = 0.0;
+matrix2[5] = 1.0;
+matrix2[6] = 0.0;
+matrix2[7] = 0.0;
+matrix2[8] = 0.0;
+matrix2[9] = 0.0;
+matrix2[10] = 1.0;
+matrix2[11] = 0.0;
+matrix2[12] = -0.5;
+matrix2[13] = 0.0;
+matrix2[14] = 0.0;
+matrix2[15] = 1.0;
 
-
- float colours[] = {
+/* float colours[] = {
  1.0f, 0.0f, 0.0f,
  0.0f, 1.0f, 0.0f,
  0.0f, 0.0f, 1.0f,
  1.0f, 0.0f, 0.0f,
  0.0f, 1.0f, 0.0f,
  0.0f, 0.0f, 1.0f
-};
-
-
-//printf("caca %lu frcf", sizeof(matrix));
-
+};*/
 
 float *matrix3;
 matrix3 = (float *)malloc(16 * sizeof(float));
@@ -315,6 +307,9 @@ int		l = 0;
 }*/
 float	*str56;
 float	str65[684];
+//float	*tmp;
+float	texcoords[684];
+float	colours[684];
 int		h;
 int		d;
 //int		z;
@@ -324,18 +319,77 @@ while(str56[h] != 88888888)
 {
 	h++;
 }
-//str65 = (float *)malloc(18 *sizeof(float));
+//tmp = (float *)malloc(456 *sizeof(float));
 d = 0;
+int m = 0;
+int a = 0;
 while(str56[d] != 88888888)
 {
 	str65[d] = str56[d];
+//	if((d + 1) % 3 != 0)
+//	{
+		texcoords[m] = str56[d];
+		m++;
+//	}
+	if( a > 2)
+	{
+		a = 0;
+	}
+	if(a == 0)
+	{
+	if((d + 1) % 3 == 1)
+	{
+		colours[d] = 0.1;
+	}
+	if((d + 1) % 3 == 2)
+	{
+		colours[d] = 0.1;
+	}
+	if((d + 1) % 3 == 0)
+	{
+		colours[d] = 0.1;
+	}
+	}
+	else if(a == 1)
+	{
+	if((d + 1) % 3 == 1)
+	{
+		colours[d] = 0.15;
+	}
+	if((d + 1) % 3 == 2)
+	{
+		colours[d] = 0.15;
+	}
+	if((d + 1) % 3 == 0)
+	{
+		colours[d] = 0.15;
+	}
+	}
+	else if(a == 2)
+	{
+	if((d + 1) % 3 == 1)
+	{
+		colours[d] = 0.2;
+	}
+	if((d + 1) % 3 == 2)
+	{
+		colours[d] = 0.2;
+	}
+	if((d + 1) % 3 == 0)
+	{
+		colours[d] = 0.2;
+	}
+	}
+	if((d + 1) % 9 == 0)
+	{
+		a++;
+	}
 	d++;
 }
 d = 0;
-int a = 1;
+ a = 1;
    while(d  < h)
 {
-  //  printf("\nd%dig%dats%d : %f",a , d, h,str65[d]);
     d++;
 	if( a == 3)
 	{
@@ -427,26 +481,29 @@ unsigned char *bottom = NULL;
 unsigned char temp = 0;
 int half_height = y / 2;
 
-for (int row = 0; row < half_height; row++) {
-top = image_data + row * width_in_bytes;
-bottom = image_data + (y - row - 1) * width_in_bytes;
-for (int col = 0; col < width_in_bytes; col++) {
-temp = *top;
-*top = *bottom;
-*bottom = temp;
-top++;
-bottom++;
-}
-}
-puts("lamaisoni3");
+		for (int row = 0; row < half_height; row++) {
+			top = image_data + row * width_in_bytes;
+			bottom = image_data + (y - row - 1) * width_in_bytes;
+			for (int col = 0; col < width_in_bytes; col++) {
+				temp = *top;
+				*top = *bottom;
+				*bottom = temp;
+				top++;
+				bottom++;
+			}
+		}
+	puts("lamaisoni3");
 
 
 
-puts("lamaisoni4");
+	puts("lamaisoni4");
 	/* GL shader objects for vertex and fragment shader [components] */
 	GLuint vs, fs;
 	/* GL shader programme object [combined, to link] */
 	GLuint shader_programme;
+	GLuint uniformID;
+
+	
 
 	/* start GL context and O/S window using the GLFW helper library */
 	if ( !glfwInit() ) {
@@ -485,40 +542,40 @@ puts("lamaisoni4");
 		 data on the graphics adapter's memory. in our case - the vertex points */
 	glGenBuffers( 1, &vbo );
 	glBindBuffer( GL_ARRAY_BUFFER, vbo );
-	glBufferData( GL_ARRAY_BUFFER,  sizeof( points ), points, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER,  sizeof( str65 ), str65, GL_STATIC_DRAW );
 
 	GLuint colours_vbo = 0;
 	glGenBuffers (1, &colours_vbo);
 	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);
 	glBufferData (GL_ARRAY_BUFFER, sizeof (colours), colours, GL_STATIC_DRAW);
-GLuint tex = 0;
-glGenTextures (1, &tex);
-glActiveTexture (GL_TEXTURE0);
-glBindTexture (GL_TEXTURE_2D, tex);
-glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
-glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	GLuint tex = 0;
+	glGenTextures (1, &tex);
+	glActiveTexture (GL_TEXTURE0);
+	glBindTexture (GL_TEXTURE_2D, tex);
+	glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+	glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 
-GLfloat texcoords[] = {
-0.0f, 1.0f,
-0.0f, 0.0f,
-1.0, 0.0,
-1.0, 0.0,
-1.0, 1.0,
-0.0, 1.0
-};
-GLuint vt_vbo;
-glGenBuffers (1, &vt_vbo);
-glBindBuffer (GL_ARRAY_BUFFER, vt_vbo);
-glBufferData (
-GL_ARRAY_BUFFER,
-sizeof (texcoords),
-texcoords,
-GL_STATIC_DRAW
-);
+	/*GLfloat texcoords[] = {
+	-6.0f, 6.0f,
+	-6.0f, -6.0f,
+	6.0, -6.0,
+	6.0, -6.0,
+	6.0, 6.0,
+	-6.0, 6.0
+	};*/
+	GLuint vt_vbo;
+	glGenBuffers (1, &vt_vbo);
+	glBindBuffer (GL_ARRAY_BUFFER, vt_vbo);
+	glBufferData (
+	GL_ARRAY_BUFFER,
+	sizeof (texcoords),
+	texcoords,
+	GL_STATIC_DRAW
+	);
 
 puts("lamaisoni5");
 	/* the vertex array object (VAO) is a little descriptor that defines which
@@ -532,11 +589,11 @@ puts("lamaisoni5");
 	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, NULL );
 	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);
 	glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-glBindBuffer (GL_ARRAY_BUFFER, vt_vbo);
-// note: I assume that vertex positions are location 0
-//dimensions = 2; // 2d data for texture coords
-glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-glEnableVertexAttribArray (2); // don't forget this!
+	glBindBuffer (GL_ARRAY_BUFFER, vt_vbo);
+	// note: I assume that vertex positions are location 0
+	//dimensions = 2; // 2d data for texture coords
+	glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray (2); // don't forget this!
 	glEnableVertexAttribArray (0);
 	glEnableVertexAttribArray (1);
 
@@ -568,11 +625,14 @@ glEnableVertexAttribArray (2); // don't forget this!
 	"out vec4 frag_colour;"
 	"in vec2 texture_coordinates;"
 	"uniform sampler2D basic_texture;"
-
+	"uniform bool textura;"
 	"void main () {"
 "vec4 texel = texture (basic_texture, texture_coordinates);"
-"frag_colour = texel;"
-//	"frag_colour =  vec4 (1.0, 1.0, 0.0, 1.0);"
+	"frag_colour =  vec4 (colour, 1.0);"
+	"if(textura)"
+	"{"
+	"frag_colour = texel;"
+	"}"
 	"}";
 
 /*	GLuint colorbuffer;
@@ -593,11 +653,6 @@ glEnableVertexAttribArray (2); // don't forget this!
 		 the inputs of the fragment shader, etc. and it is then ready to use */
 //	mat4 MVP;
 //	mat4_identity(MVP);
-
-
-
-
-
 
 	vs = glCreateShader( GL_VERTEX_SHADER );
 	glShaderSource( vs, 1, &vertex_shader, NULL );
@@ -620,9 +675,9 @@ glEnableVertexAttribArray (2); // don't forget this!
 	int proj_mat_location = glGetUniformLocation (shader_programme, "proj");
 	glUseProgram (shader_programme);
 	glUniformMatrix4fv (proj_mat_location, 1, GL_FALSE, proj_mat);
-int tex_loc = glGetUniformLocation (shader_programme, "basic_texture");
-glUseProgram (shader_programme);
-glUniform1i (tex_loc, 0); // use active texture 0
+	int tex_loc = glGetUniformLocation (shader_programme, "basic_texture");
+	glUseProgram (shader_programme);
+	glUniform1i (tex_loc, 0); // use active texture 0
 
 
 //	puts(image_data[65]);
@@ -636,25 +691,25 @@ glUniform1i (tex_loc, 0); // use active texture 0
 		 stuff being drawn
 	one-after-the-other */
 	float teta = 0;
-	float speed = 1.0f; // move at 1 unit per second 
-	float last_position = 0.0f; 
-	float last1_position = 0.0f; 
+	float speed = 1.0f; // move at 1 unit per second
+	float last_position = 0.0f;
+	float last1_position = 0.0f;
 	float last2_position = 0.0f;
 //	float last3_position = 0.0f
 	while ( !glfwWindowShouldClose( window ) ) {
 
-			// add a timer for doing animation 
-			double previous_seconds = glfwGetTime(); 
-			double current_seconds = glfwGetTime(); 
-			double elapsed_seconds = current_seconds - previous_seconds; 
-			double elapsed1_seconds = current_seconds - previous_seconds; 
-			double elapsed2_seconds = current_seconds - previous_seconds; 
-			double elapsed3_seconds = current_seconds - previous_seconds; 
-			previous_seconds = current_seconds; 
+			// add a timer for doing animation
+			double previous_seconds = glfwGetTime();
+			double current_seconds = glfwGetTime();
+			double elapsed_seconds = current_seconds - previous_seconds;
+			double elapsed1_seconds = current_seconds - previous_seconds;
+			double elapsed2_seconds = current_seconds - previous_seconds;
+			double elapsed3_seconds = current_seconds - previous_seconds;
+			previous_seconds = current_seconds;
 
-			// reverse direction when going to far left or right 
-				if (fabs(last_position) > 1.0f) { 
-					speed = -speed; 
+			// reverse direction when going to far left or right
+				if (fabs(last_position) > 1.0f) {
+					speed = -speed;
 				}
 
 //float	*produit_matricielle4(float mat1[], float mat2[], float teta)
@@ -787,21 +842,24 @@ glUniform1i (tex_loc, 0); // use active texture 0
 			glUseProgram (shader_programme); 
 			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);
 		}
-	
-// update view matrix
-/*if (cam_moved) {
-float T[] = {translate (identity_mat4 (), vec3 (-cam_pos[0], -cam_pos[1], -cam_pos[2]))}; // cam translation
-float R[] = {rotate_y_deg (identity_mat4 (), -cam_yaw)}; // 
-float view_mat[] ={ R * T};
-glUniformMatrix4fv (matrix_location, 1, GL_FALSE, view_mat.m);
-}*/
-
-
-
-
-
-
-		
+		if (glfwGetKey (window, GLFW_KEY_N)) {
+//			glfwSetWindowShouldClose (window, 1);
+			// update the matrix 
+	/*		matrix7[12] = elapsed_seconds * speed + last_position; 
+			last_position = matrix7[12]; 
+			matrix7[13] = elapsed1_seconds * speed + last1_position; 
+			last1_position = matrix7[13]; 
+			matrix7[14] = elapsed2_seconds * speed + last2_position; 
+			last2_position = matrix7[14]; 
+			matrix8 = matrix_y(teta);
+		   	matrix3 = produit_matricielle4(matrix7, matrix8, 56);	
+			glUseProgram (shader_programme); 
+			glUniformMatrix4fv (matrix_location, 1, GL_FALSE, matrix3);*/
+			textura = 1;
+			uniformID  = glGetUniformLocation(shader_programme, "textura");
+			glUseProgram(shader_programme);
+			glUniform1f(uniformID, textura);
+		}
  
 		// wipe the drawing surface clear
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );

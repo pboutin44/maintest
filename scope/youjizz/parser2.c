@@ -603,6 +603,9 @@ float	*point(char *objet)
 	//	printf("\nnumero%d : %f", i, str3[i]);
 		i++;
 	}
-
+	free(str1);
+	free(str2);
+	free(str2bis);
+	free(str_tmp);
 	return(str3);
 }

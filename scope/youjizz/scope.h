@@ -228,9 +228,9 @@ enum
 typedef unsigned char stbi_uc;
 typedef unsigned short stbi_us;
 
-#ifdef __cplusplus
+/*#ifdef __cplusplus
 extern "C" {
-#endif
+#endif*/
 
 #ifdef STB_IMAGE_STATIC
 #define STBIDEF static
