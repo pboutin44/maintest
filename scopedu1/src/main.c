@@ -462,27 +462,13 @@ while(o < 100000)
 	o++;
 }
 
-puts("ici1");
+/*puts("ici1");
 puts(test2[0]);
 puts(test2[1]);
 puts(test2[2]);
 puts(test2[3]);
-//test2 = ft_strsplit(test, '*');
 puts("ici");
-/*int		t;
-t = 0;
-while(t < 100)
-{
-test = get_next_line(fd);
-strcat(image_data, test);
-puts(test);
-	t++;
-}*/
-//puts(test1);
-/*printf ("first 4 bytes are: %i %i %i %i\n",
-image_data[0], image_data[1], image_data[2], image_data[3]
-);*/
-puts("lamaison");
+puts("lamaison");*/
 int width_in_bytes = x * 4;
 unsigned char *top = NULL;
 unsigned char *bottom = NULL;
@@ -633,24 +619,6 @@ int half_height = y / 2;
 	"}"
 	"}";
 
-/*	GLuint colorbuffer;
-	glGenBuffers( 1, &colorbuffer );
-	glBindBuffer( GL_ARRAY_BUFFER, colorbuffer );
-	glBufferData( GL_ARRAY_BUFFER, 18 * sizeof( GLfloat ), g_color_buffer_data, GL_STATIC_DRAW );
-	//	glBufferData( GL_ARRAY_BUFFER, sizeof( g_color_buffer_data ), g_color_buffer_data, GL_STATIC_DRAW );
-
-	glEnableVertexAttribArray( 1 );
-	glBindBuffer( GL_ARRAY_BUFFER, colorbuffer );
-	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, NULL );
-	*/
-
-
-	/* here we copy the shader strings into GL shaders, and compile them. we
-		 then create an executable shader 'program' and attach both of the compiled
-		 shaders. we link this, which matches the outputs of the vertex shader to
-		 the inputs of the fragment shader, etc. and it is then ready to use */
-//	mat4 MVP;
-//	mat4_identity(MVP);
 
 	vs = glCreateShader( GL_VERTEX_SHADER );
 	glShaderSource( vs, 1, &vertex_shader, NULL );
@@ -676,9 +644,6 @@ int half_height = y / 2;
 	int tex_loc = glGetUniformLocation (shader_programme, "basic_texture");
 	glUseProgram (shader_programme);
 	glUniform1i (tex_loc, 0); // use active texture 0
-
-
-	//	puts(image_data[65]);
 
 	/* this loop clears the drawing surface, then draws the geometry described
 		 by the VAO onto the drawing surface. we 'poll events' to see if the window
