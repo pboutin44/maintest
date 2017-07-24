@@ -1,0 +1,1 @@
+#version 330\nlayout(location = 0) in vec3 vp;layout(location = 1) in vec3 vc;layout(location = 2) in vec2 vt;out vec2 texture_coordinates;uniform mat4 matrix;uniform mat4 matrix8, view, proj;out vec3 colour;void main () {texture_coordinates = vt;colour = vc;gl_Position = proj * view * matrix8 * vec4 (vp, 2.0);}
