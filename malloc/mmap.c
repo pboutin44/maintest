@@ -34,9 +34,10 @@ void    *ft_memcpy(void *dst, const void *src, size_t n)
 	else
 	{
 //		if (!(new->content = malloc(sizeof(new->content) * content_size)))
-		if (!(new->content = mmap(0, sizeof(new->content) * content_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0)))
+/*		if (!(new->content = mmap(0, sizeof(new->content) * content_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0)))
 			return (NULL);
-		ft_memcpy(new->content, (void *)content, content_size);
+		ft_memcpy(new->content, (void *)content, content_size);*/
+		new->content = (char *)content;
 		new->content_size = content_size;
 	}
 	new->next = NULL;
@@ -45,6 +46,7 @@ void    *ft_memcpy(void *dst, const void *src, size_t n)
 
 int	main(int argc, char **argv)
 {
+	fflush(stdout);
 	char	*tiny;
 	int		i;
 	int		nb;
@@ -52,7 +54,7 @@ int	main(int argc, char **argv)
 	char	*str;
 	int		nbr;
 	//t_malloc	zone;
-	
+
 //	zone.tiny = ft_lstnew(NULL, 0);
 
 	nb = atoi(argv[2]);
@@ -79,11 +81,18 @@ int	main(int argc, char **argv)
 	{
 		putchar('<');
 	}*/
+//	zone.tiny = ft_lstnew(NULL, 0);
+	char	*test;
+	char	*test1;
 	if(zone.tiny)
 		putchar('<');
 	else
 		putchar('>');
-//	choose_memory_adress(10);
+	test = choose_memory_adress(10);
+		putchar('p');
+	test1 = choose_memory_adress(10);
+	printf("***%c****%p*****%p", zone.tiny->content[0], test, test1);
+
 	
 	return(0);
 }
@@ -92,24 +101,111 @@ int	main(int argc, char **argv)
 {
 
 }*/
-void	*first_tiny(size_t size)
+int		set_tinyheader()
 {
-
+	int		i;
+	i = 0;
+	
+		printf("\ntest46bis");
+	while(i < 128)
+	{
+	//	printf("o");
+		zone.tiny->content[i] = FALSE;
+		i++;
+	}
+		printf("\ntest46bis2");
+	return(1);
+//		printf("\nppppp__%c__ppppp%p", zone.tiny->content[0], zone.tiny->content);
 }
 
-
-void	*size_tiny(size_t size)
+void	*first_tiny(size_t size)
 {
-//	void	*test
-	if(zone.tiny)
+	void	*str;
+	int		f;
+	
+	printf("\neerferf");
+	str = mmap(0, PSIZE * 2, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	if(str == MAP_FAILED)
 	{
-//		return(test);	
+		printf("error MAP_FAILED");
+		return(NULL);
 	}
 	else
 	{
-		first_tiny(size);	
+		printf("\ntest45");
+		zone.tiny = ft_lstnew(str, PSIZE * 2);
+		printf("\ntest46\n");
+
+		f = set_tinyheader();
+		printf("\ntest47%d\n", f);
+		printf("adr TINY%p_____adr str%p___", zone.tiny->content, str);
+		return(str + 128);
 	}
+}
+
+int		one_place_atleast(t_list	*elem)
+{
+	int		i;
+	i = 0;
+	putchar('#');
+	printf("}}}}%p}}}\n", elem->content);
+	while(i < 126)
+	{
+		if(elem->content[i] == FALSE)
+		{
+			return(1);
+		}
+		i++;
+	}
+	return(0);
+}
+
+t_list	*ft_lstiter(t_list *lst, int (f)(t_list *elem))
+{
+	t_list	*tmp;
+		putchar('#');
+	
+	if(lst && f)
+	{
+		tmp = lst;
+		putchar('$');
+		printf("oier___%p___%p\n", tmp, lst);
+		while(tmp)
+		{
+		putchar('$');
+			if(f(tmp) == 1)
+			{
+				return(tmp);
+			}
+			tmp = tmp->next;
+		}
+	}
+	printf("COUCOU JE RETOURNE NULL\n");
 	return(NULL);
+}
+
+void	*tiny_exist(size_t size)
+{
+	t_list		*lst;
+	printf("TINY%p", zone.tiny);
+	lst = ft_lstiter(zone.tiny, one_place_atleast);
+	printf("!!!!!!!!! ->> %d\n", (unsigned int)lst);
+	return(lst->content);
+}
+
+void	*size_tiny(size_t size)
+{
+	putchar('g');
+	if(zone.tiny)
+	{
+		return(tiny_exist(size));
+	}
+	else
+	{
+		printf("\nfdd");
+//		printf("mais pourquoi tant de haine");
+		return(first_tiny(size));
+	}
 }
 
 /*void	4096_size()
@@ -120,7 +216,6 @@ void	*size_tiny(size_t size)
 	else
 	{
 	}
-
 }
 
 void	browse_large(void	*)

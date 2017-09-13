@@ -5,8 +5,8 @@
 # include <sys/mman.h>
 # include <unistd.h>
 #define PSIZE getpagesize()
-# define TRUE 1
-# define FALSE 0
+# define TRUE '1'
+# define FALSE '0'
 typedef char			t_bool;
 
 typedef struct			s_tiny
@@ -20,7 +20,7 @@ typedef struct			s_tiny
 
 typedef struct      s_list
 {
-    void            *content;
+    char            *content;
     size_t          content_size;
     struct s_list   *next;
 }                   t_list;
@@ -47,7 +47,7 @@ typedef struct			s_malloc
 	t_small				*small;
 	char				*large;
 }						t_malloc;
-
+	void	*choose_memory_adress(size_t size);
 
 extern	t_malloc		zone1;
 t_malloc				zone;
