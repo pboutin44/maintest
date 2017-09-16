@@ -66,11 +66,9 @@ typedef struct			s_malloc
 	void	*size_small(size_t	size);
 	int		one_place_atleastsmall(t_list	*elem);
 	void	*large_size(size_t	size);
+	void	ft_free(void	*ptr);
 
 
-
-//extern	t_malloc		zone1;
 t_malloc				zone;
-//extern	int				test;
-//int		test2;
+
 #endif

@@ -7,7 +7,7 @@ int     set_tinyheader(t_list   *lst)
 
 	i = 1;
 	lst->content[0] = TRUE;
-	while(i < 128)
+	while(i < 127)
 	{
 		lst->content[i] = FALSE;
 		i++;
@@ -30,7 +30,7 @@ void    *first_tiny(size_t size)
     {
         zone.tiny = ft_lstnew(str, PSIZE * 2);
         f = set_tinyheader(zone.tiny);
-        return(str + 127);
+        return(str + 128);
     }
 }
 
@@ -53,7 +53,7 @@ void    *another_tiny(size_t size)
         lst = ft_lstnew(str, PSIZE * 2);
         f = set_tinyheader(lst);
         lst2->next = lst;
-        return(lst->content + 127);
+        return(lst->content + 128);
     }
 }
 
@@ -76,7 +76,7 @@ void    *tiny_exist(size_t size)
         {
             printf("&&&&%d&&&&", i);
             zone.tiny->content[i] = TRUE;
-            return(lst->content + (127 + (64 * i)));
+            return(lst->content + (128 + (64 * i)));
         }
         i++;
     }

@@ -21,8 +21,7 @@ void	*ft_memcpy(void	*dst, const void *src, size_t n)
 {
     t_list *new;
 
-//  if (!(new = (t_list *)malloc(sizeof(t_list))))
-    if (!(new = (t_list *)mmap(0, sizeof(t_list), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1    , 0))) //normally PSIZE
+    if (!(new = (t_list *)mmap(0, sizeof(t_list), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0))) //normally PSIZE
         return (NULL);
     if (content == NULL)
     {
@@ -31,10 +30,6 @@ void	*ft_memcpy(void	*dst, const void *src, size_t n)
     }
     else
     {
-//      if (!(new->content = malloc(sizeof(new->content) * content_size)))
-/*      if (!(new->content = mmap(0, sizeof(new->content) * content_size, PROT_READ | PROT_WRITE, MA    P_ANON | MAP_PRIVATE, -1, 0)))
-            return (NULL);
-        ft_memcpy(new->content, (void *)content, content_size);*/
         new->content = (char *)content;
         new->content_size = content_size;
     }
