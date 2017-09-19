@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   malloc.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/19 13:56:09 by pboutin           #+#    #+#             */
+/*   Updated: 2017/09/19 18:10:03 by pboutin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MALLOC_H
 # define MALLOC_H
 # include <stdio.h>
@@ -67,8 +79,16 @@ typedef struct			s_malloc
 	int		one_place_atleastsmall(t_list	*elem);
 	void	*large_size(size_t	size);
 	void	ft_free(void	*ptr);
+	void	free_tiny(void	*ptr, t_list	*lst, int	y);
+	void	free_small(void	*ptr, t_list	*lst, int y);
+	void	ft_free(void	*ptr);
+	t_list	*find_browselarge(void	*pt);
+	t_list	*find_browsetiny(void	*ptr);
+	t_list	*find_browsesmall(void	*ptr);
+	t_list	*find_browsesmall2(t_list	*lst);
+	void	free2(t_list	*lst, t_list	*lst3, size_t	size);
+	
 
-
-t_malloc				zone;
+	t_malloc				zone;
 
 #endif
