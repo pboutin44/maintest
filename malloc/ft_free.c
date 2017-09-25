@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 13:56:02 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/19 18:10:17 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/09/25 14:11:14 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    free_tiny(void  *ptr, t_list	*lst, int	y)
         str[i] = 0;
         i++;
     }
-	free2(lst, zone.tiny, 64);	
+	free2(lst, zone.tiny, 8192);	
 }
 
 void	free2(t_list	*lst, t_list	*lst3, size_t size)
@@ -72,7 +72,7 @@ void	free_small(void     *ptr, t_list	*lst, int	y)
         str[i] = 0;
         i++;
     }
-	free2(lst, zone.small, 4096);
+	free2(lst, zone.small, PSIZE * 101);
 }
 
 
@@ -126,4 +126,10 @@ void        ft_free(void    *ptr)
     {
     }
 }
+
+/*void *realloc(void *ptr, size_t size)
+{
+
+}*/
+
 

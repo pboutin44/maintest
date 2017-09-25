@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 13:56:09 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/19 18:10:03 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/09/25 17:38:11 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct			s_malloc
 	t_list				*large;
 }						t_malloc;
 
-	void	*ft_malloc(size_t size);
+	void	*malloc(size_t size);
 	void	*ft_memcpy(void	*dst, const void	*src, size_t n);
 	t_list	*ft_lstnew(void const	*content, size_t	content_size);
 	t_list	*browse_lst(t_list	*lst);

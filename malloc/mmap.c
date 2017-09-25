@@ -6,13 +6,13 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 13:56:44 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/19 18:02:42 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/09/25 17:38:33 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	fflush(stdout);
 	char	*tiny;
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 
 	
 	return(0);
-}
+}*/
 
 
 int		one_place_atleast(t_list	*elem)
@@ -87,8 +87,9 @@ int		one_place_atleastsmall(t_list	*elem)
 	return(0);
 }
 
-void	*ft_malloc(size_t size)
+void	*malloc(size_t size)
 {
+	printf("tagoule\n");
 	if(size <= 0)
 		return(NULL);
 	if(size < 64)
