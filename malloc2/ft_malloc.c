@@ -6,12 +6,11 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 15:37:51 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/27 20:07:15 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/09/28 20:54:56 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"malloc.h"
-int		globale;
 
 int		main(void)
 {
@@ -20,36 +19,40 @@ int		main(void)
 	void	*test3;
 	void	*test4;
 	void	*tab[200];
+	void	*tab1[600];
 	int		i;
 
-	i = 0;
+/*	i = 0;
 	while(i < 200)
 	{
 		tab[i] = (char *)ft_malloc(900);
 		i++;
 	}
+	i = 0;
+	while(i < 400)
+	{
+		tab1[i] = (char *)ft_malloc(9);
+		i++;
+	}*/
+	test = (char *)ft_malloc(6000);
 	test = (char *)ft_malloc(6000);
 	test2 = (char *)ft_malloc(60000);
-//	test3 = (char *)ft_malloc(900);
-//	test4 = (char *)ft_malloc(900);
+	test3 = (char *)ft_malloc(4);
+	test4 = (char *)ft_malloc(56);
+//	show_alloc_mem();
+	
+	i = 0;
+	ft_free(test4);
+/*	while(i < 400)
+	{
+		ft_free(tab1[i]);
+		i++;
+	}*/
 	show_alloc_mem();
 	printf("globale: %d", globale);
 	return (0);
 }
 
-int     set_smallheader(t_list  *lst)
-{
-	int     i;
-
-	i = 26;
-	lst->content[25] = TRUE;
-	while(i < 125)
-	{
-		lst->content[i] = FALSE;
-		i++;
-	}
-	return(1);
-}
 
 
 t_list		*ft_lstnew(void const *content, size_t content_size)
@@ -72,28 +75,6 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 	return (new);
 }
 
-void		*first_large(size_t	size)
-{
-	void	*str;
-	int		f;
-	int		nb;
-
-	printf("first_large");
-	nb = size / PSIZE;
-	nb = nb + 2;
-	str = mmap(0, PSIZE * nb, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	if (str == MAP_FAILED)
-	{
-		printf("error MAP_FAILED");
-		return (NULL);
-	}
-	else
-	{
-		zone.large = ft_lstnew(str, PSIZE * nb);
-		return (str);
-	}
-}
-
 t_list		*browse_lst(t_list *lst)
 {
 	if (lst)
@@ -109,45 +90,48 @@ t_list		*browse_lst(t_list *lst)
 
 void	browse_lst2(t_list *lst)
 {
+	int		i;
+	
+	i = 25;
 	if (lst)
 	{
 		while (lst->next)
 		{
 			printf("\nadresse %p-%p: %zu %lu", lst->content, lst->content + lst->content_size, lst->content_size, sizeof(t_list));
+			while(i < 145)
+			{
+				if(lst->content[i] == TRUE)
+				{
+					printf("\nadr %p-%p:", &lst->content[(i - 25) * 64], &lst->content[((i + 1) - 25 ) * 64]);
+				}
+				i++;
+			}
 			lst = lst->next;
 		}
 			printf("\nadresse %p-%p: %zu", lst->content, lst->content + lst->content_size, lst->content_size);
+			while(i < 145)
+			{
+				if(lst->content[i] == TRUE)
+				{
+					printf("\nadr %p-%p:", &lst->content[(i - 25) * 64], &lst->content[((i + 1) - 25 ) * 64]);
+				}
+				i++;
+			}
+/*			while(i < 145)
+			{
+				if(lst->content == TRUE)
+				{
+					printf("\nadr %p-%p:", &lst->content[i], lst->content[i+1]);
+				}
+				i++;
+			}*/
 	}
 }
 
-void		*already_large(size_t	size)
-{
-	void	*str;
-	int		f;
-	t_list	*lst;
-	t_list	*lst2;
-	int		nb;
-
-	printf("NOTfirst_large");
-	nb = size / PSIZE;
-	nb = nb + 2;
-	str = mmap(0, PSIZE * nb, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	if (str == MAP_FAILED)
-	{
-		printf("error MAP_FAILED");
-		return (NULL);
-	}
-	else
-	{
-		lst2 = browse_lst(zone.large);
-		lst = ft_lstnew(str, PSIZE * nb);
-		lst2->next = lst;
-		return (lst->content + 25);
-	}
-}
 
 void	show_alloc_mem(void)
 {
+	printf("\ntiny");
 	browse_lst2(zone.tiny);
 	printf("\nsmall");
 	browse_lst2(zone.small);
@@ -156,21 +140,6 @@ void	show_alloc_mem(void)
 }
 
 
-int     one_place_atleastsmall(t_list   *elem)
-{
-	int		i;
-
-	i = 25;
-	while(i < 125)
-	{
-		if(elem->content[i] == FALSE)
-		{
-			return(1);
-		}
-		i++;
-	}
-	return(0);
-}
 
 t_list  *ft_lstiter(t_list *lst, int (f)(t_list *elem))
 {
@@ -193,82 +162,6 @@ t_list  *ft_lstiter(t_list *lst, int (f)(t_list *elem))
 }
 
 
-void    *another_small(size_t size)
-{
-    void    *str;
-    int     f;
-    t_list  *lst;
-    t_list  *lst2;
-
-    str = mmap(0, PSIZE * 101, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-    if(str == MAP_FAILED)
-    {
-        printf("error MAP_FAILED");
-        return(NULL);
-    }
-    else
-    {
-        lst2 = browse_lst(zone.small);
-        lst = ft_lstnew(str, PSIZE * 101);
-        f = set_smallheader(lst);
-        lst2->next = lst;
-        return(lst->content + 4095);
-    }
-}
-
-void		*already_small(size_t size)
-{
-//	printf("_*");
-	t_list		*lst;
-	int			i;
-	void		*str;
-
-	i = 25;
-	lst = ft_lstiter(zone.small, one_place_atleastsmall);
-	if (lst == NULL)
-	{
-		globale++;
-		printf("cacao");
-		str = another_small(size);
-		
-		return(str);
-	}
-	while(i < 126)
-	{
-		if(lst->content[i] == FALSE)
-		{
-			printf("malboro, %d, %c", i, lst->content[i]);
-			globale++;
-	//		printf("light");
-	//		printf("&&&&%d&&&&&", i);
-			lst->content[i] = TRUE;
-			return(lst->content + (4095 + (4096 * (i - 25))));
-		}
-		i++;
-	}
-	return(lst->content);
-}
-
-void		*first_small(size_t size)
-{
-			globale++;
-	printf("firstsmall");
-	void	*str;
-	int		f;
-
-	str = mmap(0, PSIZE * 101, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	if(str == MAP_FAILED)
-	{
-		printf("error MAP_FAILED");
-		return(NULL);
-	}
-	else
-	{
-		zone.small = ft_lstnew(str, PSIZE * 101);
-		f = set_smallheader(zone.small);
-		return(str + 4095);
-	}
-}
 
 void		*large(size_t size)
 {
@@ -286,12 +179,20 @@ void		*small(size_t size)
 		return (first_small(size));
 }
 
+void		*tiny(size_t size)
+{
+	if (zone.tiny)
+		return (already_tiny(size));
+	else
+		return (first_tiny(size));
+}
+
 void		*ft_malloc(size_t size)
 {
 	if (size <= 0)
 		return (NULL);
 	else if (size < 65)
-		return (NULL/*tiny(size)*/);
+		return (tiny(size));
 	else if (size < 4097)
 		return (small(size));
 	else
