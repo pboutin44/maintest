@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 18:39:21 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/28 20:30:51 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/10/01 19:37:30 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void    free2(t_list    *lst, t_list    *lst3, size_t size)
 	int     i;
 	t_bool  flag;
 
-	i = 0;
+	i = 25;
 	flag = FALSE;
 	if(lst != lst3)
 	{
-		while(i <= 100)
+		while(i <= 129)
 		{
 			if(lst->content[i] == TRUE)
 			{
@@ -62,12 +62,12 @@ void    free_small2(void     *ptr, t_list    *lst, int   y)
 
 	i = 0;
 	str = (char *)ptr;
-	while(i < 4096)
+	while(i < 1024)
 	{
 		str[i] = 0;
 		i++;
 	}
-	free2(lst, zone.small, PSIZE * 101);
+	free2(lst, zone.small, PSIZE * 26);
 }
 
 void	free_small(void *ptr)
@@ -78,17 +78,24 @@ void	free_small(void *ptr)
 
 
 	lst = find_browsesmall(ptr);
-	j = 4096;
-	while(i < 126)
+	i = 25;
+	if(lst)
 	{
-		if(ptr == lst->content + j)
+		j = 1023;
+		while(i < 129)
 		{
-			lst->content[i] = FALSE;
-			free_small2(ptr, lst, i);
+			if(ptr == lst->content +( j + ((i - 25) * 1024)))
+			{
+				lst->content[i] = FALSE;
+				free_small2(ptr, lst, i);
+			}
+			i++;
 		}
-		j = j + 4096;
-		i++;
 	}	
+	else
+	{
+		printf("pas de lst");
+	}
 }
 
 void		free_tiny(void	*ptr)
@@ -120,10 +127,14 @@ void	ft_free(void *ptr)
 	int		j;
 
 	i = 0;
+//	printf("ohoh la france");
 	lst = find_browselarge(ptr);
 	if(lst)
 	{
+	printf("\nohoh marseille%p___%p****%p***%zu", lst, lst->content, ptr, lst->content_size);
+		globale = globale + 1;
 		munmap(lst->content, lst->content_size);
+		zone.large = NULL;
 	}
 	else if(find_browsesmall(ptr))
 	{
@@ -131,7 +142,7 @@ void	ft_free(void *ptr)
 	}
 	else if(find_browsetiny(ptr))
 	{
-		printf("free_tiny");
+//		printf("free_tiny");
 		free_tiny(ptr);
 	}
 }

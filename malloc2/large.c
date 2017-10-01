@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 17:32:31 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/28 17:35:48 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/10/01 18:20:26 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void		*first_large(size_t	size)
 	int		f;
 	int		nb;
 
-	printf("first_large");
 	nb = size / PSIZE;
 	nb = nb + 2;
 	str = mmap(0, PSIZE * nb, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	printf("first_large  %p***%d", str, PSIZE * nb);
 	if (str == MAP_FAILED)
 	{
 		printf("error MAP_FAILED");
@@ -57,7 +57,7 @@ void		*first_large(size_t	size)
 	else
 	{
 		zone.large = ft_lstnew(str, PSIZE * nb);
-		return (str);
+		return (str + 25);
 	}
 }
 

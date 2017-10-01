@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 19:36:06 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/28 20:21:56 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/10/01 19:10:46 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list      *find_browselarge(void  *ptr)
 	tmp = zone.large;
 	while(tmp)
 	{
-		if(tmp->content == ptr)
+		if(tmp->content + 25 == ptr)
 		{
 			return(tmp);
 		}
@@ -43,7 +43,7 @@ t_list      *find_browsetiny(void   *ptr)
 		}
 		tmp = tmp->next;
 	}
-	printf("COUCOU JE RETOURNE NULL TINY\n");
+	//printf("COUCOU JE RETOURNE NULL TINY\n");
 	return(NULL);
 }
 
@@ -72,7 +72,7 @@ t_list      *find_browsesmall(void  *ptr)
 	tmp = zone.small;
 	while(tmp)
 	{
-		if(tmp->content <= (char *)ptr && tmp->content + 101 * PSIZE >= (char *)ptr)
+		if(tmp->content <= (char *)ptr && tmp->content + 26 * PSIZE >= (char *)ptr)
 		{
 			return(tmp);
 		}

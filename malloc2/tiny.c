@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 17:44:11 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/28 18:29:02 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/09/29 21:02:59 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void    *another_tiny(size_t size)
     int     f;
     t_list  *lst;
     t_list  *lst2;
-
+	printf("TINY");
     str = mmap(0, PSIZE * 2, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
     if(str == MAP_FAILED)
     {
@@ -67,7 +67,7 @@ void    *another_tiny(size_t size)
 
 void		*already_tiny(size_t size)
 {
-	printf("o");
+	printf("TINY");
 //	globale++;
 	t_list		*lst;
 	int			i;
@@ -86,8 +86,9 @@ void		*already_tiny(size_t size)
 	{
 		if(lst->content[i] == FALSE)
 		{
-	//		printf("malboro, %d, %c", i, lst->content[i]);
 			lst->content[i] = TRUE;
+//			printf("malboro, %d, %c ___%p", i, lst->content[i], lst);
+//			printf("malboro, %d, %c ___%p", i, zone.tiny->content[i], zone.tiny);
 			return(lst->content + (192 + (64 * (i - 25))));
 		}
 		i++;
