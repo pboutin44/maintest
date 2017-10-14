@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 18:39:21 by pboutin           #+#    #+#             */
-/*   Updated: 2017/10/01 19:37:30 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/10/14 20:52:50 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    free_tiny1(void  *ptr, t_list    *lst, int   y)
 }
 
 
-void    free2(t_list    *lst, t_list    *lst3, size_t size)
+int    free2(t_list    *lst, t_list    *lst3, size_t size)
 {
 	t_list  *lst2;
 	int     i;
@@ -36,8 +36,10 @@ void    free2(t_list    *lst, t_list    *lst3, size_t size)
 
 	i = 25;
 	flag = FALSE;
+//		printf("okpadre");
 	if(lst != lst3)
 	{
+		printf("oklafamille");
 		while(i <= 129)
 		{
 			if(lst->content[i] == TRUE)
@@ -53,11 +55,13 @@ void    free2(t_list    *lst, t_list    *lst3, size_t size)
 			munmap(lst2->content, size);
 		}
 	}
+	return(1);
 }
 
-void    free_small2(void     *ptr, t_list    *lst, int   y)
+int    free_small2(void     *ptr, t_list    *lst, int   y)
 {
 	int     i;
+	int     j;
 	char    *str;
 
 	i = 0;
@@ -68,6 +72,10 @@ void    free_small2(void     *ptr, t_list    *lst, int   y)
 		i++;
 	}
 	free2(lst, zone.small, PSIZE * 26);
+/*	if(j == 1)
+		return(1);*/
+	return(0);
+	printf("OKKKK%d", j);
 }
 
 void	free_small(void *ptr)
@@ -75,8 +83,9 @@ void	free_small(void *ptr)
 	t_list	*lst;
 	int		j;
 	int		i;
-
-
+	int		v;
+	
+	v = 0;
 	lst = find_browsesmall(ptr);
 	i = 25;
 	if(lst)
@@ -87,8 +96,10 @@ void	free_small(void *ptr)
 			if(ptr == lst->content +( j + ((i - 25) * 1024)))
 			{
 				lst->content[i] = FALSE;
-				free_small2(ptr, lst, i);
+				v = free_small2(ptr, lst, i);
 			}
+			if(v == 1)
+				break;
 			i++;
 		}
 	}	

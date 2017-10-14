@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 15:38:26 by pboutin           #+#    #+#             */
-/*   Updated: 2017/09/28 20:01:50 by pboutin          ###   ########.fr       */
+/*   Updated: 2017/10/14 21:49:12 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef char            t_bool;
 
 typedef struct      s_list
 {
-    char            *content;
     size_t          content_size;
+    char            *content;
     struct s_list   *next;
 }                   t_list;
 
@@ -56,12 +56,14 @@ int		one_place_atleasttiny(t_list	*elem);
 void	*another_tiny(size_t size);
 void	*already_tiny(size_t size);
 void	*first_tiny(size_t size);
+char	identify_letter(void *ptr);
+void	*ft_realloc(void *ptr, size_t size);
 
 void	ft_free(void *ptr);
 void	free_tiny(void *ptr);
 void	free_small(void *ptr);
-void	free_small2(void *ptr, t_list	*lst, int	y );
-void	free2(t_list *lst, t_list *lst3, size_t size);
+int		free_small2(void *ptr, t_list	*lst, int	y );
+int		free2(t_list *lst, t_list *lst3, size_t size);
 void	free_tiny1(void *ptr, t_list *lst, int y);
 t_list	*find_browsesmall(void *ptr);
 t_list	*find_browsesmall2(t_list *lst);
